@@ -81,14 +81,14 @@
 
 <meta name="description" content="#约瑟夫环约瑟夫环问题可简化为：编号为1，2，…，n的n个人按顺时针方向围坐在一张圆桌周围，每人持有一个密码（正整数）。一开始任选一个正整数m作为报数上限值，从第一个人开始按顺时针方向自1开始报数，报到m时停止报数，报m的那个人出列，将他的密码作为新的m值，从他顺时针方向的下一个人开始重新从1报数，数到m的那个人又出列；如此下去，直至圆桌周围的人全部出列为止。要求按出列顺序输出n个人的编号。  由">
 <meta property="og:type" content="article">
-<meta property="og:title" content="yuesefu">
+<meta property="og:title" content="约瑟夫环">
 <meta property="og:url" content="http://yoursite.com/2018/08/20/yuesefu/index.html">
 <meta property="og:site_name" content="NineXv">
 <meta property="og:description" content="#约瑟夫环约瑟夫环问题可简化为：编号为1，2，…，n的n个人按顺时针方向围坐在一张圆桌周围，每人持有一个密码（正整数）。一开始任选一个正整数m作为报数上限值，从第一个人开始按顺时针方向自1开始报数，报到m时停止报数，报m的那个人出列，将他的密码作为新的m值，从他顺时针方向的下一个人开始重新从1报数，数到m的那个人又出列；如此下去，直至圆桌周围的人全部出列为止。要求按出列顺序输出n个人的编号。  由">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T12:43:47.368Z">
+<meta property="og:updated_time" content="2019-03-20T12:48:55.761Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="yuesefu">
+<meta name="twitter:title" content="约瑟夫环">
 <meta name="twitter:description" content="#约瑟夫环约瑟夫环问题可简化为：编号为1，2，…，n的n个人按顺时针方向围坐在一张圆桌周围，每人持有一个密码（正整数）。一开始任选一个正整数m作为报数上限值，从第一个人开始按顺时针方向自1开始报数，报到m时停止报数，报m的那个人出列，将他的密码作为新的m值，从他顺时针方向的下一个人开始重新从1报数，数到m的那个人又出列；如此下去，直至圆桌周围的人全部出列为止。要求按出列顺序输出n个人的编号。  由">
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>yuesefu | NineXv</title>
+  <title>约瑟夫环 | NineXv</title>
   
 
 
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">yuesefu</h1>
+          <h1 class="post-title" itemprop="name headline">约瑟夫环</h1>
         
 
         <div class="post-meta">
@@ -321,31 +321,11 @@
       
         <p>#约瑟夫环<br><strong>约瑟夫环问题可简化为：</strong><br>编号为1，2，…，n的n个人按顺时针方向围坐在一张圆桌周围，每人持有一个密码（正整数）。一开始任选一个正整数m作为报数上限值，从第一个人开始按顺时针方向自1开始报数，报到m时停止报数，报m的那个人出列，将他的密码作为新的m值，从他顺时针方向的下一个人开始重新从1报数，数到m的那个人又出列；如此下去，直至圆桌周围的人全部出列为止。要求按出列顺序输出n个人的编号。</p>
 <hr>
-<p>由题可知，我们需要先构建一个结构体，其中包括了每个人的编号和密码。<br>···<br>typedef struct node<br>{<br>    int id;//<strong>编号</strong><br>    int pas;//<strong>密码</strong><br>    struct node <em>next;<br> }node,</em>Lnode;<br>···<br>接下来我的思路是构建一个单向循环链表<br>···<br>Lnode create(Lnode L,int n)//用n代表人数<br> {<br>     L=(Lnode)malloc(sizeof(node));<br>     Lnode p,q;<br>     p=L;<br>     int i=1;<br>     while(n&gt;0)<br>     {<br>        q=(Lnode)malloc(sizeof(node));<br>         p-&gt;next=q;<br>         scanf(“%d”,&amp;q-&gt;pas);//输入每个人的密码<br>         q-&gt;id=i;<br>         p=q;<br>         n–;<br>         i++;<br>     }<br>     q-&gt;next=L-&gt;next;<br>     return L;<br>}<br>···<br>接下来就是实现约瑟夫环，我的思路是若第x个人退出，那么就让指针移动到x-1的位置，然后输出x的编号以后进行删除，令X-1指向X+1。<br>这个问题还有一些特殊情况需要处理，比如如果刚开始只有一个人，则用if判断以后直接输出编号也就是1就行了，若还剩下两个人，我取巧，直接进行一个奇偶数判定，奇数的话就先输出该节点的编号，偶数就先输出next的编号，然后再输出自身的编号。<br>代码如下<br>···<br>   int ysf(int m,int n) {<br>       Lnode L=create(L,n),p,q;<br>    p=L-&gt;next;<br>    int x;<br>    x=n;<br>    if(n==1)<br>    {<br>        printf(“%d”,p-&gt;id);<br>        return 0;<br>    }<br>    while(n&gt;1)<br>    { x=n;<br>        if(m==1)<br>        {<br>            if(n&gt;2)<br>            {<br>                        for(x=(n-1);x&gt;0;x–)<br>            {<br>                p=p-&gt;next;<br>            }<br>            printf(“%d”,p-&gt;next-&gt;id);printf(“ “);<br>            m=p-&gt;next-&gt;pas;<br>            q=p-&gt;next;<br>            p-&gt;next=q-&gt;next;<br>            free(q) ;<br>            p=p-&gt;next;<br>            n–;<br>           }<br>            else if(n==2){<br>                printf(“%d”,p-&gt;id);printf(“ “);<br>                printf(“%d”,p-&gt;next-&gt;id);<br>                n–;<br>           }<br>                       }<br>        else if(m!=1){    </p>
-<pre><code>    if(n==2){
-        if(m%2==1)
-                {printf(&quot;%d&quot;,p-&gt;id);printf(&quot; &quot;);
-                printf(&quot;%d&quot;,p-&gt;next-&gt;id);
-                n--;}
-           else {printf(&quot;%d&quot;,p-&gt;next-&gt;id);printf(&quot; &quot;);
-              printf(&quot;%d&quot;,p-&gt;id);
-              n--;}
-           }
-
-    else{ x=m;
-       for(;x&gt;2;x--)
-        { p=p-&gt;next;}               
-
-    printf(&quot;%d&quot;,p-&gt;next-&gt;id);printf(&quot; &quot;);
-    m=p-&gt;next-&gt;pas;
-    q=p-&gt;next;
-    p-&gt;next=q-&gt;next; 
-    free(q) ;
-    p=p-&gt;next;
-    n--;
-    }
-}
-</code></pre><p>···<br>以上便是我对约瑟夫环的理解。</p>
+<p>由题可知，我们需要先构建一个结构体，其中包括了每个人的编号和密码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">typedef struct node</span><br><span class="line">&#123;</span><br><span class="line">	int id;//**编号**</span><br><span class="line">	int pas;//**密码**</span><br><span class="line">	struct node *next; </span><br><span class="line"> &#125;node,*Lnode;</span><br></pre></td></tr></table></figure></p>
+<p>接下来我的思路是构建一个单向循环链表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Lnode create(Lnode L,int n)//用n代表人数</span><br><span class="line"> &#123;</span><br><span class="line"> 	L=(Lnode)malloc(sizeof(node));</span><br><span class="line"> 	Lnode p,q;</span><br><span class="line"> 	p=L;</span><br><span class="line"> 	int i=1;</span><br><span class="line"> 	while(n&gt;0)</span><br><span class="line"> 	&#123;</span><br><span class="line">	    q=(Lnode)malloc(sizeof(node));</span><br><span class="line"> 		p-&gt;next=q;</span><br><span class="line"> 		scanf(&quot;%d&quot;,&amp;q-&gt;pas);//输入每个人的密码</span><br><span class="line"> 		q-&gt;id=i;</span><br><span class="line"> 		p=q;</span><br><span class="line"> 		n--;</span><br><span class="line"> 		i++;</span><br><span class="line">	 &#125;</span><br><span class="line">	 q-&gt;next=L-&gt;next;</span><br><span class="line">	 return L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来就是实现约瑟夫环，我的思路是若第x个人退出，那么就让指针移动到x-1的位置，然后输出x的编号以后进行删除，令X-1指向X+1。<br>这个问题还有一些特殊情况需要处理，比如如果刚开始只有一个人，则用if判断以后直接输出编号也就是1就行了，若还剩下两个人，我取巧，直接进行一个奇偶数判定，奇数的话就先输出该节点的编号，偶数就先输出next的编号，然后再输出自身的编号。<br>代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">  int ysf(int m,int n) &#123;</span><br><span class="line">  	Lnode L=create(L,n),p,q;</span><br><span class="line">p=L-&gt;next;</span><br><span class="line">int x;</span><br><span class="line">x=n;</span><br><span class="line">if(n==1)</span><br><span class="line">&#123;</span><br><span class="line">	printf(&quot;%d&quot;,p-&gt;id);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">while(n&gt;1)</span><br><span class="line">&#123; x=n;</span><br><span class="line">	if(m==1)</span><br><span class="line">	&#123;</span><br><span class="line">		if(n&gt;2)</span><br><span class="line">		&#123;</span><br><span class="line">					for(x=(n-1);x&gt;0;x--)</span><br><span class="line">		&#123;</span><br><span class="line">			p=p-&gt;next;</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;%d&quot;,p-&gt;next-&gt;id);printf(&quot; &quot;);</span><br><span class="line">		m=p-&gt;next-&gt;pas;</span><br><span class="line">		q=p-&gt;next;</span><br><span class="line">        p-&gt;next=q-&gt;next;</span><br><span class="line">        free(q) ;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        n--;</span><br><span class="line">       &#125;</span><br><span class="line">        else if(n==2)&#123;</span><br><span class="line">       	 printf(&quot;%d&quot;,p-&gt;id);printf(&quot; &quot;);</span><br><span class="line">       	 printf(&quot;%d&quot;,p-&gt;next-&gt;id);</span><br><span class="line">       	 n--;</span><br><span class="line">	   &#125;</span><br><span class="line">		   		&#125;</span><br><span class="line">	else if(m!=1)&#123;	</span><br><span class="line"></span><br><span class="line">            if(n==2)&#123;</span><br><span class="line">            	if(m%2==1)</span><br><span class="line">       	             &#123;printf(&quot;%d&quot;,p-&gt;id);printf(&quot; &quot;);</span><br><span class="line">       	             printf(&quot;%d&quot;,p-&gt;next-&gt;id);</span><br><span class="line">       	             n--;&#125;</span><br><span class="line">       	        else &#123;printf(&quot;%d&quot;,p-&gt;next-&gt;id);printf(&quot; &quot;);</span><br><span class="line">				      printf(&quot;%d&quot;,p-&gt;id);</span><br><span class="line">                         n--;&#125;</span><br><span class="line">				   &#125;</span><br><span class="line">	           </span><br><span class="line">		    else&#123; x=m;</span><br><span class="line">	           for(;x&gt;2;x--)</span><br><span class="line">			    &#123; p=p-&gt;next;&#125;	           </span><br><span class="line"></span><br><span class="line">            printf(&quot;%d&quot;,p-&gt;next-&gt;id);printf(&quot; &quot;);</span><br><span class="line">            m=p-&gt;next-&gt;pas;</span><br><span class="line">	    	q=p-&gt;next;</span><br><span class="line">            p-&gt;next=q-&gt;next; </span><br><span class="line">			free(q) ;</span><br><span class="line">			p=p-&gt;next;</span><br><span class="line">            n--;</span><br><span class="line">		    &#125;</span><br><span class="line">    	&#125;</span><br></pre></td></tr></table></figure>
+<p>以上便是我对约瑟夫环的理解。</p>
 
       
     </div>
@@ -376,8 +356,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/20/JDBC01/" rel="prev" title="JDBC连接数据库">
-                JDBC连接数据库 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/20/JAVA异常处理/" rel="prev" title="JAVA异常处理">
+                JAVA异常处理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -446,7 +426,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

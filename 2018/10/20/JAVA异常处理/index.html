@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error我的理解是：Error是系统的错误，比如栈内存溢出等，Error是编译无法检查出来的，只能通过运行后检查出来。这种是脱离了程序员所能操控的问题范围，所以Error只能停止运行并进行代码修改。而Exception是程序的错误，这种错误是可以处理的。总的来说，Exception分为两种检查型错误(IOE">
+<meta name="description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA异常处理">
 <meta property="og:url" content="http://yoursite.com/2018/10/20/JAVA异常处理/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error我的理解是：Error是系统的错误，比如栈内存溢出等，Error是编译无法检查出来的，只能通过运行后检查出来。这种是脱离了程序员所能操控的问题范围，所以Error只能停止运行并进行代码修改。而Exception是程序的错误，这种错误是可以处理的。总的来说，Exception分为两种检查型错误(IOE">
+<meta property="og:description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T12:52:43.817Z">
+<meta property="og:updated_time" content="2019-03-20T12:53:56.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA异常处理">
-<meta name="twitter:description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error我的理解是：Error是系统的错误，比如栈内存溢出等，Error是编译无法检查出来的，只能通过运行后检查出来。这种是脱离了程序员所能操控的问题范围，所以Error只能停止运行并进行代码修改。而Exception是程序的错误，这种错误是可以处理的。总的来说，Exception分为两种检查型错误(IOE">
+<meta name="twitter:description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
 
 
 
@@ -319,7 +319,7 @@
       
 
       
-        <h1 id="JAVA异常处理"><a href="#JAVA异常处理" class="headerlink" title="JAVA异常处理"></a>JAVA异常处理</h1><p>异常是程序的一种错误，但并不是错误就是异常。<br><strong>异常</strong>：<em>Exception</em><br><strong>错误</strong>：<em>Error</em><br>我的理解是：<br>Error是系统的错误，比如栈内存溢出等，Error是编译无法检查出来的，只能通过运行后检查出来。这种是脱离了程序员所能操控的问题范围，所以Error只能停止运行并进行代码修改。<br>而Exception是程序的错误，这种错误是可以处理的。<br>总的来说，Exception分为两种<br><strong>检查型错误</strong>(<em>IOException</em>):编译时会被检查出来的异常。例如要打开一个不存在文件，这些异常在编译时不能被简单地忽略。<br><strong>非检查型异常</strong>或称<strong>运行时异常</strong>(RuntimeException)：编译可以通过的异常，所以可以通过程序员的处理来避免的异常。</p>
+        <h1 id="JAVA异常处理"><a href="#JAVA异常处理" class="headerlink" title="JAVA异常处理"></a>JAVA异常处理</h1><p>异常是程序的一种错误，但并不是错误就是异常。<br><strong>异常</strong>：<em>Exception</em><br><strong>错误</strong>：<em>Error</em><br><a id="more"></a><br>我的理解是：<br>Error是系统的错误，比如栈内存溢出等，Error是编译无法检查出来的，只能通过运行后检查出来。这种是脱离了程序员所能操控的问题范围，所以Error只能停止运行并进行代码修改。<br>而Exception是程序的错误，这种错误是可以处理的。<br>总的来说，Exception分为两种<br><strong>检查型错误</strong>(<em>IOException</em>):编译时会被检查出来的异常。例如要打开一个不存在文件，这些异常在编译时不能被简单地忽略。<br><strong>非检查型异常</strong>或称<strong>运行时异常</strong>(RuntimeException)：编译可以通过的异常，所以可以通过程序员的处理来避免的异常。</p>
 <p><em>JAVA的异常处理就是指的是处理RuntimeException型的异常。Java中的异常可以是函数中的语句执行时引发的，也可以是程序员通过throw 语句手动抛出的，只要在Java程序中产生了异常，就会用一个对应类型的异常对象来封装异常，JRE就会试图寻找异常处理程序来处理异常。</em></p>
 <p>异常处理主要分为<strong>抛出</strong>和<strong>捕获</strong></p>
 <h2 id="抛出"><a href="#抛出" class="headerlink" title="抛出"></a>抛出</h2><h3 id="将异常抛给调用者"><a href="#将异常抛给调用者" class="headerlink" title="将异常抛给调用者"></a>将异常抛给调用者</h3><p><strong>throws</strong>和<strong>throw</strong>：<br>throws语句用在方法声明后面，表示再抛出异常，由该方法的调用者来处理。主要是声明这个方法会抛出这种类型的异常，使它的调用者知道要捕获这个异常。</p>

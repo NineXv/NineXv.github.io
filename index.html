@@ -299,24 +299,17 @@
 
       
         
-          
-            <p>连接MYSQL数据库<br>    Connection con =<br>    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);<br>/**</p>
-<ul>
-<li>此代码演示通过JDBC连接数据库</li>
-<li>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class jdbcDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;   //加载驱动类</span><br><span class="line">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">            //建立连接(连接对象内部其实包含了Socket对象，是一个远程的连接。比较耗时，这是Connection对象管理的要点）</span><br><span class="line">            //真正开发中都是通过连接池来管理连接对象</span><br><span class="line">            long start = System.currentTimeMillis();</span><br><span class="line">            Connection conn =</span><br><span class="line">                    DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/demo?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT&quot;, &quot;root&quot;, &quot;wangxv123&quot;);</span><br><span class="line">            long end = System.currentTimeMillis();</span><br><span class="line">            System.out.println(&quot;time:&quot;+ (end - start));</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (ClassNotFoundException ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong><strong><strong><em>**</em></strong></strong></strong>错误详解<br><em>错误1：加载类“com.mysql.jdbc.Driver” 。这已被弃用。</em></p>
-<p>  解决方法：<br>      新的驱动程序类是`com.mysql.cj.jdbc.Driver’</p>
-<p><em>错误2：Sat Jun 02 11:40:45 CST 2018 WARN：建议不建立服务器身份验证的SSL连接。</em><br>  根据MySQL 5.5.45 +，5.6.26 +和5.7.6+的要求，如果未设置显式选项，则必须默认建立SSL连接。<br>  为了符合不使用SSL的现有应用程序，verifyServerCertificate属性设置为’false’。<br>  您需要通过设置useSSL = false显式禁用SSL，或者设置useSSL = true并且为服务器证书验证提供信任库。</p>
-<p>  解决方法：<br>      这是一个警告<br>      即在原来的数据库名称后面添加：?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false</p>
-<p><em>错误3：<br>    java.sql.SQLException中：服务器时区值’??? EE×??±??’ 。</em></p>
-<p>   解决方法：<br>     这是由于数据库和系统时区差异所造成的，<br>     在JDBC连接的URL后面加上serverTimezone = GMT即可解决问题，<br>     再一个解决办法就是使用低版本的MySQL jdbc驱动，</p>
-
-          
+          <p>连接MYSQL数据库<br>    Connection con =<br>    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/20/123/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     

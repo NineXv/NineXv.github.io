@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="连接MYSQL数据库    Connection con =    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);/**  此代码演示通过JDBC连接数据库 */12345678910111213141516171819public class jdbcDemo &amp;#123;">
+<meta name="description" content="连接MYSQL数据库    Connection con =    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JDBC连接数据库">
 <meta property="og:url" content="http://yoursite.com/2019/03/20/123/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="连接MYSQL数据库    Connection con =    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);/**  此代码演示通过JDBC连接数据库 */12345678910111213141516171819public class jdbcDemo &amp;#123;">
+<meta property="og:description" content="连接MYSQL数据库    Connection con =    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T06:47:22.616Z">
+<meta property="og:updated_time" content="2019-03-20T06:50:11.129Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JDBC连接数据库">
-<meta name="twitter:description" content="连接MYSQL数据库    Connection con =    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);/**  此代码演示通过JDBC连接数据库 */12345678910111213141516171819public class jdbcDemo &amp;#123;">
+<meta name="twitter:description" content="连接MYSQL数据库    Connection con =    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);">
 
 
 
@@ -299,7 +299,7 @@
       
 
       
-        <p>连接MYSQL数据库<br>    Connection con =<br>    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);<br>/**</p>
+        <p>连接MYSQL数据库<br>    Connection con =<br>    DriverManager.getConnection(“jdbc:mysql;//host:port/database”,”user”,”password”);<br>    <a id="more"></a><br>/**</p>
 <ul>
 <li>此代码演示通过JDBC连接数据库</li>
 <li>*/<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class jdbcDemo &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;   //加载驱动类</span><br><span class="line">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span><br><span class="line">            //建立连接(连接对象内部其实包含了Socket对象，是一个远程的连接。比较耗时，这是Connection对象管理的要点）</span><br><span class="line">            //真正开发中都是通过连接池来管理连接对象</span><br><span class="line">            long start = System.currentTimeMillis();</span><br><span class="line">            Connection conn =</span><br><span class="line">                    DriverManager.getConnection(&quot;jdbc:mysql://localhost:3306/demo?useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT&quot;, &quot;root&quot;, &quot;wangxv123&quot;);</span><br><span class="line">            long end = System.currentTimeMillis();</span><br><span class="line">            System.out.println(&quot;time:&quot;+ (end - start));</span><br><span class="line">        &#125; catch (SQLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (ClassNotFoundException ex)&#123;</span><br><span class="line">            ex.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

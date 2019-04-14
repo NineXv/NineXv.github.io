@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="NineXv">
 <meta property="og:description" content="一: spring的概述spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTempl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-14T13:29:15.706Z">
+<meta property="og:updated_time" content="2019-04-14T13:33:22.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring入门(IOC和DI基础)">
 <meta name="twitter:description" content="一: spring的概述spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTempl">
@@ -332,12 +332,12 @@ spring的作用
         对优秀框架进行集成
             .....
 </code></pre><a id="more"></a>
-<h1 id="IOC入门"><a href="#IOC入门" class="headerlink" title="IOC入门"></a>IOC入门</h1><pre><code> * 1: 基本配置 *
+<h1 id="IOC入门"><a href="#IOC入门" class="headerlink" title="IOC入门"></a>IOC入门</h1><pre><code> **基本配置**
     ## bean标签: 指定要创建的实体类
             id属性: 可以为任意值  但是在整个配置文件中唯一
             class属性: 要实例化类的全限定名 反射 
 
- * 2: scope属性: 范围 *
+ **scope属性**: 范围
     singleton: 单实例 默认值
                  如果是单实例,配置文件文件只要一加载  就会创建对象 放在spring容器 (map&lt;id,对象&gt;)
                  当所有人过来问spring容器要的时候(getBean),所用人用的都是同一个对象
@@ -351,7 +351,7 @@ spring的作用
      action: prototype
      service/dao: singleton
 
- * 3 了解 *
+ **了解**
     singleton的对象什么时候销毁? prototype创建出来的对象什么时候销毁?
         ：singleton的对象 当spring容器关闭 对象销毁
           prototype的对象 长时间不用自动被垃圾回收机制给回收了
@@ -360,18 +360,15 @@ spring的作用
     destory-method:指定销毁方法    
 
 &lt;bean id=&quot;user&quot; class=&quot;User&quot; scope=&quot;prototype&quot; init-method=&quot;init&quot; destroy-method=&quot;destory&quot;&gt;&lt;/bean&gt; 
+</code></pre><h2 id="import标签-导入外部的配置文件"><a href="#import标签-导入外部的配置文件" class="headerlink" title="import标签:导入外部的配置文件"></a>import标签:导入外部的配置文件</h2><pre><code>resource属性:外部配置文件的地址
+举例：
+       web:    所有在web层创建的对象       applicationContext_web.xml
+          service:所有在service层创建的对象   applicationContext_service.xml
+          dao:    所有在dao层创建的对象       applicationContext_dao.xml
 
-
-  ## import标签:导入外部的配置文件
- resource属性:外部配置文件的地址
- 举例：
-        web:    所有在web层创建的对象       applicationContext_web.xml
-           service:所有在service层创建的对象   applicationContext_service.xml
-           dao:    所有在dao层创建的对象       applicationContext_dao.xml
-
-           &lt;import resource=&quot;applicationContext_web.xml&quot;/&gt;
-           &lt;import resource=&quot;applicationContext_service.xml&quot;/&gt;
-           &lt;import resource=&quot;applicationContext_dao.xml&quot;/&gt;    
+          &lt;import resource=&quot;applicationContext_web.xml&quot;/&gt;
+          &lt;import resource=&quot;applicationContext_service.xml&quot;/&gt;
+          &lt;import resource=&quot;applicationContext_dao.xml&quot;/&gt;    
 </code></pre><p>——————————————————————————————————————————————————————————————————————————————————————            </p>
 <h1 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h1><p>首先，了解为什么需要DI</p>
 <ul>
@@ -573,7 +570,7 @@ spring的作用
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-spring的概述"><span class="nav-number">1.</span> <span class="nav-text">一: spring的概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IOC入门"><span class="nav-number">2.</span> <span class="nav-text">IOC入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DI"><span class="nav-number">3.</span> <span class="nav-text">DI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DI的使用："><span class="nav-number">4.</span> <span class="nav-text">DI的使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-set属性注入："><span class="nav-number">4.1.</span> <span class="nav-text">1.set属性注入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-构造器注入"><span class="nav-number">4.2.</span> <span class="nav-text">2.构造器注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-P名称空间注入"><span class="nav-number">4.3.</span> <span class="nav-text">3.P名称空间注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-复杂属性注入-map-list-等"><span class="nav-number">4.4.</span> <span class="nav-text">4.复杂属性注入:map,list[]等</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-spring的概述"><span class="nav-number">1.</span> <span class="nav-text">一: spring的概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IOC入门"><span class="nav-number">2.</span> <span class="nav-text">IOC入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import标签-导入外部的配置文件"><span class="nav-number">2.1.</span> <span class="nav-text">import标签:导入外部的配置文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DI"><span class="nav-number">3.</span> <span class="nav-text">DI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DI的使用："><span class="nav-number">4.</span> <span class="nav-text">DI的使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-set属性注入："><span class="nav-number">4.1.</span> <span class="nav-text">1.set属性注入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-构造器注入"><span class="nav-number">4.2.</span> <span class="nav-text">2.构造器注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-P名称空间注入"><span class="nav-number">4.3.</span> <span class="nav-text">3.P名称空间注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-复杂属性注入-map-list-等"><span class="nav-number">4.4.</span> <span class="nav-text">4.复杂属性注入:map,list[]等</span></a></li></ol></li></ol></div>
             
 
           </div>

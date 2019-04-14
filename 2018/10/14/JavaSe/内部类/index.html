@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="aaaaaaaaaaa">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta name="description" content="#java内部类1,非私有 非静态内部类     例：outer.inner demo = new outer().new inner()2,非私有 静态内部类      访问非静态成员：例：outer.inner demo = new outer.inner()                          demo.show();      访问静态成员：  例：outer.inner.s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内部类">
+<meta property="og:url" content="http://yoursite.com/2018/10/14/JavaSe/内部类/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="aaaaaaaaaaa">
+<meta property="og:description" content="#java内部类1,非私有 非静态内部类     例：outer.inner demo = new outer().new inner()2,非私有 静态内部类      访问非静态成员：例：outer.inner demo = new outer.inner()                          demo.show();      访问静态成员：  例：outer.inner.s">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T06:57:33.981Z">
+<meta property="og:updated_time" content="2019-04-14T13:45:08.723Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="aaaaaaaaaaa">
+<meta name="twitter:title" content="内部类">
+<meta name="twitter:description" content="#java内部类1,非私有 非静态内部类     例：outer.inner demo = new outer().new inner()2,非私有 静态内部类      访问非静态成员：例：outer.inner demo = new outer.inner()                          demo.show();      访问静态成员：  例：outer.inner.s">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/about/">
+  <link rel="canonical" href="http://yoursite.com/2018/10/14/JavaSe/内部类/">
 
 
 
 
 
-  <title>about | NineXv</title>
+  <title>内部类 | NineXv</title>
   
 
 
@@ -240,33 +240,166 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/JavaSe/内部类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">about</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h2 id="aaaaaaaaaaa"><a href="#aaaaaaaaaaa" class="headerlink" title="aaaaaaaaaaa"></a>aaaaaaaaaaa</h2>
+          <h1 class="post-title" itemprop="name headline">内部类</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T21:39:37+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>#java内部类<br><strong>1,非私有 非静态内部类</strong><br>     例：outer.inner demo = new outer().new inner()<br><strong>2,非私有 静态内部类</strong><br>      访问非静态成员：例：outer.inner demo = new outer.inner()<br>                          demo.show();<br>      访问静态成员：  例：outer.inner.show();</p>
+<p><em>非静态内部类中的静态方法是不被允许的</em><br>         原因：静态方法不需要new就可以使用，<br>             但是非静态内部类必须new才能使用。违背了原则。<br><em>非静态内部类中可以定义静态常量！必须使用final</em><br>         例如：static final int num = 5;<br>         原因：当编译完以后，其实num在字节码文件中就变成5了，不是变量。</p>
+<p>##内部类在外部类中的情况<br><strong>编译后产生的文件名称</strong>：outer$inner //此处若带数字代表是局部内部类<br>举例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class outer</span><br><span class="line">&#123;</span><br><span class="line">       </span><br><span class="line">      Object ob;</span><br><span class="line">      public void method()</span><br><span class="line">       &#123;</span><br><span class="line">           final int x = 5;//强调！！！此处必须加final！！！</span><br><span class="line">           class inner</span><br><span class="line">           &#123;</span><br><span class="line">              void show()</span><br><span class="line">               &#123;</span><br><span class="line">                 System.out.println(x);</span><br><span class="line">                &#125;</span><br><span class="line">             &#125;</span><br><span class="line">          inner in = new inner(); </span><br><span class="line">          in.show();</span><br><span class="line">          ob = in;//用ob保存下in保存的对象地址，</span><br><span class="line">                  //等method结束以后，in消失，但对象还在，用ob保存了</span><br><span class="line">                  //同理，如果不用final定义常量，那么等到method方法结束</span><br><span class="line">                  //用ob调用show方法就找不到x了，所以JAVA中不允许编译通过！</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>总结：局部内部类只能访问被final修饰的局部变量</strong></p>
+<p>##匿名内部类<br><strong>匿名内部类其实就是子类</strong></p>
+<p>前提：内部类需要继承或者实现外部的类或者接口</p>
+<p>格式：new 父类/接口名 ()<br>        {<br>           子类的内容<br>        }</p>
+<p>调用例子：<br>       abstrcat class Demo<br>       {  abstrcat void show();}</p>
+<pre><code>class outer
+{
+   public void method()
+   {
+       new Demo()
+        {
+           public void show()
+           {
+             System.out.println(&quot;show&quot;);
+            }
+         }.show//从此处直接调用show
+    }
+ }
+
+ 当多方法时候可以直接 Demo a = new Demo(){........
+                                          }
+                     然后a.show1;a.show2;
+</code></pre>
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/20/算法/约瑟夫环/" rel="next" title="约瑟夫环">
+                <i class="fa fa-chevron-left"></i> 约瑟夫环
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/20/JavaSe/JAVA异常处理/" rel="prev" title="JAVA异常处理">
+                JAVA异常处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -299,17 +432,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -351,22 +475,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#aaaaaaaaaaa"><span class="nav-number">1.</span> <span class="nav-text">aaaaaaaaaaa</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

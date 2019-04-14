@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="aaaaaaaaaaa">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta name="description" content="Servlet接口实现类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="servlet入门笔记">
+<meta property="og:url" content="http://yoursite.com/2019/02/24/JavaWeb/servlet入门/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="aaaaaaaaaaa">
+<meta property="og:description" content="Servlet接口实现类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T06:57:33.981Z">
+<meta property="og:updated_time" content="2019-04-14T13:34:00.624Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
-<meta name="twitter:description" content="aaaaaaaaaaa">
+<meta name="twitter:title" content="servlet入门笔记">
+<meta name="twitter:description" content="Servlet接口实现类">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/about/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/24/JavaWeb/servlet入门/">
 
 
 
 
 
-  <title>about | NineXv</title>
+  <title>servlet入门笔记 | NineXv</title>
   
 
 
@@ -240,33 +240,150 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/24/JavaWeb/servlet入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">about</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h2 id="aaaaaaaaaaa"><a href="#aaaaaaaaaaa" class="headerlink" title="aaaaaaaaaaa"></a>aaaaaaaaaaa</h2>
+          <h1 class="post-title" itemprop="name headline">servlet入门笔记</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-24T21:47:50+08:00">
+                2019-02-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="Servlet接口实现类"><a href="#Servlet接口实现类" class="headerlink" title="Servlet接口实现类"></a>Servlet接口实现类</h1> <a id="more"></a>
+<p>1、Servlet接口的默认实现类，分别为：GenericServlet、HttpServlet。<br><!-- more --><br>2、HttpServlet指能够处理HTTP请求的servlet，它在原有Servlet接口上添加了一些与HTTP协议处理方法，它比Servlet接口的功能更为强大。因此开发人员在编写Servlet时，通常应继承这个类，而避免直接去实现Servlet接口。</p>
+<p>3、HttpServlet在实现Servlet接口时，覆写了service方法，该方法体内的代码会自动判断用户的请求方式，如为GET请求，则调用HttpServlet的doGet方法，如为Post请求，则调用doPost方法。因此，开发人员在编写Servlet时，通常只需要覆写doGet或doPost方法，而不要去覆写service方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">httpservlet//重载了service方法</span><br><span class="line">&#123;</span><br><span class="line">	service()&#123;</span><br><span class="line">		//获取请求方式</span><br><span class="line">		//根据请求方式的不同 调用do***方法</span><br><span class="line">	&#125;</span><br><span class="line">	do***方法()&#123;</span><br><span class="line">		//接收请求</span><br><span class="line">		//处理请求</span><br><span class="line">		//返回响应</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DemoServlet extend httpservlet</span><br><span class="line">&#123;</span><br><span class="line">	do***()//重写&#123;</span><br><span class="line">		//接收请求</span><br><span class="line">		//处理请求</span><br><span class="line">		//返回响应</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="web-xml配置"><a href="#web-xml配置" class="headerlink" title="web.xml配置"></a>web.xml配置</h1><h2 id="servlet类名配置"><a href="#servlet类名配置" class="headerlink" title="servlet类名配置"></a>servlet类名配置</h2><p>  <servlet><br>    <servlet-name> </servlet-name><br>    <servlet-class> </servlet-class><br>  </servlet></p>
+<h2 id="路径配置"><a href="#路径配置" class="headerlink" title="路径配置"></a>路径配置</h2><pre><code>&lt;servlet-mapping&gt;
+&lt;servlet-name&gt;CookieServlet&lt;/servlet-name&gt;
+&lt;url-pattern&gt;/ck&lt;/url-pattern&gt;
+</code></pre><p>  <br><em>路径常见问题</em><br>假设有多个servlet<br>1.<url-pattern>/aa/bb</url-pattern><br>2.<url-pattern>/aa/<em></em></url-pattern><br>此时访问/aa/bb,就会运行第一个servlet，因为默认最精准的优先<br>此时访问/aa/,就会运行第二个<br>如果两个路径相同，那么直接会报错</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/JavaSe/JDBC01/" rel="next" title="JDBC连接数据库">
+                <i class="fa fa-chevron-left"></i> JDBC连接数据库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/13/Spring入门/Spring/" rel="prev" title="Spring入门(IOC和DI基础)">
+                Spring入门(IOC和DI基础) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -361,7 +478,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#aaaaaaaaaaa"><span class="nav-number">1.</span> <span class="nav-text">aaaaaaaaaaa</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet接口实现类"><span class="nav-number">1.</span> <span class="nav-text">Servlet接口实现类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#web-xml配置"><span class="nav-number">2.</span> <span class="nav-text">web.xml配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet类名配置"><span class="nav-number">2.1.</span> <span class="nav-text">servlet类名配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路径配置"><span class="nav-number">2.2.</span> <span class="nav-text">路径配置</span></a></li></ol></li></ol></div>
             
 
           </div>

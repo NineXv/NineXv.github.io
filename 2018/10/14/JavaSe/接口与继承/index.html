@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JAVA的接口与继承继承  在Java中，使用extends关键字实现继承，extends后跟的是父类名，也就是它从哪个类继承过来的，而用extends的这个类本身称为子类。 子父类构造函数详解当一个类继承了某个类时，在子类的构造方法里，super()必须先被调用；如果你没有写，编译器会自动调用super()方法，即调用了父类的构造方法；  这并不是创建了两个对象，其实只有一个子类Sub对象；之所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="接口与继承">
+<meta property="og:url" content="http://yoursite.com/2018/10/14/JavaSe/接口与继承/index.html">
+<meta property="og:site_name" content="NineXv">
+<meta property="og:description" content="JAVA的接口与继承继承  在Java中，使用extends关键字实现继承，extends后跟的是父类名，也就是它从哪个类继承过来的，而用extends的这个类本身称为子类。 子父类构造函数详解当一个类继承了某个类时，在子类的构造方法里，super()必须先被调用；如果你没有写，编译器会自动调用super()方法，即调用了父类的构造方法；  这并不是创建了两个对象，其实只有一个子类Sub对象；之所">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-14T13:57:07.918Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="接口与继承">
+<meta name="twitter:description" content="JAVA的接口与继承继承  在Java中，使用extends关键字实现继承，extends后跟的是父类名，也就是它从哪个类继承过来的，而用extends的这个类本身称为子类。 子父类构造函数详解当一个类继承了某个类时，在子类的构造方法里，super()必须先被调用；如果你没有写，编译器会自动调用super()方法，即调用了父类的构造方法；  这并不是创建了两个对象，其实只有一个子类Sub对象；之所">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/14/JavaSe/接口与继承/">
+
+
+
+
+
+  <title>接口与继承 | NineXv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NineXv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/JavaSe/接口与继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">接口与继承</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T21:45:59+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JAVA的接口与继承"><a href="#JAVA的接口与继承" class="headerlink" title="JAVA的接口与继承"></a>JAVA的接口与继承</h1><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>  在Java中，使用extends关键字实现继承，extends后跟的是父类名，也就是它从哪个类继承过来的，而用extends的这个类本身称为子类。<br><-- more --></--></p>
+<h3 id="子父类构造函数详解"><a href="#子父类构造函数详解" class="headerlink" title="子父类构造函数详解"></a>子父类构造函数详解</h3><pre><code>当一个类继承了某个类时，在子类的构造方法里，super()必须先被调用；如果你没有写，编译器会自动调用super()方法，即调用了父类的构造方法；
+
+这并不是创建了两个对象，其实只有一个子类Sub对象；之所以需要调用父类的构造方法是因为在父类中，可能存在私有属性需要在其构造方法内初始化；
+
+当编译器自动插入父类构造方法的调用后，子类的构造方法类似如下代码：
+
+例如：public zi() {
+       super();//注意，如果不写这个，系统也会自动默认补上。
+        System.out.println(&quot;zi&quot;);
+      }
+
+
+this()函数和super()函数都必须在第一行，所以出现this就没有super，反之亦然
+</code></pre><h3 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h3><p>　　简单来说就是，如果子类方法名和父类方法名相同，那么子类就不能继承父类的方法，此时称子类的方法重写了父类的方法。重写也可称为覆盖。</p>
+<h3 id="super关键字"><a href="#super关键字" class="headerlink" title="super关键字"></a>super关键字</h3><h2 id="子类可以调用父类声明的构造方法，但是必须在子类的构造方法中使用super关键字来调用；如果想在子类中操作父类中被隐藏的成员变量和被重写的成员方法，也可以使用super关键字。这些在以后的项目中会出现，这里就不举例了，如果使用Java编译器的话，需要使用super关键字但未使用时编译器会有错误提示。"><a href="#子类可以调用父类声明的构造方法，但是必须在子类的构造方法中使用super关键字来调用；如果想在子类中操作父类中被隐藏的成员变量和被重写的成员方法，也可以使用super关键字。这些在以后的项目中会出现，这里就不举例了，如果使用Java编译器的话，需要使用super关键字但未使用时编译器会有错误提示。" class="headerlink" title="　　子类可以调用父类声明的构造方法，但是必须在子类的构造方法中使用super关键字来调用；如果想在子类中操作父类中被隐藏的成员变量和被重写的成员方法，也可以使用super关键字。这些在以后的项目中会出现，这里就不举例了，如果使用Java编译器的话，需要使用super关键字但未使用时编译器会有错误提示。"></a>　　子类可以调用父类声明的构造方法，但是必须在子类的构造方法中使用super关键字来调用；如果想在子类中操作父类中被隐藏的成员变量和被重写的成员方法，也可以使用super关键字。这些在以后的项目中会出现，这里就不举例了，如果使用Java编译器的话，需要使用super关键字但未使用时编译器会有错误提示。</h2><h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>Java语言只支持单重继承，不支持多继承。这句话的意思就是一个类只能有一个父类，但我们经常需要使用多继承来解决问题，所以Java语言提供了接口来实现类的多重继承功能。<br>Java中使用interface来定义一个接口，接口定义与类相似（类的定义用的是class）</p>
+<h3 id="接口的实现"><a href="#接口的实现" class="headerlink" title="接口的实现"></a>接口的实现</h3><h2 id="接口的实现类需要使用implements关键字，一个类可以实现多个接口，写法就是implements后的接口间以“，”隔开即可。如果变量冲突，则通过“接口名-变量”来明确指定变量的接口。"><a href="#接口的实现类需要使用implements关键字，一个类可以实现多个接口，写法就是implements后的接口间以“，”隔开即可。如果变量冲突，则通过“接口名-变量”来明确指定变量的接口。" class="headerlink" title="接口的实现类需要使用implements关键字，一个类可以实现多个接口，写法就是implements后的接口间以“，”隔开即可。如果变量冲突，则通过“接口名.变量”来明确指定变量的接口。"></a>接口的实现类需要使用implements关键字，一个类可以实现多个接口，写法就是implements后的接口间以“，”隔开即可。如果变量冲突，则通过“接口名.变量”来明确指定变量的接口。</h2><h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>在Java中，通常使用方法的重载和重写实现类的多态性。<br>重写在上面已经介绍过了，而方法的重载是指在一个类中出现多个方法名相同，但参数个数或参数类型不同的方法<br><em>1，变量：</em><br>    子父类中有重名变量，多态调用时，<br>    只看调用该成员变量的引用所属的类中的成员变量！<br>       例如： fu有num=4,zi有num=6。<br>              fu f = new zi();<br>              那么输出f.num的值为4。<br>              如果fu没有num,则无法编译成功！！！！<br>     总结：无论编译还是运行都看等号左边的。</p>
+<p><em>2，函数：</em><br>    子父类中有重名函数，多态调用时，<br>    fu f = new zi();<br>    编译时，看的是引用变量所属的类中的方法。<br>    运行时，看的是对象所属的类中的方法。<br>     总结：编译看左，运行看右</p>
+<p><em>3，静态函数：</em><br>    子父类有重名函数，多态调用时，<br>    编译和运行都看引用变量所属的类中的方法。<br>     总结：编译运行都看等号左边的。</p>
+<pre><code>多态：父类的引用或者接口引用指向了子类的对象
+</code></pre><h3 id="多态的转型"><a href="#多态的转型" class="headerlink" title="多态的转型"></a>多态的转型</h3><p><strong>一.向上转型</strong><br>{<br>好处：隐藏了子类型，提高了扩展性。<br>弊端：只能使用父类的功能，不能使用子类的特有功能。</p>
+<pre><code>*如果不需要面对子类型，同时提高扩展性，或者使用父类的功能即可完成操作，就      使用向上转型
+</code></pre><p>}</p>
+<p><strong>二.向下转型</strong><br>{<br>好处：可以使用子类型的特有功能。<br>弊端：必须面对具体的子类型。<br>      *向下转型有风险，容易发生classcastException,只要转换类型和对象类型不匹       配就会发生！！！！<br>       所以需要使用 Instanceof<br>       例如：  对象 instanceof 类型</p>
+<h2 id><a href="#" class="headerlink" title="}      "></a>}      </h2><p>话不多说，直接来一道我学习过程中受益很大的一道题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class DispatchTest &#123;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		fu b = new zi();</span><br><span class="line">                System.out.println(b.x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class fu &#123;</span><br><span class="line"> </span><br><span class="line">	int x = 10;</span><br><span class="line"> </span><br><span class="line">	public fu() &#123;</span><br><span class="line">		this.printMessage();</span><br><span class="line">		x = 20;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	public void printMessage() &#123;</span><br><span class="line">		System.out.println(&quot;fu.x = &quot; + x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">class zi extends fu &#123;</span><br><span class="line">     int x = 30;</span><br><span class="line">    </span><br><span class="line">	public zi() &#123;</span><br><span class="line">		this.printMessage();</span><br><span class="line">		x = 40;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	public void printMessage() &#123;</span><br><span class="line">		System.out.println(&quot;zi.x=&quot; + x);</span><br><span class="line">	&#125;</span><br><span class="line">   	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打印结果为<br>zi.x=0<br>zi.x=30<br>20<br><strong>解析</strong><br>这里就要谈到JAVA类中属性的构造了，首先new zi类以后，zi类调用了super构造函数，<br>然后fu的构造函数被调用，初始化了父类所属的x为10（注意，此处的原理并不是父类<br>x还未赋值！），紧接着调用了zi类中的printmessage函数，原因是因为继承关系中，<br>子类的函数功能会覆盖掉父类的同名函数，而属性并不会被覆盖（也就是说x变量并不是<br>被覆盖，而是堆内存中出现了两个，一个是this.x，一个是super.x），所以第一个打印<br>结果是zi.x=0说明调用的是zi的打印函数，此处打印的值也是this.x，也就是还没有初始化的zi类x，所以是0。第二个就好理解了，在super构造结束后开始子类初始化，此时<br>zi类的x被赋值为30了，所以打印出30。最后一处打印出20的原因是因为，fu的构造函数<br>最后一步将20赋值给了super.x，然后因为多态中用的是 fu b = new zi(),所以b是fu类<br>的，要打印fu的x就应该找到super.x，所以打印出20。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/14/JavaSe/内部类/" rel="next" title="内部类">
+                <i class="fa fa-chevron-left"></i> 内部类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/20/JavaSe/JAVA异常处理/" rel="prev" title="JAVA异常处理">
+                JAVA异常处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JAVA的接口与继承"><span class="nav-number">1.</span> <span class="nav-text">JAVA的接口与继承</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继承"><span class="nav-number">1.1.</span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子父类构造函数详解"><span class="nav-number">1.1.1.</span> <span class="nav-text">子父类构造函数详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写"><span class="nav-number">1.1.2.</span> <span class="nav-text">重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#super关键字"><span class="nav-number">1.1.3.</span> <span class="nav-text">super关键字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子类可以调用父类声明的构造方法，但是必须在子类的构造方法中使用super关键字来调用；如果想在子类中操作父类中被隐藏的成员变量和被重写的成员方法，也可以使用super关键字。这些在以后的项目中会出现，这里就不举例了，如果使用Java编译器的话，需要使用super关键字但未使用时编译器会有错误提示。"><span class="nav-number">1.2.</span> <span class="nav-text">　　子类可以调用父类声明的构造方法，但是必须在子类的构造方法中使用super关键字来调用；如果想在子类中操作父类中被隐藏的成员变量和被重写的成员方法，也可以使用super关键字。这些在以后的项目中会出现，这里就不举例了，如果使用Java编译器的话，需要使用super关键字但未使用时编译器会有错误提示。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口"><span class="nav-number">1.3.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#接口的实现"><span class="nav-number">1.3.1.</span> <span class="nav-text">接口的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的实现类需要使用implements关键字，一个类可以实现多个接口，写法就是implements后的接口间以“，”隔开即可。如果变量冲突，则通过“接口名-变量”来明确指定变量的接口。"><span class="nav-number">1.4.</span> <span class="nav-text">接口的实现类需要使用implements关键字，一个类可以实现多个接口，写法就是implements后的接口间以“，”隔开即可。如果变量冲突，则通过“接口名.变量”来明确指定变量的接口。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多态"><span class="nav-number">1.5.</span> <span class="nav-text">多态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多态的转型"><span class="nav-number">1.5.1.</span> <span class="nav-text">多态的转型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.6.</span> <span class="nav-text">}      </span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

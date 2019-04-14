@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
+<meta name="description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。 解决的思想：      只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算。 如何保证？ 1.同步代码块：           synchronized(对象)//">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JAVA异常处理">
-<meta property="og:url" content="http://yoursite.com/2018/10/20/JavaSe/JAVA异常处理/index.html">
+<meta property="og:title" content="多线程的锁">
+<meta property="og:url" content="http://yoursite.com/2018/11/14/JavaSe/多线程/多线程的锁/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
+<meta property="og:description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。 解决的思想：      只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算。 如何保证？ 1.同步代码块：           synchronized(对象)//">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T12:53:56.162Z">
+<meta property="og:updated_time" content="2019-04-14T14:05:06.189Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JAVA异常处理">
-<meta name="twitter:description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
+<meta name="twitter:title" content="多线程的锁">
+<meta name="twitter:description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。 解决的思想：      只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算。 如何保证？ 1.同步代码块：           synchronized(对象)//">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/20/JavaSe/JAVA异常处理/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/14/JavaSe/多线程/多线程的锁/">
 
 
 
 
 
-  <title>JAVA异常处理 | NineXv</title>
+  <title>多线程的锁 | NineXv</title>
   
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/20/JavaSe/JAVA异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/JavaSe/多线程/多线程的锁/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JAVA异常处理</h1>
+          <h1 class="post-title" itemprop="name headline">多线程的锁</h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T20:51:43+08:00">
-                2018-10-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T22:02:01+08:00">
+                2018-11-14
               </time>
             
 
@@ -319,18 +319,26 @@
       
 
       
-        <h1 id="JAVA异常处理"><a href="#JAVA异常处理" class="headerlink" title="JAVA异常处理"></a>JAVA异常处理</h1><p>异常是程序的一种错误，但并不是错误就是异常。<br><strong>异常</strong>：<em>Exception</em><br><strong>错误</strong>：<em>Error</em><br><a id="more"></a><br>我的理解是：<br>Error是系统的错误，比如栈内存溢出等，Error是编译无法检查出来的，只能通过运行后检查出来。这种是脱离了程序员所能操控的问题范围，所以Error只能停止运行并进行代码修改。<br>而Exception是程序的错误，这种错误是可以处理的。<br>总的来说，Exception分为两种<br><strong>检查型错误</strong>(<em>IOException</em>):编译时会被检查出来的异常。例如要打开一个不存在文件，这些异常在编译时不能被简单地忽略。<br><strong>非检查型异常</strong>或称<strong>运行时异常</strong>(RuntimeException)：编译可以通过的异常，所以可以通过程序员的处理来避免的异常。</p>
-<p><em>JAVA的异常处理就是指的是处理RuntimeException型的异常。Java中的异常可以是函数中的语句执行时引发的，也可以是程序员通过throw 语句手动抛出的，只要在Java程序中产生了异常，就会用一个对应类型的异常对象来封装异常，JRE就会试图寻找异常处理程序来处理异常。</em></p>
-<p>异常处理主要分为<strong>抛出</strong>和<strong>捕获</strong></p>
-<h2 id="抛出"><a href="#抛出" class="headerlink" title="抛出"></a>抛出</h2><h3 id="将异常抛给调用者"><a href="#将异常抛给调用者" class="headerlink" title="将异常抛给调用者"></a>将异常抛给调用者</h3><p><strong>throws</strong>和<strong>throw</strong>：<br>throws语句用在方法声明后面，表示再抛出异常，由该方法的调用者来处理。主要是声明这个方法会抛出这种类型的异常，使它的调用者知道要捕获这个异常。</p>
-<p>throw语句用在方法体内，是具体向外抛异常的动作，倾向变成真实的。表示抛出异常，由方法体内的语句处理。</p>
-<p>Exception分为两种<br>{   1，编译时会被检测的异常<br>2，运行时异常（RuntimeException)<br>}</p>
-<p>关于RuntimeException的一些特例<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Demo</span><br><span class="line">&#123;     </span><br><span class="line">       int div(int a,int b)throws Exception//此处必须要进行throws的声明</span><br><span class="line">      &#123;</span><br><span class="line">             if(b==0)</span><br><span class="line">                  throw new Exception();</span><br><span class="line">             return a/b;</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Demo</span><br><span class="line">&#123;     </span><br><span class="line">       int div(int a,int b) //此处无throws的声明</span><br><span class="line">      &#123;</span><br><span class="line">             if(b==0)</span><br><span class="line">                  throw new ArithmeticException();</span><br><span class="line">             return a/b;</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>总结：可能在执行方法期间抛出但未被捕获的RuntimeException的任何子类<br>      都无需在throws子句中进行声明。<br>      why?<br>      并不是不能用throws声明，而是并不去声明，因为如果用throws声明，<br>      调用者假如进行捕获处理，继续运行，但如果该异常会影响到后边代码，<br>      那么就会产生很多麻烦，所以不声明的目的其实就是为了停止运行。<br>      So 可以使用，但没必要。</p>
-<h2 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h2><h3 id="捕获异常并处理"><a href="#捕获异常并处理" class="headerlink" title="捕获异常并处理"></a>捕获异常并处理</h3><p>使用 try 和 catch 关键字可以捕获异常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try</span><br><span class="line">&#123;</span><br><span class="line">   // 程序代码</span><br><span class="line">&#125;catch(ExceptionName e1)</span><br><span class="line">&#123;</span><br><span class="line">   //Catch 块</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>将可能会出现异常的代码块放在try中，一旦try中捕获到了异常对象，便会执行catch块中的代码，进行异常处理。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Demo&#123;</span><br><span class="line">	int div(int a,int b) &#123;</span><br><span class="line">		return a/b;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Test &#123;</span><br><span class="line">    int a,b;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		 Demo d = new Demo();</span><br><span class="line">		 </span><br><span class="line">		 try &#123; </span><br><span class="line">		 int num=d.div(3, 0);</span><br><span class="line">		 System.out.println(num);</span><br><span class="line">		 &#125;</span><br><span class="line">		 catch(Exception e) &#123;</span><br><span class="line">			 System.out.println(e.getMessage());</span><br><span class="line">			 System.out.println(&quot;hhh&quot;);</span><br><span class="line">		 &#125;</span><br><span class="line">        System.out.println(&quot;over&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>当catch处理以后，程序不会停止，而会继续运行。</p>
-<p><strong>综上所述</strong>：JAVA中的异常处理分离了接收和处理错误代码。这个功能理清了编程者的思绪，也帮助代码增强了可读性，方便了维护者的阅读和理解。 </p>
+        <h1 id="多线程的锁"><a href="#多线程的锁" class="headerlink" title="多线程的锁"></a>多线程的锁</h1><h3 id="为什么需要锁？"><a href="#为什么需要锁？" class="headerlink" title="为什么需要锁？"></a>为什么需要锁？</h3><p>产生安全问题的原因：<br>1.线程任务中有处理到共享的数据。<br>2.线程任务中有多条对共享数据的操作。<br>  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。<br><--more--></--more--></p>
+<p>解决的思想：<br>      <strong>只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算。</strong></p>
+<p>如何保证？</p>
+<pre><code>1.同步代码块：
+          synchronized(对象)//对象的左右就是锁
+          {
+            需要同步的代码 
+           }
+
+2.同步函数：
+          public synchronized void add(int n)//同步函数使用的是this
+           {
+            }
+           //函数需要被对象调用，同步函数使用的锁就是this。
+</code></pre><p> 好处：解决了多线程的安全问题。<br> 弊端：减低效率（其他线程需要先进行判断等待）</p>
+<p><em>前提</em>：多个线程在同步中必须使用同一个锁，这才是同步。<br><em>使用的区别：</em><br>          <strong>如果说，一个类中如果需要多个锁，这时可以考虑同步函数，使用this，写法简单。
+          </strong>但是，一个类中如果需要多个锁，还有多个类中需要使用同一个锁，这时只能使用同步代码块。<br>          **建议主要使用同步代码块。</p>
+<p>例 ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class SaleTicket implements Runnable</span><br><span class="line">&#123;</span><br><span class="line">     private int tickets = 100;</span><br><span class="line">     Object obj = new Object();</span><br><span class="line">     public void run()</span><br><span class="line">     &#123;</span><br><span class="line">          while (true)</span><br><span class="line">           &#123;</span><br><span class="line">             synchronized(obj)</span><br><span class="line">               &#123;</span><br><span class="line">                   if(ticket&gt;0)</span><br><span class="line">                   &#123;</span><br><span class="line">                      try&#123;</span><br><span class="line">                          Thread.sleep(10);//让线程在这里停一下</span><br><span class="line">                          &#125;</span><br><span class="line">                      catch(InterruptedException e)</span><br><span class="line">                          &#123;</span><br><span class="line">                           &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>如果同步函数被static修饰<br>static方法随着类加载，这时不一定有该类的对象，但是一定有一个该类的字节码文件对象。<br>这个对象的简单表示方法就是 类名.class 描述类是用Class</p>
 
       
     </div>
@@ -355,8 +363,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/14/JavaSe/接口与继承/" rel="next" title="接口与继承">
-                <i class="fa fa-chevron-left"></i> 接口与继承
+              <a href="/2018/11/14/JavaSe/多线程/多线程/" rel="next" title="多线程入门">
+                <i class="fa fa-chevron-left"></i> 多线程入门
               </a>
             
           </div>
@@ -365,8 +373,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/14/JavaSe/多线程/JAVA多线程getName-方法/" rel="prev" title="JAVA多线程getName()方法">
-                JAVA多线程getName()方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/01/JavaSe/JDBC01/" rel="prev" title="JDBC连接数据库">
+                JDBC连接数据库 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -481,7 +489,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JAVA异常处理"><span class="nav-number">1.</span> <span class="nav-text">JAVA异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抛出"><span class="nav-number">1.1.</span> <span class="nav-text">抛出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将异常抛给调用者"><span class="nav-number">1.1.1.</span> <span class="nav-text">将异常抛给调用者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获"><span class="nav-number">1.2.</span> <span class="nav-text">捕获</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#捕获异常并处理"><span class="nav-number">1.2.1.</span> <span class="nav-text">捕获异常并处理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#多线程的锁"><span class="nav-number">1.</span> <span class="nav-text">多线程的锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要锁？"><span class="nav-number">1.0.1.</span> <span class="nav-text">为什么需要锁？</span></a></li></ol></li></ol></div>
             
 
           </div>

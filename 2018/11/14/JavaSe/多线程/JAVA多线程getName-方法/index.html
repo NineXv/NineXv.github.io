@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
+<meta name="description" content="先说定义：this.getName()是一个实例方法：反映这个实例的情况,实例指的就是这个类的对象Thread.currentThread().getName() 是一个静态方法：反映这个实体的情况,实体却不一样，实体是指正在发生这个作用的实例">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JAVA异常处理">
-<meta property="og:url" content="http://yoursite.com/2018/10/20/JavaSe/JAVA异常处理/index.html">
+<meta property="og:title" content="JAVA多线程getName()方法">
+<meta property="og:url" content="http://yoursite.com/2018/11/14/JavaSe/多线程/JAVA多线程getName-方法/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
+<meta property="og:description" content="先说定义：this.getName()是一个实例方法：反映这个实例的情况,实例指的就是这个类的对象Thread.currentThread().getName() 是一个静态方法：反映这个实体的情况,实体却不一样，实体是指正在发生这个作用的实例">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-20T12:53:56.162Z">
+<meta property="og:updated_time" content="2019-04-14T14:05:34.843Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JAVA异常处理">
-<meta name="twitter:description" content="JAVA异常处理异常是程序的一种错误，但并不是错误就是异常。异常：Exception错误：Error">
+<meta name="twitter:title" content="JAVA多线程getName()方法">
+<meta name="twitter:description" content="先说定义：this.getName()是一个实例方法：反映这个实例的情况,实例指的就是这个类的对象Thread.currentThread().getName() 是一个静态方法：反映这个实体的情况,实体却不一样，实体是指正在发生这个作用的实例">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/20/JavaSe/JAVA异常处理/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/14/JavaSe/多线程/JAVA多线程getName-方法/">
 
 
 
 
 
-  <title>JAVA异常处理 | NineXv</title>
+  <title>JAVA多线程getName()方法 | NineXv</title>
   
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/20/JavaSe/JAVA异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/JavaSe/多线程/JAVA多线程getName-方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JAVA异常处理</h1>
+          <h1 class="post-title" itemprop="name headline">JAVA多线程getName()方法</h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T20:51:43+08:00">
-                2018-10-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T20:57:49+08:00">
+                2018-11-14
               </time>
             
 
@@ -319,19 +319,10 @@
       
 
       
-        <h1 id="JAVA异常处理"><a href="#JAVA异常处理" class="headerlink" title="JAVA异常处理"></a>JAVA异常处理</h1><p>异常是程序的一种错误，但并不是错误就是异常。<br><strong>异常</strong>：<em>Exception</em><br><strong>错误</strong>：<em>Error</em><br><a id="more"></a><br>我的理解是：<br>Error是系统的错误，比如栈内存溢出等，Error是编译无法检查出来的，只能通过运行后检查出来。这种是脱离了程序员所能操控的问题范围，所以Error只能停止运行并进行代码修改。<br>而Exception是程序的错误，这种错误是可以处理的。<br>总的来说，Exception分为两种<br><strong>检查型错误</strong>(<em>IOException</em>):编译时会被检查出来的异常。例如要打开一个不存在文件，这些异常在编译时不能被简单地忽略。<br><strong>非检查型异常</strong>或称<strong>运行时异常</strong>(RuntimeException)：编译可以通过的异常，所以可以通过程序员的处理来避免的异常。</p>
-<p><em>JAVA的异常处理就是指的是处理RuntimeException型的异常。Java中的异常可以是函数中的语句执行时引发的，也可以是程序员通过throw 语句手动抛出的，只要在Java程序中产生了异常，就会用一个对应类型的异常对象来封装异常，JRE就会试图寻找异常处理程序来处理异常。</em></p>
-<p>异常处理主要分为<strong>抛出</strong>和<strong>捕获</strong></p>
-<h2 id="抛出"><a href="#抛出" class="headerlink" title="抛出"></a>抛出</h2><h3 id="将异常抛给调用者"><a href="#将异常抛给调用者" class="headerlink" title="将异常抛给调用者"></a>将异常抛给调用者</h3><p><strong>throws</strong>和<strong>throw</strong>：<br>throws语句用在方法声明后面，表示再抛出异常，由该方法的调用者来处理。主要是声明这个方法会抛出这种类型的异常，使它的调用者知道要捕获这个异常。</p>
-<p>throw语句用在方法体内，是具体向外抛异常的动作，倾向变成真实的。表示抛出异常，由方法体内的语句处理。</p>
-<p>Exception分为两种<br>{   1，编译时会被检测的异常<br>2，运行时异常（RuntimeException)<br>}</p>
-<p>关于RuntimeException的一些特例<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Demo</span><br><span class="line">&#123;     </span><br><span class="line">       int div(int a,int b)throws Exception//此处必须要进行throws的声明</span><br><span class="line">      &#123;</span><br><span class="line">             if(b==0)</span><br><span class="line">                  throw new Exception();</span><br><span class="line">             return a/b;</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Demo</span><br><span class="line">&#123;     </span><br><span class="line">       int div(int a,int b) //此处无throws的声明</span><br><span class="line">      &#123;</span><br><span class="line">             if(b==0)</span><br><span class="line">                  throw new ArithmeticException();</span><br><span class="line">             return a/b;</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>总结：可能在执行方法期间抛出但未被捕获的RuntimeException的任何子类<br>      都无需在throws子句中进行声明。<br>      why?<br>      并不是不能用throws声明，而是并不去声明，因为如果用throws声明，<br>      调用者假如进行捕获处理，继续运行，但如果该异常会影响到后边代码，<br>      那么就会产生很多麻烦，所以不声明的目的其实就是为了停止运行。<br>      So 可以使用，但没必要。</p>
-<h2 id="捕获"><a href="#捕获" class="headerlink" title="捕获"></a>捕获</h2><h3 id="捕获异常并处理"><a href="#捕获异常并处理" class="headerlink" title="捕获异常并处理"></a>捕获异常并处理</h3><p>使用 try 和 catch 关键字可以捕获异常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">try</span><br><span class="line">&#123;</span><br><span class="line">   // 程序代码</span><br><span class="line">&#125;catch(ExceptionName e1)</span><br><span class="line">&#123;</span><br><span class="line">   //Catch 块</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>将可能会出现异常的代码块放在try中，一旦try中捕获到了异常对象，便会执行catch块中的代码，进行异常处理。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Demo&#123;</span><br><span class="line">	int div(int a,int b) &#123;</span><br><span class="line">		return a/b;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Test &#123;</span><br><span class="line">    int a,b;</span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		 Demo d = new Demo();</span><br><span class="line">		 </span><br><span class="line">		 try &#123; </span><br><span class="line">		 int num=d.div(3, 0);</span><br><span class="line">		 System.out.println(num);</span><br><span class="line">		 &#125;</span><br><span class="line">		 catch(Exception e) &#123;</span><br><span class="line">			 System.out.println(e.getMessage());</span><br><span class="line">			 System.out.println(&quot;hhh&quot;);</span><br><span class="line">		 &#125;</span><br><span class="line">        System.out.println(&quot;over&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>当catch处理以后，程序不会停止，而会继续运行。</p>
-<p><strong>综上所述</strong>：JAVA中的异常处理分离了接收和处理错误代码。这个功能理清了编程者的思绪，也帮助代码增强了可读性，方便了维护者的阅读和理解。 </p>
-
+        <p><strong>先说定义</strong>：<br>this.getName()是一个实例方法：反映这个实例的情况,实例指的就是这个类的对象<br>Thread.currentThread().getName() 是一个静态方法：反映这个实体的情况,实体却不一样，实体是指正在发生这个作用的实例<br><a id="more"></a><br><strong>接下来具体说明</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Demo1 extends Thread</span><br><span class="line">&#123;</span><br><span class="line">	String name;</span><br><span class="line">	public Demo(String name)</span><br><span class="line">	&#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void run()</span><br><span class="line">	&#123;		System.out.println(Thread.currentThread().getName()+&quot;...&quot;+name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">class Demo2 extends Thread</span><br><span class="line">&#123;</span><br><span class="line">	String name;</span><br><span class="line">	public Demo(String name)</span><br><span class="line">	&#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void run()</span><br><span class="line">	&#123;</span><br><span class="line">		System.out.println(getName()+&quot;...&quot;+name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class ThreadDemo &#123;</span><br><span class="line">	public static void main(String args[])</span><br><span class="line">	&#123;</span><br><span class="line">		Demo A = new Demo(&quot;a&quot;);</span><br><span class="line">		Demo B = new Demo(&quot;b&quot;);</span><br><span class="line">		A.start();</span><br><span class="line">                A.run();</span><br><span class="line">                B.start();</span><br><span class="line">		B.run();		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打印结果<br>main…a<br>Thread-0…a<br>Thread-1…b<br>Thread-1…b<br>（顺序不影响）<br>（这里就要谈到调用start和调用run的区别<br>     start会完成两件事：<strong>1.开启线程 2.调用run方法</strong><br>     所以用start才是开启多线程，run实际上还是原来的线程。）</p>
+<p>打印出 main…a 的原因是<strong>因为T.c().g()方法返回的是实际上调用start方法的对象的线程名，A.run()并没有创建新线程</strong><br>打印出 Thread-0…a 的原因是因为<strong>A.start()创建了新线程。</strong><br>那么为什么调用B.run()却打印出 Thread-1…b 的原因是因为<strong>getName()方法返回的是this指向的对象的线程名（run定义了该线程该如何做，但实际运行该线程的是main线程）所以打印Thread-1，但实际上是main在运行。</strong></p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><h2 id="Thread-currentThread-getName-是获得调用这个方法的线程的名字"><a href="#Thread-currentThread-getName-是获得调用这个方法的线程的名字" class="headerlink" title="Thread.currentThread().getName()是获得调用这个方法的线程的名字"></a>Thread.currentThread().getName()是获得调用这个方法的线程的名字</h2><h2 id="this-getName-这个方法是获取当前对象的名字"><a href="#this-getName-这个方法是获取当前对象的名字" class="headerlink" title="this.getName()这个方法是获取当前对象的名字"></a>this.getName()这个方法是获取当前对象的名字</h2>
       
     </div>
     
@@ -355,8 +346,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/14/JavaSe/接口与继承/" rel="next" title="接口与继承">
-                <i class="fa fa-chevron-left"></i> 接口与继承
+              <a href="/2018/10/20/JavaSe/JAVA异常处理/" rel="next" title="JAVA异常处理">
+                <i class="fa fa-chevron-left"></i> JAVA异常处理
               </a>
             
           </div>
@@ -365,8 +356,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/14/JavaSe/多线程/JAVA多线程getName-方法/" rel="prev" title="JAVA多线程getName()方法">
-                JAVA多线程getName()方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/14/JavaSe/多线程/多线程/" rel="prev" title="多线程入门">
+                多线程入门 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -481,7 +472,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JAVA异常处理"><span class="nav-number">1.</span> <span class="nav-text">JAVA异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抛出"><span class="nav-number">1.1.</span> <span class="nav-text">抛出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将异常抛给调用者"><span class="nav-number">1.1.1.</span> <span class="nav-text">将异常抛给调用者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获"><span class="nav-number">1.2.</span> <span class="nav-text">捕获</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#捕获异常并处理"><span class="nav-number">1.2.1.</span> <span class="nav-text">捕获异常并处理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">1.</span> <span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-currentThread-getName-是获得调用这个方法的线程的名字"><span class="nav-number">1.1.</span> <span class="nav-text">Thread.currentThread().getName()是获得调用这个方法的线程的名字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this-getName-这个方法是获取当前对象的名字"><span class="nav-number">1.2.</span> <span class="nav-text">this.getName()这个方法是获取当前对象的名字</span></a></li></ol></li></ol></div>
             
 
           </div>

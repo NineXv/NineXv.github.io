@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="首先解释 松耦合：完全不需要自己new对象 一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hi">
+<meta name="description" content="#一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTem">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring">
+<meta property="og:title" content="Spring入门(IOC和DI基础)">
 <meta property="og:url" content="http://yoursite.com/2019/04/13/Spring/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="首先解释 松耦合：完全不需要自己new对象 一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hi">
+<meta property="og:description" content="#一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTem">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-14T10:43:57.210Z">
+<meta property="og:updated_time" content="2019-04-14T13:26:25.799Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Spring">
-<meta name="twitter:description" content="首先解释 松耦合：完全不需要自己new对象 一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hi">
+<meta name="twitter:title" content="Spring入门(IOC和DI基础)">
+<meta name="twitter:description" content="#一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTem">
 
 
 
@@ -125,7 +125,7 @@
 
 
 
-  <title>Spring | NineXv</title>
+  <title>Spring入门(IOC和DI基础) | NineXv</title>
   
 
 
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Spring</h1>
+          <h1 class="post-title" itemprop="name headline">Spring入门(IOC和DI基础)</h1>
         
 
         <div class="post-meta">
@@ -319,9 +319,7 @@
       
 
       
-        <a id="more"></a>
-<p><em>首先解释 松耦合：完全不需要自己new对象</em></p>
-<p>一: spring的概述</p>
+        <p>#一: spring的概述</p>
 <pre><code>spring: 是java 分层的se/ee的full-stack(一站式) 开源框架
         为EE的每一层都提供了解决技术:
            web: struts2  springMVC
@@ -334,12 +332,13 @@ spring的作用
         集成junit更加方便的进行分层测试
         对优秀框架进行集成
             .....
-</code></pre><h1 id="IOC入门"><a href="#IOC入门" class="headerlink" title="IOC入门"></a>IOC入门</h1><p>1: 基本配置</p>
-<pre><code>    ##bean标签: 指定要创建的实体类
+</code></pre><a id="more"></a>
+<h1 id="IOC入门"><a href="#IOC入门" class="headerlink" title="IOC入门"></a>IOC入门</h1><pre><code> *1: 基本配置*
+    ##bean标签: 指定要创建的实体类
             id属性: 可以为任意值  但是在整个配置文件中唯一
             class属性: 要实例化类的全限定名 反射 
 
- 2: scope属性: 范围
+ *2: scope属性: 范围*
     singleton: 单实例 默认值
                  如果是单实例,配置文件文件只要一加载  就会创建对象 放在spring容器 (map&lt;id,对象&gt;)
                  当所有人过来问spring容器要的时候(getBean),所用人用的都是同一个对象
@@ -353,7 +352,7 @@ spring的作用
      action: prototype
      service/dao: singleton
 
- 3 了解
+ *3 了解*
     singleton的对象什么时候销毁? prototype创建出来的对象什么时候销毁?
         ：singleton的对象 当spring容器关闭 对象销毁
           prototype的对象 长时间不用自动被垃圾回收机制给回收了
@@ -374,6 +373,40 @@ spring的作用
            &lt;import resource=&quot;applicationContext_web.xml&quot;/&gt;
            &lt;import resource=&quot;applicationContext_service.xml&quot;/&gt;
            &lt;import resource=&quot;applicationContext_dao.xml&quot;/&gt;    
+</code></pre><p>——————————————————————————————————————————————————————————————————————————————————————            </p>
+<p>#DI<br>首先，了解为什么需要DI<br><em>举例</em>：<br>     Car接口中只有run方法，<br>     此时CarIml继承了Car接口并且新加入了属性name<br>     如果只是通过IOC的bean标签创建对象<br>     那么无法给name赋值<br>     因为 Car car = (Car)context.getBean(“car”);<br>     Car接口实际上并没有name属性，无法赋值<br>     此时就需要DI来解决这个问题</p>
+<p>#DI的使用：</p>
+<p>##1.set属性注入：<br>        第一步：构建setName方法：<br>                   在CarIml中构建setName方法<br>        第二步: 在applicationContext.xml中bean标签中添加<property><br>                   <property name="name" value="兰博基尼"></property></property></p>
+<pre><code>name:要赋值的属性名
+value:要赋的值 (针对的是基本类型和String类型)
+ref: 针对的是对象类型
+           指向的是spring中bean的id名
+此时当类被创建时，就会自动的初始化name值
+</code></pre><p>##2.构造器注入<br>        第一步：添加有参构造方法<br>        第二部：在applicationContext.xml中bean标签中添加<constructor-arg></constructor-arg></p>
+<pre><code>    name:要赋值的属性名
+    value:要赋的值 (针对的是基本类型和String类型)
+    ref: 针对的是对象类型
+&lt;constructor-arg name=&quot;name&quot; value=&quot;BMW&quot;&gt;&lt;/constructor-arg&gt;
+</code></pre><p>##3.P名称空间注入<br>        底层：set注入（所以还是需要有set方法）<br>        条件: 在配置文件中有p的名称空间<br>              xmlns:p=”<a href="http://www.springframework.org/schema/p&quot;" target="_blank" rel="noopener">http://www.springframework.org/schema/p&quot;</a><br>        语法:<bean p:属性名="属性值" p:属性名-ref="bean的id对象值"><br>        <bean id="person" class="CarImpl" p:name="BMW" p:car-ref="car"></bean></bean></p>
+<p>##4.复杂属性注入:map,list[]等<br>        <bean id="collBean" class="CollBean"><br>        <property name="ArrayDemo"><br>            <!-- 数组类型 --><br>            <list><br>                <value>aaa</value><br>                <value>bbb</value><br>                <value>ccc</value><br>            </list><br>        </property></bean></p>
+<pre><code>    &lt;property name=&quot;listDemo&quot;&gt;
+        &lt;!-- list类型  --&gt;
+        &lt;list&gt;
+            &lt;value&gt;111&lt;/value&gt;
+            &lt;value&gt;222&lt;/value&gt;
+            &lt;ref bean=&quot;car&quot;/&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+
+    &lt;property name=&quot;mapDemo&quot;&gt;
+        &lt;!-- map --&gt;
+        &lt;map&gt;
+            &lt;entry key=&quot;k1&quot; value=&quot;aaa&quot;&gt;&lt;/entry&gt;
+            &lt;entry key=&quot;k2&quot; value=&quot;bbbb&quot;&gt;&lt;/entry&gt;
+            &lt;entry key=&quot;k3&quot; value-ref=&quot;car&quot;&gt;&lt;/entry&gt;
+        &lt;/map&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
 </code></pre>
       
     </div>

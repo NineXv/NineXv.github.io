@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。 解决的思想：      只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算。 如何保证？ 1.同步代码块：           synchronized(对象)//">
+<meta name="description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程的锁">
 <meta property="og:url" content="http://yoursite.com/2018/11/14/JavaSe/多线程/多线程的锁/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。 解决的思想：      只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算。 如何保证？ 1.同步代码块：           synchronized(对象)//">
+<meta property="og:description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-14T14:05:06.189Z">
+<meta property="og:updated_time" content="2019-04-14T14:13:11.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程的锁">
-<meta name="twitter:description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。 解决的思想：      只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算。 如何保证？ 1.同步代码块：           synchronized(对象)//">
+<meta name="twitter:description" content="多线程的锁为什么需要锁？产生安全问题的原因：1.线程任务中有处理到共享的数据。2.线程任务中有多条对共享数据的操作。  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。">
 
 
 
@@ -319,7 +319,7 @@
       
 
       
-        <h1 id="多线程的锁"><a href="#多线程的锁" class="headerlink" title="多线程的锁"></a>多线程的锁</h1><h3 id="为什么需要锁？"><a href="#为什么需要锁？" class="headerlink" title="为什么需要锁？"></a>为什么需要锁？</h3><p>产生安全问题的原因：<br>1.线程任务中有处理到共享的数据。<br>2.线程任务中有多条对共享数据的操作。<br>  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。<br><--more--></--more--></p>
+        <h1 id="多线程的锁"><a href="#多线程的锁" class="headerlink" title="多线程的锁"></a>多线程的锁</h1><h3 id="为什么需要锁？"><a href="#为什么需要锁？" class="headerlink" title="为什么需要锁？"></a>为什么需要锁？</h3><p>产生安全问题的原因：<br>1.线程任务中有处理到共享的数据。<br>2.线程任务中有多条对共享数据的操作。<br>  一个线程在操作共享数据的过程中，其他线程参与了运算，造成了数据的错误。<br><a id="more"></a></p>
 <p>解决的思想：<br>      <strong>只要保证多条操作共享数据的代码在某一时间段，被一条线程所执行，在执行期间不允许其他线程参与运算。</strong></p>
 <p>如何保证？</p>
 <pre><code>1.同步代码块：
@@ -373,8 +373,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/01/JavaSe/JDBC01/" rel="prev" title="JDBC连接数据库">
-                JDBC连接数据库 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/14/JavaSe/多线程/多线程之单例模式/" rel="prev" title="多线程之单例模式">
+                多线程之单例模式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

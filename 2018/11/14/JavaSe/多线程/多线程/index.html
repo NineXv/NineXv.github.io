@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="多线程详解进程：就是应用程序在内存中分配的空间。（正在运行中的程序）线程：是进程中负责程序执行的执行单元。一个进程中至少有一个线程在负责该进程的运行，如果一个进程出现了多个线程，就称该程序为多线程程序。 Thread类创建线程的方法1.继承Thread类2.覆盖run方法3.创建子类对象就是创建线程对象4.调用Thread类中的start方法就可以执行线程，并会调用run方法 举例说明：12345">
+<meta name="description" content="多线程详解进程：就是应用程序在内存中分配的空间。（正在运行中的程序）线程：是进程中负责程序执行的执行单元。一个进程中至少有一个线程在负责该进程的运行，如果一个进程出现了多个线程，就称该程序为多线程程序。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多线程入门">
 <meta property="og:url" content="http://yoursite.com/2018/11/14/JavaSe/多线程/多线程/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="多线程详解进程：就是应用程序在内存中分配的空间。（正在运行中的程序）线程：是进程中负责程序执行的执行单元。一个进程中至少有一个线程在负责该进程的运行，如果一个进程出现了多个线程，就称该程序为多线程程序。 Thread类创建线程的方法1.继承Thread类2.覆盖run方法3.创建子类对象就是创建线程对象4.调用Thread类中的start方法就可以执行线程，并会调用run方法 举例说明：12345">
+<meta property="og:description" content="多线程详解进程：就是应用程序在内存中分配的空间。（正在运行中的程序）线程：是进程中负责程序执行的执行单元。一个进程中至少有一个线程在负责该进程的运行，如果一个进程出现了多个线程，就称该程序为多线程程序。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-14T14:06:05.424Z">
+<meta property="og:updated_time" content="2019-04-14T14:13:03.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多线程入门">
-<meta name="twitter:description" content="多线程详解进程：就是应用程序在内存中分配的空间。（正在运行中的程序）线程：是进程中负责程序执行的执行单元。一个进程中至少有一个线程在负责该进程的运行，如果一个进程出现了多个线程，就称该程序为多线程程序。 Thread类创建线程的方法1.继承Thread类2.覆盖run方法3.创建子类对象就是创建线程对象4.调用Thread类中的start方法就可以执行线程，并会调用run方法 举例说明：12345">
+<meta name="twitter:description" content="多线程详解进程：就是应用程序在内存中分配的空间。（正在运行中的程序）线程：是进程中负责程序执行的执行单元。一个进程中至少有一个线程在负责该进程的运行，如果一个进程出现了多个线程，就称该程序为多线程程序。">
 
 
 
@@ -319,7 +319,7 @@
       
 
       
-        <h1 id="多线程详解"><a href="#多线程详解" class="headerlink" title="多线程详解"></a>多线程详解</h1><p><strong>进程</strong>：就是应用程序在内存中分配的空间。（正在运行中的程序）<br><strong>线程</strong>：是进程中负责程序执行的执行单元。<br>一个进程中至少有一个线程在负责该进程的运行，<br>如果一个进程出现了多个线程，就称该程序为多线程程序。<br><--more--></--more--></p>
+        <h1 id="多线程详解"><a href="#多线程详解" class="headerlink" title="多线程详解"></a>多线程详解</h1><p><strong>进程</strong>：就是应用程序在内存中分配的空间。（正在运行中的程序）<br><strong>线程</strong>：是进程中负责程序执行的执行单元。<br>一个进程中至少有一个线程在负责该进程的运行，<br>如果一个进程出现了多个线程，就称该程序为多线程程序。<br><a id="more"></a></p>
 <h2 id="Thread类创建线程的方法"><a href="#Thread类创建线程的方法" class="headerlink" title="Thread类创建线程的方法"></a>Thread类创建线程的方法</h2><p>1.继承Thread类<br>2.覆盖run方法<br>3.创建子类对象就是创建线程对象<br>4.调用Thread类中的start方法就可以执行线程，并会调用run方法</p>
 <p>举例说明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class Demo extends Thread</span><br><span class="line">&#123;</span><br><span class="line">	String name;</span><br><span class="line">	public Demo(String name)</span><br><span class="line">	&#123;</span><br><span class="line">		this.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	public void run()</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">		for(int i=0;i&lt;5;i++)</span><br><span class="line">		System.out.println(Thread.currentThread().getName()+&quot;...&quot;+name);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class ThreadDemo &#123;</span><br><span class="line">	public static void main(String args[])</span><br><span class="line">	&#123;</span><br><span class="line">		Demo A = new Demo(&quot;a&quot;);</span><br><span class="line">		Demo B = new Demo(&quot;b&quot;);</span><br><span class="line">		A.start();</span><br><span class="line">		B.run();</span><br><span class="line">		for(int i=0;i&lt;5;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(Thread.currentThread().getName()+&quot;...&quot;+&quot;C&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>打印结果：<br>main…b<br>Thread-0…a<br>main…C（略）<br><strong>原因：</strong><br>     这里就要谈到调用start和调用run的区别<br>     start会完成两件事：1.开启线程，2.调用run方法<br>     所以用start才是开启多线程，run实际上还是原来的线程。</p>

@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/Spring/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/Spring入门/Spring/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -268,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/13/Spring/" itemprop="url">Spring入门(IOC和DI基础)</a></h1>
+                <a class="post-title-link" href="/2019/04/13/Spring入门/Spring/" itemprop="url">Spring入门(IOC和DI基础)</a></h1>
         
 
         <div class="post-meta">
@@ -334,7 +334,7 @@ spring的作用
 </code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2019/04/13/Spring/#post.more" rel="contents">
+            <a class="btn" href="/2019/04/13/Spring入门/Spring/#post.more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -385,7 +385,7 @@ spring的作用
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/24/servlet入门/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/24/Spring入门/servlet入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -404,7 +404,7 @@ spring的作用
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/02/24/servlet入门/" itemprop="url">servlet入门笔记</a></h1>
+                <a class="post-title-link" href="/2019/02/24/Spring入门/servlet入门/" itemprop="url">servlet入门笔记</a></h1>
         
 
         <div class="post-meta">
@@ -455,20 +455,14 @@ spring的作用
 
       
         
-          
-            <a id="more"></a>
-<h1 id="Servlet接口实现类"><a href="#Servlet接口实现类" class="headerlink" title="Servlet接口实现类"></a>Servlet接口实现类</h1> <!-- more -->
-<p>1、Servlet接口的默认实现类，分别为：GenericServlet、HttpServlet。</p>
-<p>2、HttpServlet指能够处理HTTP请求的servlet，它在原有Servlet接口上添加了一些与HTTP协议处理方法，它比Servlet接口的功能更为强大。因此开发人员在编写Servlet时，通常应继承这个类，而避免直接去实现Servlet接口。</p>
-<p>3、HttpServlet在实现Servlet接口时，覆写了service方法，该方法体内的代码会自动判断用户的请求方式，如为GET请求，则调用HttpServlet的doGet方法，如为Post请求，则调用doPost方法。因此，开发人员在编写Servlet时，通常只需要覆写doGet或doPost方法，而不要去覆写service方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">httpservlet//重载了service方法</span><br><span class="line">&#123;</span><br><span class="line">	service()&#123;</span><br><span class="line">		//获取请求方式</span><br><span class="line">		//根据请求方式的不同 调用do***方法</span><br><span class="line">	&#125;</span><br><span class="line">	do***方法()&#123;</span><br><span class="line">		//接收请求</span><br><span class="line">		//处理请求</span><br><span class="line">		//返回响应</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DemoServlet extend httpservlet</span><br><span class="line">&#123;</span><br><span class="line">	do***()//重写&#123;</span><br><span class="line">		//接收请求</span><br><span class="line">		//处理请求</span><br><span class="line">		//返回响应</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="web-xml配置"><a href="#web-xml配置" class="headerlink" title="web.xml配置"></a>web.xml配置</h1><h2 id="servlet类名配置"><a href="#servlet类名配置" class="headerlink" title="servlet类名配置"></a>servlet类名配置</h2><p>  <servlet><br>    <servlet-name> </servlet-name><br>    <servlet-class> </servlet-class><br>  </servlet></p>
-<h2 id="路径配置"><a href="#路径配置" class="headerlink" title="路径配置"></a>路径配置</h2><pre><code>&lt;servlet-mapping&gt;
-&lt;servlet-name&gt;CookieServlet&lt;/servlet-name&gt;
-&lt;url-pattern&gt;/ck&lt;/url-pattern&gt;
-</code></pre><p>  <br><em>路径常见问题</em><br>假设有多个servlet<br>1.<url-pattern>/aa/bb</url-pattern><br>2.<url-pattern>/aa/<em></em></url-pattern><br>此时访问/aa/bb,就会运行第一个servlet，因为默认最精准的优先<br>此时访问/aa/,就会运行第二个<br>如果两个路径相同，那么直接会报错</p>
-
-          
+          <h1 id="Servlet接口实现类"><a href="#Servlet接口实现类" class="headerlink" title="Servlet接口实现类"></a>Servlet接口实现类</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/24/Spring入门/servlet入门/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -887,7 +881,7 @@ spring的作用
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/yuesefu/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/约瑟夫环/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -906,7 +900,7 @@ spring的作用
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/20/yuesefu/" itemprop="url">约瑟夫环</a></h1>
+                <a class="post-title-link" href="/2018/08/20/约瑟夫环/" itemprop="url">约瑟夫环</a></h1>
         
 
         <div class="post-meta">
@@ -960,7 +954,7 @@ spring的作用
           <p><em>约瑟夫环</em><br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/20/yuesefu/#post.more" rel="contents">
+            <a class="btn" href="/2018/08/20/约瑟夫环/#post.more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

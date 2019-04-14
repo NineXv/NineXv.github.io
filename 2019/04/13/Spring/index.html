@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="#一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTem">
+<meta name="description" content="一: spring的概述spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTempl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring入门(IOC和DI基础)">
 <meta property="og:url" content="http://yoursite.com/2019/04/13/Spring/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="#一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTem">
+<meta property="og:description" content="一: spring的概述spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTempl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-14T13:26:25.799Z">
+<meta property="og:updated_time" content="2019-04-14T13:29:15.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring入门(IOC和DI基础)">
-<meta name="twitter:description" content="#一: spring的概述 spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTem">
+<meta name="twitter:description" content="一: spring的概述spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTempl">
 
 
 
@@ -319,8 +319,7 @@
       
 
       
-        <p>#一: spring的概述</p>
-<pre><code>spring: 是java 分层的se/ee的full-stack(一站式) 开源框架
+        <h1 id="一-spring的概述"><a href="#一-spring的概述" class="headerlink" title="一: spring的概述"></a>一: spring的概述</h1><pre><code>spring: 是java 分层的se/ee的full-stack(一站式) 开源框架
         为EE的每一层都提供了解决技术:
            web: struts2  springMVC
            service: spring(IOC AOP 声明式事务)
@@ -333,12 +332,12 @@ spring的作用
         对优秀框架进行集成
             .....
 </code></pre><a id="more"></a>
-<h1 id="IOC入门"><a href="#IOC入门" class="headerlink" title="IOC入门"></a>IOC入门</h1><pre><code> *1: 基本配置*
-    ##bean标签: 指定要创建的实体类
+<h1 id="IOC入门"><a href="#IOC入门" class="headerlink" title="IOC入门"></a>IOC入门</h1><pre><code> * 1: 基本配置 *
+    ## bean标签: 指定要创建的实体类
             id属性: 可以为任意值  但是在整个配置文件中唯一
             class属性: 要实例化类的全限定名 反射 
 
- *2: scope属性: 范围*
+ * 2: scope属性: 范围 *
     singleton: 单实例 默认值
                  如果是单实例,配置文件文件只要一加载  就会创建对象 放在spring容器 (map&lt;id,对象&gt;)
                  当所有人过来问spring容器要的时候(getBean),所用人用的都是同一个对象
@@ -352,7 +351,7 @@ spring的作用
      action: prototype
      service/dao: singleton
 
- *3 了解*
+ * 3 了解 *
     singleton的对象什么时候销毁? prototype创建出来的对象什么时候销毁?
         ：singleton的对象 当spring容器关闭 对象销毁
           prototype的对象 长时间不用自动被垃圾回收机制给回收了
@@ -363,7 +362,7 @@ spring的作用
 &lt;bean id=&quot;user&quot; class=&quot;User&quot; scope=&quot;prototype&quot; init-method=&quot;init&quot; destroy-method=&quot;destory&quot;&gt;&lt;/bean&gt; 
 
 
-  ##import标签:导入外部的配置文件
+  ## import标签:导入外部的配置文件
  resource属性:外部配置文件的地址
  举例：
         web:    所有在web层创建的对象       applicationContext_web.xml
@@ -374,22 +373,43 @@ spring的作用
            &lt;import resource=&quot;applicationContext_service.xml&quot;/&gt;
            &lt;import resource=&quot;applicationContext_dao.xml&quot;/&gt;    
 </code></pre><p>——————————————————————————————————————————————————————————————————————————————————————            </p>
-<p>#DI<br>首先，了解为什么需要DI<br><em>举例</em>：<br>     Car接口中只有run方法，<br>     此时CarIml继承了Car接口并且新加入了属性name<br>     如果只是通过IOC的bean标签创建对象<br>     那么无法给name赋值<br>     因为 Car car = (Car)context.getBean(“car”);<br>     Car接口实际上并没有name属性，无法赋值<br>     此时就需要DI来解决这个问题</p>
-<p>#DI的使用：</p>
-<p>##1.set属性注入：<br>        第一步：构建setName方法：<br>                   在CarIml中构建setName方法<br>        第二步: 在applicationContext.xml中bean标签中添加<property><br>                   <property name="name" value="兰博基尼"></property></property></p>
-<pre><code>name:要赋值的属性名
-value:要赋的值 (针对的是基本类型和String类型)
-ref: 针对的是对象类型
-           指向的是spring中bean的id名
-此时当类被创建时，就会自动的初始化name值
-</code></pre><p>##2.构造器注入<br>        第一步：添加有参构造方法<br>        第二部：在applicationContext.xml中bean标签中添加<constructor-arg></constructor-arg></p>
-<pre><code>    name:要赋值的属性名
-    value:要赋的值 (针对的是基本类型和String类型)
-    ref: 针对的是对象类型
-&lt;constructor-arg name=&quot;name&quot; value=&quot;BMW&quot;&gt;&lt;/constructor-arg&gt;
-</code></pre><p>##3.P名称空间注入<br>        底层：set注入（所以还是需要有set方法）<br>        条件: 在配置文件中有p的名称空间<br>              xmlns:p=”<a href="http://www.springframework.org/schema/p&quot;" target="_blank" rel="noopener">http://www.springframework.org/schema/p&quot;</a><br>        语法:<bean p:属性名="属性值" p:属性名-ref="bean的id对象值"><br>        <bean id="person" class="CarImpl" p:name="BMW" p:car-ref="car"></bean></bean></p>
-<p>##4.复杂属性注入:map,list[]等<br>        <bean id="collBean" class="CollBean"><br>        <property name="ArrayDemo"><br>            <!-- 数组类型 --><br>            <list><br>                <value>aaa</value><br>                <value>bbb</value><br>                <value>ccc</value><br>            </list><br>        </property></bean></p>
-<pre><code>    &lt;property name=&quot;listDemo&quot;&gt;
+<h1 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h1><p>首先，了解为什么需要DI</p>
+<ul>
+<li>举例 *：<br>   Car接口中只有run方法，<br>   此时CarIml继承了Car接口并且新加入了属性name<br>   如果只是通过IOC的bean标签创建对象<br>   那么无法给name赋值<br>   因为 Car car = (Car)context.getBean(“car”);<br>   Car接口实际上并没有name属性，无法赋值<br>   此时就需要DI来解决这个问题</li>
+</ul>
+<h1 id="DI的使用："><a href="#DI的使用：" class="headerlink" title="DI的使用："></a>DI的使用：</h1><h2 id="1-set属性注入："><a href="#1-set属性注入：" class="headerlink" title="1.set属性注入："></a>1.set属性注入：</h2><pre><code>第一步：构建setName方法：
+           在CarIml中构建setName方法
+第二步: 在applicationContext.xml中bean标签中添加&lt;property&gt;
+           &lt;property name=&quot;name&quot; value=&quot;兰博基尼&quot;&gt;&lt;/property&gt;
+
+     name:要赋值的属性名
+     value:要赋的值 (针对的是基本类型和String类型)
+     ref: 针对的是对象类型
+                指向的是spring中bean的id名
+     此时当类被创建时，就会自动的初始化name值
+</code></pre><h2 id="2-构造器注入"><a href="#2-构造器注入" class="headerlink" title="2.构造器注入"></a>2.构造器注入</h2><pre><code>第一步：添加有参构造方法
+第二部：在applicationContext.xml中bean标签中添加&lt;constructor-arg&gt;
+
+          name:要赋值的属性名
+          value:要赋的值 (针对的是基本类型和String类型)
+          ref: 针对的是对象类型
+      &lt;constructor-arg name=&quot;name&quot; value=&quot;BMW&quot;&gt;&lt;/constructor-arg&gt;
+</code></pre><h2 id="3-P名称空间注入"><a href="#3-P名称空间注入" class="headerlink" title="3.P名称空间注入"></a>3.P名称空间注入</h2><pre><code>底层：set注入（所以还是需要有set方法）
+条件: 在配置文件中有p的名称空间
+      xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
+语法:&lt;bean p:属性名=&quot;属性值&quot; p:属性名-ref=&quot;bean的id对象值&quot; &gt;
+&lt;bean id=&quot;person&quot; class=&quot;CarImpl&quot; p:name=&quot;BMW&quot; p:car-ref=&quot;car&quot;&gt;&lt;/bean&gt;
+</code></pre><h2 id="4-复杂属性注入-map-list-等"><a href="#4-复杂属性注入-map-list-等" class="headerlink" title="4.复杂属性注入:map,list[]等"></a>4.复杂属性注入:map,list[]等</h2><pre><code>    &lt;bean id=&quot;collBean&quot; class=&quot;CollBean&quot;&gt;
+    &lt;property name=&quot;ArrayDemo&quot;&gt;
+        &lt;!-- 数组类型 --&gt;
+        &lt;list&gt;
+            &lt;value&gt;aaa&lt;/value&gt;
+            &lt;value&gt;bbb&lt;/value&gt;
+            &lt;value&gt;ccc&lt;/value&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+
+    &lt;property name=&quot;listDemo&quot;&gt;
         &lt;!-- list类型  --&gt;
         &lt;list&gt;
             &lt;value&gt;111&lt;/value&gt;
@@ -553,7 +573,7 @@ ref: 针对的是对象类型
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IOC入门"><span class="nav-number">1.</span> <span class="nav-text">IOC入门</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-spring的概述"><span class="nav-number">1.</span> <span class="nav-text">一: spring的概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IOC入门"><span class="nav-number">2.</span> <span class="nav-text">IOC入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DI"><span class="nav-number">3.</span> <span class="nav-text">DI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DI的使用："><span class="nav-number">4.</span> <span class="nav-text">DI的使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-set属性注入："><span class="nav-number">4.1.</span> <span class="nav-text">1.set属性注入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-构造器注入"><span class="nav-number">4.2.</span> <span class="nav-text">2.构造器注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-P名称空间注入"><span class="nav-number">4.3.</span> <span class="nav-text">3.P名称空间注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-复杂属性注入-map-list-等"><span class="nav-number">4.4.</span> <span class="nav-text">4.复杂属性注入:map,list[]等</span></a></li></ol></li></ol></div>
             
 
           </div>

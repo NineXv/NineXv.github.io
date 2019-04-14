@@ -633,6 +633,576 @@ spring的作用
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/24/正则表达式/" itemprop="url">正则表达式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T22:29:22+08:00">
+                2018-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>正则表达式的规则：<br>A：字符<br>      x  字符x<br>      \ 反斜线字符<br>      \n 换行<br>      \r 回车</p>
+<p>B：字符类<br>     [abc]    a或b或c<br>     [^abc]   除了a,b,c以外<br>     [a-zA-Z] 所有字母<br>     [0-9]    所有数字</p>
+<p>C：预定义字符类<br>     .  任何字符（需要用到.就要\.）<br>     \d 等同于[0-9]<br>     \D 同等与[^0-9]<br>     \w 单词字符= [a-zA-Z_0-9]</p>
+<p>D:边界匹配器<br>     ^  行的开头<br>     $  行的结尾<br>     \b 单词边界(不是单词字符的地方)<br>            举例：hello world中的空格就是单词边界</p>
+<p>E：Greedy 数量词<br>     x? x,</p>
+<pre><code>不写了，自己查去
+</code></pre><hr>
+<h2 id="JAVA方法"><a href="#JAVA方法" class="headerlink" title="JAVA方法"></a>JAVA方法</h2><p>public boolean matches(String regex)<br>告知此字符串是否匹配给定的正则表达式</p>
+<h3 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h3><pre><code>Scanner sc = new Scanner(System.in);
+String email = sc.nextLine();
+String regex = &quot;[a-zA-Z_0-9]+![a-zA-Z_0-9]{2,6}(\\.[a-zA-Z_0-9]{2,3})+&quot;;
+boolean flag = email.matcher(refex);
+System,out.println(&quot;flag:&quot;+flag);
+</code></pre><h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p>public string[] split(string regex)//<br>                 根据匹配给定的正则表达式来拆分此字符串<br>                *此方法返回的数组包含此字符串的每个子字符串，<br>    使用举例：<br>             String s1 = “aa.bb.cc”;<br>             String[] s1Array = s1.split(“\.”);</p>
+<pre><code>String s1 = &quot;aa   bb       cc&quot;;
+String[] s1Array = s1.split(&quot; +&quot;);
+
+
+String s1 = &quot;C:\\Users\\王旭\\Desktop\\JAVA笔记\\12.正则表达式&quot;;
+String[] s1Array = s1.split(&quot;\\\\&quot;);
+</code></pre><p><strong><strong><strong>*</strong></strong></strong>注意*：硬盘上的地址必须用\而不是一个\,所以此处用\\切割</p>
+<p><em>注意</em>：<br>   1.”.”和“|”都是转义字符，必须得加”\“;　<br>     String.split(“\.”),这样才能正确的分隔开，不能用String.split(“.”);<br>     String.split(“\|”),这样才能正确的分隔开，不能用String.split(“|”);<br>   2.如果在一个字符串中有多个分隔符，可以用“|”作为连字符</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>如果将一个字符串元素排序呢？<br>1.把字符串进行分割，得到一个字符串数组。<br>2.把字符串数组变换成int数组。<br>3.排序<br>4.将int数组组装成一个字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">String s = &quot;6 4 8 1 9&quot;;</span><br><span class="line">String[] s1 = s.split(&quot; &quot;);</span><br><span class="line">int[] arr = new int[strArray.length];</span><br><span class="line">for(int x=0;x&lt;arr.length; x++)</span><br><span class="line">&#123;</span><br><span class="line">    arr[x] = Integer.parseInt(strArray[x]);</span><br><span class="line">&#125;</span><br><span class="line">Arrays.sort(arr);</span><br><span class="line">StringBuilder sb = new StringBuilder();</span><br><span class="line">for(int x = 0; x&lt;arr.length; x++)</span><br><span class="line">&#123;</span><br><span class="line">    sb.append(arr[x]).append(&quot; &quot;);</span><br><span class="line">&#125;</span><br><span class="line">String result = sb.toString().trim();</span><br></pre></td></tr></table></figure>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><p>替换功能：<br>  String类的replaceAll(String regex,string replacement)<br>  使用给定的replacement替换此字符串所有匹配给定的正则表达式的子字符串<br>    举例：屏蔽掉字符串中的敏感字符<br>     String s = “+VX123456789”;<br>     String regex = “\d”;<br>     String ss = “<em>“;<br>     String result = s.replaceAll(regex,ss);<br>     syso(result);<br>     结果:+vx<strong><em>**</em></strong></em></p>
+<h3 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h3><p>获取:将字符串中的符合规则的子串取出</p>
+<p>操作步骤：<br>1.将正则表达式封装成对象。<br>2.让正则对象和要操作的字符串相关联。<br>3.关联后，获取正则匹配引擎。<br>4.通过引擎对符合规则的子串进行操作，比如取出</p>
+<p>Pattern和Matcher类</p>
+<p>举例：<br>    String str = “wow ming tian yao xia yu”;</p>
+<pre><code>String regex = &quot;\\b[a-z]{3}\\b&quot;;
+
+Pattern p = Pattern.compile(regex);//将规则封装成对象
+
+Matcher m = p.matcher(str);//让正则对象和要作用的字符串相关联，获取匹配器对象
+
+System.out.println(&quot;matches:&quot;+m.matcher());//判断是否符合规则
+
+while(m.find())//find将规则作用到字符串上，并进行符合规则的子串查找。
+{
+   syso(m.group());//group用于获取匹配后的结果。
+ }
+</code></pre><p><strong>***</strong>注意，此处打印出的只有yao xia两个，而没有wow。<br>       why?<br>       因为之前调用了一次matcher()方法进行了一次符合判定，<br>       matcher()因为接收到空格而判断为false。<br>       但是匹配器的索引位置却已经过了wow的位置。<br>       所以这是容易漏掉第一个的易错点</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/JavaSe/正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/24/JavaSe/正则表达式/" itemprop="url">正则表达式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-24T22:29:22+08:00">
+                2018-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><p>正则表达式的规则：<br>A：字符<br>      x  字符x<br>      \ 反斜线字符<br>      \n 换行<br>      \r 回车</p>
+<p>B：字符类<br>     [abc]    a或b或c<br>     [^abc]   除了a,b,c以外<br>     [a-zA-Z] 所有字母<br>     [0-9]    所有数字</p>
+<p>C：预定义字符类<br>     .  任何字符（需要用到.就要\.）<br>     \d 等同于[0-9]<br>     \D 同等与[^0-9]<br>     \w 单词字符= [a-zA-Z_0-9]</p>
+<p>D:边界匹配器<br>     ^  行的开头<br>     $  行的结尾<br>     \b 单词边界(不是单词字符的地方)<br>            举例：hello world中的空格就是单词边界</p>
+<p>E：Greedy 数量词<br>     x? x,</p>
+<pre><code>不写了，自己查去
+</code></pre><hr>
+<h2 id="JAVA方法"><a href="#JAVA方法" class="headerlink" title="JAVA方法"></a>JAVA方法</h2><p>public boolean matches(String regex)<br>告知此字符串是否匹配给定的正则表达式</p>
+<h3 id="判断"><a href="#判断" class="headerlink" title="判断"></a>判断</h3><pre><code>Scanner sc = new Scanner(System.in);
+String email = sc.nextLine();
+String regex = &quot;[a-zA-Z_0-9]+![a-zA-Z_0-9]{2,6}(\\.[a-zA-Z_0-9]{2,3})+&quot;;
+boolean flag = email.matcher(refex);
+System,out.println(&quot;flag:&quot;+flag);
+</code></pre><h3 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h3><p>public string[] split(string regex)//<br>                 根据匹配给定的正则表达式来拆分此字符串<br>                *此方法返回的数组包含此字符串的每个子字符串，<br>    使用举例：<br>             String s1 = “aa.bb.cc”;<br>             String[] s1Array = s1.split(“\.”);</p>
+<pre><code>String s1 = &quot;aa   bb       cc&quot;;
+String[] s1Array = s1.split(&quot; +&quot;);
+
+
+String s1 = &quot;C:\\Users\\王旭\\Desktop\\JAVA笔记\\12.正则表达式&quot;;
+String[] s1Array = s1.split(&quot;\\\\&quot;);
+</code></pre><p><strong><strong><strong>*</strong></strong></strong>注意*：硬盘上的地址必须用\而不是一个\,所以此处用\\切割</p>
+<p><em>注意</em>：<br>   1.”.”和“|”都是转义字符，必须得加”\“;　<br>     String.split(“\.”),这样才能正确的分隔开，不能用String.split(“.”);<br>     String.split(“\|”),这样才能正确的分隔开，不能用String.split(“|”);<br>   2.如果在一个字符串中有多个分隔符，可以用“|”作为连字符</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>如果将一个字符串元素排序呢？<br>1.把字符串进行分割，得到一个字符串数组。<br>2.把字符串数组变换成int数组。<br>3.排序<br>4.将int数组组装成一个字符串</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">String s = &quot;6 4 8 1 9&quot;;</span><br><span class="line">String[] s1 = s.split(&quot; &quot;);</span><br><span class="line">int[] arr = new int[strArray.length];</span><br><span class="line">for(int x=0;x&lt;arr.length; x++)</span><br><span class="line">&#123;</span><br><span class="line">    arr[x] = Integer.parseInt(strArray[x]);</span><br><span class="line">&#125;</span><br><span class="line">Arrays.sort(arr);</span><br><span class="line">StringBuilder sb = new StringBuilder();</span><br><span class="line">for(int x = 0; x&lt;arr.length; x++)</span><br><span class="line">&#123;</span><br><span class="line">    sb.append(arr[x]).append(&quot; &quot;);</span><br><span class="line">&#125;</span><br><span class="line">String result = sb.toString().trim();</span><br></pre></td></tr></table></figure>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><p>替换功能：<br>  String类的replaceAll(String regex,string replacement)<br>  使用给定的replacement替换此字符串所有匹配给定的正则表达式的子字符串<br>    举例：屏蔽掉字符串中的敏感字符<br>     String s = “+VX123456789”;<br>     String regex = “\d”;<br>     String ss = “<em>“;<br>     String result = s.replaceAll(regex,ss);<br>     syso(result);<br>     结果:+vx<strong><em>**</em></strong></em></p>
+<h3 id="获取"><a href="#获取" class="headerlink" title="获取"></a>获取</h3><p>获取:将字符串中的符合规则的子串取出</p>
+<p>操作步骤：<br>1.将正则表达式封装成对象。<br>2.让正则对象和要操作的字符串相关联。<br>3.关联后，获取正则匹配引擎。<br>4.通过引擎对符合规则的子串进行操作，比如取出</p>
+<p>Pattern和Matcher类</p>
+<p>举例：<br>    String str = “wow ming tian yao xia yu”;</p>
+<pre><code>String regex = &quot;\\b[a-z]{3}\\b&quot;;
+
+Pattern p = Pattern.compile(regex);//将规则封装成对象
+
+Matcher m = p.matcher(str);//让正则对象和要作用的字符串相关联，获取匹配器对象
+
+System.out.println(&quot;matches:&quot;+m.matcher());//判断是否符合规则
+
+while(m.find())//find将规则作用到字符串上，并进行符合规则的子串查找。
+{
+   syso(m.group());//group用于获取匹配后的结果。
+ }
+</code></pre><p><strong>***</strong>注意，此处打印出的只有yao xia两个，而没有wow。<br>       why?<br>       因为之前调用了一次matcher()方法进行了一次符合判定，<br>       matcher()因为接收到空格而判断为false。<br>       但是匹配器的索引位置却已经过了wow的位置。<br>       所以这是容易漏掉第一个的易错点</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/JavaSe/String缓冲区/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/14/JavaSe/String缓冲区/" itemprop="url">String缓冲区</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T22:26:24+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="String缓冲区"><a href="#String缓冲区" class="headerlink" title="String缓冲区"></a>String缓冲区</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/14/JavaSe/String缓冲区/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/JavaSe/String详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/14/JavaSe/String详解/" itemprop="url">String详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T22:22:12+08:00">
+                2018-11-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="String与常量池"><a href="#String与常量池" class="headerlink" title="String与常量池"></a>String与常量池</h1><p>常量池：<br>Java中的常量池，实际上分为两种形态：静态常量池和运行时常量池。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/14/JavaSe/String详解/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/JavaSe/多线程/死锁/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -992,502 +1562,6 @@ spring的作用
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/JavaSe/多线程/多线程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NineXv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/14/JavaSe/多线程/多线程/" itemprop="url">多线程入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T21:59:11+08:00">
-                2018-11-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="多线程详解"><a href="#多线程详解" class="headerlink" title="多线程详解"></a>多线程详解</h1><p><strong>进程</strong>：就是应用程序在内存中分配的空间。（正在运行中的程序）<br><strong>线程</strong>：是进程中负责程序执行的执行单元。<br>一个进程中至少有一个线程在负责该进程的运行，<br>如果一个进程出现了多个线程，就称该程序为多线程程序。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/14/JavaSe/多线程/多线程/#post.more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/14/JavaSe/多线程/JAVA多线程getName-方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NineXv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/14/JavaSe/多线程/JAVA多线程getName-方法/" itemprop="url">JAVA多线程getName()方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-14T20:57:49+08:00">
-                2018-11-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>先说定义</strong>：<br>this.getName()是一个实例方法：反映这个实例的情况,实例指的就是这个类的对象<br>Thread.currentThread().getName() 是一个静态方法：反映这个实体的情况,实体却不一样，实体是指正在发生这个作用的实例<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/14/JavaSe/多线程/JAVA多线程getName-方法/#post.more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/20/JavaSe/JAVA异常处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NineXv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/20/JavaSe/JAVA异常处理/" itemprop="url">JAVA异常处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T20:51:43+08:00">
-                2018-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="JAVA异常处理"><a href="#JAVA异常处理" class="headerlink" title="JAVA异常处理"></a>JAVA异常处理</h1><p>异常是程序的一种错误，但并不是错误就是异常。<br><strong>异常</strong>：<em>Exception</em><br><strong>错误</strong>：<em>Error</em><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/20/JavaSe/JAVA异常处理/#post.more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/JavaSe/接口与继承/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NineXv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/14/JavaSe/接口与继承/" itemprop="url">接口与继承</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T21:45:59+08:00">
-                2018-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="JAVA的接口与继承"><a href="#JAVA的接口与继承" class="headerlink" title="JAVA的接口与继承"></a>JAVA的接口与继承</h1><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>  在Java中，使用extends关键字实现继承，extends后跟的是父类名，也就是它从哪个类继承过来的，而用extends的这个类本身称为子类。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/14/JavaSe/接口与继承/#post.more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1538,7 +1612,7 @@ spring的作用
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

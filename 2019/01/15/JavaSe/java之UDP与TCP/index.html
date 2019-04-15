@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="UDP1.将数据及源和目的封装成数据包中，不需要建立连接2.每个数据包的大小限制在64K以内3.因无连接，所以不可靠协议4.不需要建立连接，速度快 TCP1.建立连接，形成传输数据的通道2.在连接中进行大数据量传输3.通过三次握手，是可靠协议4.必须建立连接，效率稍低">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java之UDP与TCP">
+<meta property="og:url" content="http://yoursite.com/2019/01/15/JavaSe/java之UDP与TCP/index.html">
+<meta property="og:site_name" content="NineXv">
+<meta property="og:description" content="UDP1.将数据及源和目的封装成数据包中，不需要建立连接2.每个数据包的大小限制在64K以内3.因无连接，所以不可靠协议4.不需要建立连接，速度快 TCP1.建立连接，形成传输数据的通道2.在连接中进行大数据量传输3.通过三次握手，是可靠协议4.必须建立连接，效率稍低">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-15T07:52:53.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java之UDP与TCP">
+<meta name="twitter:description" content="UDP1.将数据及源和目的封装成数据包中，不需要建立连接2.每个数据包的大小限制在64K以内3.因无连接，所以不可靠协议4.不需要建立连接，速度快 TCP1.建立连接，形成传输数据的通道2.在连接中进行大数据量传输3.通过三次握手，是可靠协议4.必须建立连接，效率稍低">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/15/JavaSe/java之UDP与TCP/">
+
+
+
+
+
+  <title>java之UDP与TCP | NineXv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NineXv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/JavaSe/java之UDP与TCP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java之UDP与TCP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:45:08+08:00">
+                2019-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h1><p>1.将数据及源和目的封装成数据包中，不需要建立连接<br>2.每个数据包的大小限制在64K以内<br>3.因无连接，所以不可靠协议<br>4.不需要建立连接，速度快</p>
+<h1 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h1><p>1.建立连接，形成传输数据的通道<br>2.在连接中进行大数据量传输<br>3.通过三次握手，是可靠协议<br>4.必须建立连接，效率稍低<br><a id="more"></a></p>
+<h1 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h1><p>1.Socket就是为网络服务提供的一种机制<br>2.通信的两端都有Socket<br>3.网络通信其实就是Socket间的通信</p>
+<h2 id="4-数据在两个Socket间通过IO传输"><a href="#4-数据在两个Socket间通过IO传输" class="headerlink" title="4.数据在两个Socket间通过IO传输"></a>4.数据在两个Socket间通过IO传输</h2><h2 id="UDP类"><a href="#UDP类" class="headerlink" title="UDP类"></a>UDP类</h2><p>DatagramSocket：此类表示用于发送和接收数据报数据包的套接字。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"> /**</span><br><span class="line"> * 此代码演示UDP发送端</span><br><span class="line"> * */</span><br><span class="line">public class UDPsend &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args)throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">		</span><br><span class="line">        //定义一个UDP的Socket</span><br><span class="line">	    DatagramSocket dS = new DatagramSocket() ;</span><br><span class="line">	    String string = &quot;udpDemo&quot;;</span><br><span class="line">	    byte[] buf =string.getBytes();</span><br><span class="line">	    int length = buf.length;</span><br><span class="line">		//获取本机IP</span><br><span class="line">	    InetAddress address = InetAddress.getLocalHost();</span><br><span class="line">		//指定端口</span><br><span class="line">	    int port= 7777; </span><br><span class="line">		//DatagramPacket该类表示数据报包。 </span><br><span class="line">	    DatagramPacket p = new DatagramPacket(buf, length, address, port);</span><br><span class="line">		//发送</span><br><span class="line">	    dS.send(p);</span><br><span class="line">		//关闭</span><br><span class="line">	    dS.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 此代码演示UDP接收端</span><br><span class="line"> * */</span><br><span class="line">public class UDPrece &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args)throws Exception</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">	    DatagramSocket ds = new DatagramSocket(7777);</span><br><span class="line">	    byte[] buf = new byte[1024];</span><br><span class="line">	    DatagramPacket dp = new DatagramPacket(buf,buf.length);</span><br><span class="line">	    ds.receive(dp); </span><br><span class="line">	    byte[] data = dp.getData();</span><br><span class="line">	    int length =dp.getLength();</span><br><span class="line">	    String receiveddata= new String(data, 0, length);</span><br><span class="line">	    System.out.println(&quot;Udp&quot;+receiveddata);</span><br><span class="line">	    ds.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="TCP类"><a href="#TCP类" class="headerlink" title="TCP类"></a>TCP类</h2><p>tcp分客户端和服务端<br>Socket:客户端对应的对象<br>ServerSocket:服务端对应的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">/*客户端</span><br><span class="line">*在该对象建立时，就可以去连接指定主机。</span><br><span class="line">*因为tcp是面向连接的，所以在建立socket服务时，</span><br><span class="line">*就要有服务端的存在，并连接成功，形成通路后，在该通道进行数据的传输</span><br><span class="line">*/</span><br><span class="line">public static void main(String[] arg)</span><br><span class="line">&#123;</span><br><span class="line">	//创建客户端的Socket服务，指定目的主机和端口</span><br><span class="line">	Socket s = new Socket(&quot;192.168.1.254&quot;,10086);</span><br><span class="line">	//为了发送数据，应该获取socket流中的输出流</span><br><span class="line">	OutputStream out = s.getOutputStream();</span><br><span class="line">	out.write(&quot;TCPDemo&quot;.getBytes());</span><br><span class="line">	s.close();</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">*服务端</span><br><span class="line">*1.建立服务端的socket服务，ServerSocket，并监听一个端口</span><br><span class="line">*2.获取连接过来的客户端对象</span><br><span class="line">*    通过ServerSocket的 accept 方法。（阻塞式方法）</span><br><span class="line">*3.客户端如果发过来数据，那么服务端要使用对应的客户端对象，</span><br><span class="line">*  并获取到该对象的读取流来读取发过来的数据。并打印出来。</span><br><span class="line">*4.(可选)关闭服务</span><br><span class="line">*/	</span><br><span class="line">public static void main(String[] arg)</span><br><span class="line">&#123;</span><br><span class="line">	//建立服务端的socket服务并监听一个端口</span><br><span class="line">	ServerSocket ss = new ServerSocket(10003);</span><br><span class="line">	//通过accept方法获取连接过来的客户端对象</span><br><span class="line">	Socket s = ss.accept();</span><br><span class="line">	</span><br><span class="line">	String ip = s.getInetAddress().getHostAddress();</span><br><span class="line">	System.out.println(ip+&quot;:&quot;);</span><br><span class="line">	//使用客户端对象的读取流来读取数据</span><br><span class="line">	InputStream in = s.getInputStream();</span><br><span class="line">	</span><br><span class="line">	byte[] buf = new byte[1024];</span><br><span class="line">	int len = in.read(buf);</span><br><span class="line">	System.out.println(new String (buf,0,len));</span><br><span class="line">	</span><br><span class="line">	//关闭客户端</span><br><span class="line">	s.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="并发TCP"><a href="#并发TCP" class="headerlink" title="并发TCP"></a>并发TCP</h2><p>为了解决多客户端访问服务器的问题<br>于是需要使用多线程技术<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Class TcpServer</span><br><span class="line">&#123;</span><br><span class="line">    public static void main(String[] srgs) throws Exception</span><br><span class="line">	&#123;</span><br><span class="line">	    ServerSocket ss = new ServerSocket(10000);</span><br><span class="line">		while(ture)//使用while(ture)，每当新的客户端连接进来，就开启一个新线程</span><br><span class="line">		&#123;</span><br><span class="line">		   Socket s = ss.accept();</span><br><span class="line">		   new Thread(new TcpThread(s)).start();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>*举例：并发TCP上传图片</p>
+<pre><code>Class TcpThread implements Runnable
+{
+    private Socket s;
+    TcpThread(Socket s)
+    {
+       this.s = s;
+    }
+    public void run()
+    {
+        String ip = s.getInetAddress().getHostAddress();
+        try
+        {
+            int count = 1;
+            System.out.println(ip+&quot;...connecting&quot;);
+            InputStream in = s.getInputStream();
+            File file = new File(ip+&quot;(&quot;+(count)+&quot;)&quot;+&quot;.jpg&quot;);
+            while(file.exists())
+            {
+               file = new File(ip+&quot;(&quot;+(count++)+&quot;)&quot;+&quot;.jpg&quot;);
+            }
+
+            FileOutputStream fos = new FileOutputStream(&quot;file&quot;);
+            byte[] buf = new byte[1024];
+            int len = 0;
+            while((len=in.read(buf)) != -1)
+            {
+                fos.write(buf,0,len);
+            }
+            OutputStream out = s.getOutputStream();
+            out.write(&quot;上传成功&quot;.getBytes());
+            fos.close();
+            s.close();
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(ip+&quot;上传失败&quot;);
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/15/JavaSe/JAVA之GUI入门/" rel="next" title="JAVA之GUI入门">
+                <i class="fa fa-chevron-left"></i> JAVA之GUI入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/15/JavaSe/注解/" rel="prev" title="注解">
+                注解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UDP"><span class="nav-number">1.</span> <span class="nav-text">UDP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP"><span class="nav-number">2.</span> <span class="nav-text">TCP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Socket"><span class="nav-number">3.</span> <span class="nav-text">Socket</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-数据在两个Socket间通过IO传输"><span class="nav-number">3.1.</span> <span class="nav-text">4.数据在两个Socket间通过IO传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP类"><span class="nav-number">3.2.</span> <span class="nav-text">UDP类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP类"><span class="nav-number">3.3.</span> <span class="nav-text">TCP类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发TCP"><span class="nav-number">3.4.</span> <span class="nav-text">并发TCP</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

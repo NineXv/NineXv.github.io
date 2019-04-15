@@ -249,130 +249,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/14/JavaSe/集合/Set/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NineXv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/14/JavaSe/集合/Set/" itemprop="url">Set</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T22:38:29+08:00">
-                2019-04-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Set集合"><a href="#Set集合" class="headerlink" title="Set集合"></a>Set集合</h1><p>Set集合：不保证存储顺序，不能重复，和Collection的方法相同<br>   |      取出元素的方法只有一个：迭代器<br>   |-HashSet:哈希表结构（不同步的）<br>   |-TreeSet:二叉树结构（不同步的）可以对元素进行排序<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/04/14/JavaSe/集合/Set/#post.more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </p></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/Spring入门/Spring/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -757,7 +633,7 @@ spring的作用
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JavaSe/泛型/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/JavaSe/反射/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -776,7 +652,7 @@ spring的作用
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/14/JavaSe/泛型/" itemprop="url">泛型</a></h1>
+                <a class="post-title-link" href="/2019/01/15/JavaSe/反射/" itemprop="url">反射</a></h1>
         
 
         <div class="post-meta">
@@ -788,8 +664,8 @@ spring的作用
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:50:25+08:00">
-                2018-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:50:45+08:00">
+                2019-01-15
               </time>
             
 
@@ -827,14 +703,57 @@ spring的作用
 
       
         
-          <h1 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/14/JavaSe/泛型/#post.more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><p>   JAVA反射机制是在运行状态中，<br>   对于任意一个类，都能够知道这个类的所有属性的方法；<br>   对于任意一个对象，都能够调用它的任意一个方法和属性；<br>   这种动态获取的信息以及动态调用对象的方法的功能称为JAVA语言的发射机制</p>
+<p>   动态获取类中信息，就是JAVA反射，可以理解为对类的解剖。</p>
+<hr>
+<h1 id="Class-字节码文件类"><a href="#Class-字节码文件类" class="headerlink" title="Class:字节码文件类"></a>Class:字节码文件类</h1><ul>
+<li>想要获得一个类的Class对象，有三种方法<br>//////////////////////////////////////////////////////////////////////////<br>   //1.Object类中的getClass()方法的<br>  //想要用这种方式，必须要明确具体的类，并创建对象。<br>  public static void getClassObject1 ()<br>  {<pre><code>Student p = new Student();
+Class class1 = p.getClass();
+</code></pre>  }<br>//////////////////////////////////////////////////////////////////////////<br>  //2.任何数据类型都具备一个静态的属性.class来获取其对应的Class对象<br>  //相对1来说更简单，但还是需要明确用到类中的静态成员。<br>  private static void getClassObject2 ()<br>  {<pre><code>Class class2 = Student.class;
+</code></pre>  }<br>////////////////////////////////////////////////////////////////////////////<br>  //3.只要通过给定的类的字符串名称就可以获取该类，更为扩展<br>  //可以用Class类中的方法完成，该方法就是forName<br>  public static void getClassObject3 ()<br>  {<pre><code>String className = &quot;test.Student&quot;;
+Class class3 = null;
+try {
+    //找寻该名称类文件，并加载进内存，并产生Class对象
+    class3 = Class.forName(className);
+} catch (ClassNotFoundException e) {
+    e.printStackTrace();
+}
+System.out.println(class3);
+</code></pre>  }<br>  //上边的方法是空参构造方法，如果必须要传递参数，就使用Constructor获取该类的构造函数对象<br>  public static void getClassObject3_2 ()<br>  {<pre><code>String className = &quot;test.Student&quot;;
+Class class3 = null;
+try {
+    class3 = Class.forName(className);
+    Constructor cons = class3.getConstructor(String.class,int.class);// 类型.Class  代表该数据类型的Class对象
+    Object obj = cons.newInstance(&quot;王五&quot;,20);
+} catch (Exception e) {
+    e.printStackTrace();
+}
+System.out.println(class3);
+</code></pre>  }</li>
+</ul>
+<hr>
+<h2 id="字段的获取"><a href="#字段的获取" class="headerlink" title="字段的获取"></a>字段的获取</h2><p>getField():该方法返回一个类或接口的一个公共成员字段<br>getFields():该方法返回一个类或接口的所有公共成员字段</p>
+<p>getDeclaredField():返回包括公共和私有的字段，但不包括继承的字段<br>getDeclaredFields():返回所有。。。。。</p>
+<p>//4.如何获取字段<br>    public static void getFidldDemo()<br>    {<br>        String classname = “test.Student”;<br>        Class class4 = null;<br>        Field f1 = null;<br>        Field f2 = null;<br>        try {<br>            class4 = Class.forName(classname);<br>            //f1 = class4.getField(“name”);//获取共有的字段<br>            f2 = class4.getDeclaredField(“age”);//获取私有的字段<br>            f2.setAccessible(true);//对私有字段的暴力访问<br>            Object obj = class4.newInstance();<br>            f2.set(obj,20);<br>            Object o = f2.get(obj);<br>            System.out.println(o);</p>
+<pre><code>    }catch (Exception e){
+        e.printStackTrace();
+    }
+}
+</code></pre><hr>
+<h2 id="函数的获取"><a href="#函数的获取" class="headerlink" title="函数的获取"></a>函数的获取</h2><p>getMethod():获取一个方法<br>getMethods():获取所有方法<br>invoke():执行方法</p>
+<pre><code>//函数的使用
+//1.无参函数的使用
+        Method me1 = class5.getMethod(&quot;showName&quot;);
+        Constructor c = class5.getConstructor(String.class,int.class);
+        Object obj = c.newInstance(&quot;哈哈&quot;,12);
+        me1.invoke(obj,null);//这里的null是无参
+//2.有参函数的使用
+        Method me2 = class5.getMethod(&quot;show&quot;,String.class);//在此处加上参数的class类
+        Object o = class5.newInstance();
+        me2.invoke(o,&quot;嘿嘿&quot;);
+</code></pre>
+          
         
       
     </div>
@@ -881,7 +800,7 @@ spring的作用
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JavaSe/集合/Map/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/JavaSe/注解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -900,7 +819,7 @@ spring的作用
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/14/JavaSe/集合/Map/" itemprop="url">Map</a></h1>
+                <a class="post-title-link" href="/2019/01/15/JavaSe/注解/" itemprop="url">注解</a></h1>
         
 
         <div class="post-meta">
@@ -912,8 +831,8 @@ spring的作用
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:48:02+08:00">
-                2018-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:49:31+08:00">
+                2019-01-15
               </time>
             
 
@@ -951,258 +870,12 @@ spring的作用
 
       
         
-          <h1 id="Map集合"><a href="#Map集合" class="headerlink" title="Map集合"></a>Map集合</h1><p>Map：<br>  Hashtable:哈希表结构，同步的，不允许null键，null值<br>  HashMap:哈希表结构，不同步，允许null键，null键<br>  TreeMap:二叉树结构，不同步，可以对map集合中的键进行排序</p>
+          <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><p>常见注解：@<br>@Override:表示该方法继承于父类。</p>
+<p>@Deprecated:表示该方法已被遗弃。</p>
+<p>@SuppressWarnings:用来抑制编译时的警告信息。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/14/JavaSe/集合/Map/#post.more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JavaSe/集合/数组和集合的转化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NineXv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/JavaSe/集合/数组和集合的转化/" itemprop="url">数组和集合的转化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:46:07+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="数组和集合的转化"><a href="#数组和集合的转化" class="headerlink" title="数组和集合的转化"></a>数组和集合的转化</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/14/JavaSe/集合/数组和集合的转化/#post.more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JavaSe/集合/迭代器/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="NineXv">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/14/JavaSe/集合/迭代器/" itemprop="url">迭代器</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:44:07+08:00">
-                2018-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h1><p>迭代器（Iterator）<br>           迭代：取出元素的一种方式<br>         （有没有？ 有/没有）<br>           迭代器不需要new。直接通过iterator()获取<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/14/JavaSe/集合/迭代器/#post.more" rel="contents">
+            <a class="btn" href="/2019/01/15/JavaSe/注解/#post.more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1253,7 +926,7 @@ spring的作用
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JavaSe/集合/增强for/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/JavaSe/java之UDP与TCP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -1272,7 +945,7 @@ spring的作用
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/14/JavaSe/集合/增强for/" itemprop="url">增强for</a></h1>
+                <a class="post-title-link" href="/2019/01/15/JavaSe/java之UDP与TCP/" itemprop="url">java之UDP与TCP</a></h1>
         
 
         <div class="post-meta">
@@ -1284,8 +957,8 @@ spring的作用
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:41:11+08:00">
-                2018-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:45:08+08:00">
+                2019-01-15
               </time>
             
 
@@ -1323,17 +996,18 @@ spring的作用
 
       
         
-          <h1 id="增强for"><a href="#增强for" class="headerlink" title="增强for"></a>增强for</h1>
+          <h1 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h1><p>1.将数据及源和目的封装成数据包中，不需要建立连接<br>2.每个数据包的大小限制在64K以内<br>3.因无连接，所以不可靠协议<br>4.不需要建立连接，速度快</p>
+<h1 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h1><p>1.建立连接，形成传输数据的通道<br>2.在连接中进行大数据量传输<br>3.通过三次握手，是可靠协议<br>4.必须建立连接，效率稍低<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/14/JavaSe/集合/增强for/#post.more" rel="contents">
+            <a class="btn" href="/2019/01/15/JavaSe/java之UDP与TCP/#post.more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
         
       
-    </div>
+    </p></div>
     
     
     
@@ -1377,7 +1051,7 @@ spring的作用
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JavaSe/集合/List/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/JavaSe/JAVA之GUI入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -1396,7 +1070,7 @@ spring的作用
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/14/JavaSe/集合/List/" itemprop="url">List</a></h1>
+                <a class="post-title-link" href="/2019/01/15/JavaSe/JAVA之GUI入门/" itemprop="url">JAVA之GUI入门</a></h1>
         
 
         <div class="post-meta">
@@ -1408,8 +1082,8 @@ spring的作用
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:35:00+08:00">
-                2018-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:41:28+08:00">
+                2019-01-15
               </time>
             
 
@@ -1447,13 +1121,383 @@ spring的作用
 
       
         
-          <h1 id="List集合"><a href="#List集合" class="headerlink" title="List集合"></a>List集合</h1><h2 id="Iterator："><a href="#Iterator：" class="headerlink" title="Iterator："></a>Iterator：</h2><pre><code>是Java迭代器最简单的实现，
-为List设计的ListIterator具有更多的功能，
-它可以从两个方向遍历List，也可以从List中插入和删除元素。
-</code></pre>
+          <h1 id="GUI：Graphical-User-Interface-图形用户接口）"><a href="#GUI：Graphical-User-Interface-图形用户接口）" class="headerlink" title="GUI：Graphical User Interface(图形用户接口）"></a>GUI：Graphical User Interface(图形用户接口）</h1><p>CLI：Command line User Interface(命令行用户接口）</p>
+<p>JAVA：<br>   |Awt:需要调用本地系统方法实现功能，依赖平台，不同系统显示会有区别，重量级控件<br>   |Swing:在AWT基础上建立的，提供了更多的组建，完全由JAVA实现，轻量级控件。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/12/14/JavaSe/集合/List/#post.more" rel="contents">
+            <a class="btn" href="/2019/01/15/JavaSe/JAVA之GUI入门/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/15/JavaSe/properties/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/15/JavaSe/properties/" itemprop="url">properties</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-15T15:39:43+08:00">
+                2019-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h1><p>  是hashtable的子类<br>  *也就是说它具备了map集合的特点，并且存储的键值对都是字符串<br>   是集合中和IO技术相结合的集合容器。<br>特点：可以用于键值对形式的配置文件<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/15/JavaSe/properties/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/JavaSe/io流/IO流之字节流/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/JavaSe/io流/IO流之字节流/" itemprop="url">IO流之字节流</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T15:35:43+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h1><p>注意：<br>字节流并没有刷新，因为字节流底层并没有缓冲区，<br>字符流需要缓存一个字符的字节再刷新。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/10/JavaSe/io流/IO流之字节流/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/10/JavaSe/io流/IO流之缓冲区/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/10/JavaSe/io流/IO流之缓冲区/" itemprop="url">IO流之缓冲区</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-10T15:32:44+08:00">
+                2019-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="IO流-BufferedInputStream和BufferOutputStream拷贝"><a href="#IO流-BufferedInputStream和BufferOutputStream拷贝" class="headerlink" title="IO流(BufferedInputStream和BufferOutputStream拷贝)"></a>IO流(BufferedInputStream和BufferOutputStream拷贝)</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/01/10/JavaSe/io流/IO流之缓冲区/#post.more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1495,7 +1539,7 @@ spring的作用
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1541,7 +1585,7 @@ spring的作用
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

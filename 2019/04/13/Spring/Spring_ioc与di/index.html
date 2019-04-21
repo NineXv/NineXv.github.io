@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="spring的概述spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTemplate">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring_IOC和DI">
+<meta property="og:url" content="http://yoursite.com/2019/04/13/Spring/Spring_ioc与di/index.html">
+<meta property="og:site_name" content="NineXv">
+<meta property="og:description" content="spring的概述spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTemplate">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-21T06:39:04.814Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring_IOC和DI">
+<meta name="twitter:description" content="spring的概述spring: 是java 分层的se/ee的full-stack(一站式) 开源框架         为EE的每一层都提供了解决技术:            web: struts2  springMVC            service: spring(IOC AOP 声明式事务)            dao: hibernate  springJDBCTemplate">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/13/Spring/Spring_ioc与di/">
+
+
+
+
+
+  <title>Spring_IOC和DI | NineXv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NineXv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/Spring/Spring_ioc与di/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="旭">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring_IOC和DI</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-13T17:58:10+08:00">
+                2019-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="spring的概述"><a href="#spring的概述" class="headerlink" title="spring的概述"></a>spring的概述</h1><pre><code>spring: 是java 分层的se/ee的full-stack(一站式) 开源框架
+        为EE的每一层都提供了解决技术:
+           web: struts2  springMVC
+           service: spring(IOC AOP 声明式事务)
+           dao: hibernate  springJDBCTemplate
+
+spring的作用    
+        解耦合
+        声明式事务
+        集成junit更加方便的进行分层测试
+        对优秀框架进行集成
+            .....
+</code></pre><a id="more"></a>
+<h1 id="IOC入门"><a href="#IOC入门" class="headerlink" title="IOC入门"></a>IOC入门</h1><p><strong>基本配置</strong></p>
+<h2 id="bean标签-指定要创建的实体类"><a href="#bean标签-指定要创建的实体类" class="headerlink" title="bean标签: 指定要创建的实体类"></a>bean标签: 指定要创建的实体类</h2><pre><code>id属性: 可以为任意值  但是在整个配置文件中唯一
+class属性: 要实例化类的全限定名 反射 
+</code></pre><p><strong>scope属性</strong>: 范围<br>        singleton: 单实例 默认值<br>                     如果是单实例,配置文件文件只要一加载  就会创建对象 放在spring容器 (map&lt;id,对象&gt;)<br>                     当所有人过来问spring容器要的时候(getBean),所用人用的都是同一个对象<br>        prototype: 多实例<br>                      如果是多实例,配置文件加载,不创建对象<br>                      当每个人过来getbean的时候,getbean一次创建一次 放在容器中<br>*举例：<br>          <bean id="user" class="User" scope="singleton"></bean><br>          <bean id="user" class="User" scope="prototype"></bean><br>        什么时候用默认值singleton(单实例)? 什么时候用prototype(多实例)?<br>         action: prototype<br>         service/dao: singleton</p>
+<p><strong>了解</strong><br>        singleton的对象什么时候销毁? prototype创建出来的对象什么时候销毁?<br>            ：singleton的对象 当spring容器关闭 对象销毁<br>              prototype的对象 长时间不用自动被垃圾回收机制给回收了</p>
+<pre><code>    init-method:指定初始化方法
+    destory-method:指定销毁方法    
+
+&lt;bean id=&quot;user&quot; class=&quot;User&quot; scope=&quot;prototype&quot; init-method=&quot;init&quot; destroy-method=&quot;destory&quot;&gt;&lt;/bean&gt; 
+</code></pre><h2 id="import标签-导入外部的配置文件"><a href="#import标签-导入外部的配置文件" class="headerlink" title="import标签:导入外部的配置文件"></a>import标签:导入外部的配置文件</h2><pre><code>resource属性:外部配置文件的地址
+举例：
+       web:    所有在web层创建的对象       applicationContext_web.xml
+          service:所有在service层创建的对象   applicationContext_service.xml
+          dao:    所有在dao层创建的对象       applicationContext_dao.xml
+
+          &lt;import resource=&quot;applicationContext_web.xml&quot;/&gt;
+          &lt;import resource=&quot;applicationContext_service.xml&quot;/&gt;
+          &lt;import resource=&quot;applicationContext_dao.xml&quot;/&gt;    
+</code></pre><p>——————————————————————————————————————————————————————————————————————————————————————            </p>
+<h1 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h1><p>首先，了解为什么需要DI</p>
+<ul>
+<li>举例 *：<br>   Car接口中只有run方法，<br>   此时CarIml继承了Car接口并且新加入了属性name<br>   如果只是通过IOC的bean标签创建对象<br>   那么无法给name赋值<br>   因为 Car car = (Car)context.getBean(“car”);<br>   Car接口实际上并没有name属性，无法赋值<br>   此时就需要DI来解决这个问题</li>
+</ul>
+<h1 id="DI的使用："><a href="#DI的使用：" class="headerlink" title="DI的使用："></a>DI的使用：</h1><h2 id="1-set属性注入："><a href="#1-set属性注入：" class="headerlink" title="1.set属性注入："></a>1.set属性注入：</h2><pre><code>第一步：构建setName方法：
+           在CarIml中构建setName方法
+第二步: 在applicationContext.xml中bean标签中添加&lt;property&gt;
+           &lt;property name=&quot;name&quot; value=&quot;兰博基尼&quot;&gt;&lt;/property&gt;
+
+     name:要赋值的属性名
+     value:要赋的值 (针对的是基本类型和String类型)
+     ref: 针对的是对象类型
+                指向的是spring中bean的id名
+     此时当类被创建时，就会自动的初始化name值
+</code></pre><h2 id="2-构造器注入"><a href="#2-构造器注入" class="headerlink" title="2.构造器注入"></a>2.构造器注入</h2><pre><code>第一步：添加有参构造方法
+第二部：在applicationContext.xml中bean标签中添加&lt;constructor-arg&gt;
+
+          name:要赋值的属性名
+          value:要赋的值 (针对的是基本类型和String类型)
+          ref: 针对的是对象类型
+      &lt;constructor-arg name=&quot;name&quot; value=&quot;BMW&quot;&gt;&lt;/constructor-arg&gt;
+</code></pre><h2 id="3-P名称空间注入"><a href="#3-P名称空间注入" class="headerlink" title="3.P名称空间注入"></a>3.P名称空间注入</h2><pre><code>底层：set注入（所以还是需要有set方法）
+条件: 在配置文件中有p的名称空间
+      xmlns:p=&quot;http://www.springframework.org/schema/p&quot;
+语法:&lt;bean p:属性名=&quot;属性值&quot; p:属性名-ref=&quot;bean的id对象值&quot; &gt;
+&lt;bean id=&quot;person&quot; class=&quot;CarImpl&quot; p:name=&quot;BMW&quot; p:car-ref=&quot;car&quot;&gt;&lt;/bean&gt;
+</code></pre><h2 id="4-复杂属性注入-map-list-等"><a href="#4-复杂属性注入-map-list-等" class="headerlink" title="4.复杂属性注入:map,list[]等"></a>4.复杂属性注入:map,list[]等</h2><pre><code>    &lt;bean id=&quot;collBean&quot; class=&quot;CollBean&quot;&gt;
+    &lt;property name=&quot;ArrayDemo&quot;&gt;
+        &lt;!-- 数组类型 --&gt;
+        &lt;list&gt;
+            &lt;value&gt;aaa&lt;/value&gt;
+            &lt;value&gt;bbb&lt;/value&gt;
+            &lt;value&gt;ccc&lt;/value&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+
+    &lt;property name=&quot;listDemo&quot;&gt;
+        &lt;!-- list类型  --&gt;
+        &lt;list&gt;
+            &lt;value&gt;111&lt;/value&gt;
+            &lt;value&gt;222&lt;/value&gt;
+            &lt;ref bean=&quot;car&quot;/&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+
+    &lt;property name=&quot;mapDemo&quot;&gt;
+        &lt;!-- map --&gt;
+        &lt;map&gt;
+            &lt;entry key=&quot;k1&quot; value=&quot;aaa&quot;&gt;&lt;/entry&gt;
+            &lt;entry key=&quot;k2&quot; value=&quot;bbbb&quot;&gt;&lt;/entry&gt;
+            &lt;entry key=&quot;k3&quot; value-ref=&quot;car&quot;&gt;&lt;/entry&gt;
+        &lt;/map&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><hr>
+<h1 id="Spring的ioc注解入门"><a href="#Spring的ioc注解入门" class="headerlink" title="Spring的ioc注解入门"></a>Spring的ioc注解入门</h1><h2 id="注解的开发步骤"><a href="#注解的开发步骤" class="headerlink" title="注解的开发步骤:"></a>注解的开发步骤:</h2><pre><code>1.导包  spring-aop.jar
+2.开启注解扫描器  告诉spring应该去那个包下面解析注解
+3.配置注解组件  Component
+4.测试
+</code></pre><h2 id="掌握的注解"><a href="#掌握的注解" class="headerlink" title="掌握的注解"></a>掌握的注解</h2><pre><code>注解条件:(掌握)
+    1 导包 spring-aop.jar
+    2 配置注解扫描器
+        &lt;context:component-scan base-package=&quot;自己的包&quot;&gt;&lt;/context:component-scan&gt;
+</code></pre><hr>
+<h3 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h3><pre><code> 等同于&lt;bean id=&quot;&quot; class=&quot;&quot;&gt;&lt;/bean&gt;
+(&quot;bean的id值&quot;) 定义在类上 只要定义在了类上，那么注解扫描器只要一扫描到就会创建该类的实例对象 放在spring容器中。
+
+spring发布了公告, @Component这个注解不维护了,要维护这个注解下面衍生出的3个注解
+</code></pre><h4 id="Controller-“bean的id值”-针对的就是web层"><a href="#Controller-“bean的id值”-针对的就是web层" class="headerlink" title="@Controller(“bean的id值”) 针对的就是web层"></a>@Controller(“bean的id值”) 针对的就是web层</h4><h4 id="Service-“bean的id值”-针对的是service层"><a href="#Service-“bean的id值”-针对的是service层" class="headerlink" title="@Service(“bean的id值”)    针对的是service层"></a>@Service(“bean的id值”)    针对的是service层</h4><h4 id="Repository-“bean的id值”-针对的是dao层"><a href="#Repository-“bean的id值”-针对的是dao层" class="headerlink" title="@Repository(“bean的id值”) 针对的是dao层"></a>@Repository(“bean的id值”) 针对的是dao层</h4><hr>
+<h3 id="Value-“属性值”"><a href="#Value-“属性值”" class="headerlink" title="@Value(“属性值”)"></a>@Value(“属性值”)</h3><pre><code>定义在属性字段上 针对的是基本类型和String类型
+如果使用了这个注解,该属性的set方法可以省略不写
+</code></pre><hr>
+<h3 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h3><pre><code>定义在属性字段上的 针对的是对象类型
+如果定义在了那个对象类型的属性身上 会自动去spring容器中找该类型的实例对象给赋值
+</code></pre><hr>
+<h3 id="Qualifier-“userDaoxxx”"><a href="#Qualifier-“userDaoxxx”" class="headerlink" title="@Qualifier(“userDaoxxx”)"></a>@Qualifier(“userDaoxxx”)</h3><pre><code>定义在属性字段上的 指定用该类型的哪个id名称的实例对象
+注意: @Qualifier要想使用 必须结合 @Autowired 一起使用
+</code></pre><hr>
+<h3 id="Resource-name-”userDaoxxx”"><a href="#Resource-name-”userDaoxxx”" class="headerlink" title="@Resource(name=”userDaoxxx”)"></a>@Resource(name=”userDaoxxx”)</h3><pre><code>等同于：@Autowired+@Qualifier(&quot;userDaoxxx&quot;)
+</code></pre><hr>
+<h2 id="了解的注解"><a href="#了解的注解" class="headerlink" title="了解的注解:"></a>了解的注解:</h2><pre><code>@Scope(&quot;singleton&quot;或prototype)  定义在类上的 指定当前类是单实例还是多实例
+
+@PostConstruct  定义在方法上  配置初始化方法
+
+@PreDestroy     定义在方法上 配置销毁的方法
+</code></pre><hr>
+<h2 id="Spring全注解开发"><a href="#Spring全注解开发" class="headerlink" title="Spring全注解开发"></a>Spring全注解开发</h2><pre><code> @Configuration // 表示该类是一个注解类
+
+ @ComponentScan(basePackages=&quot;包名&quot;)  
+    **等于**  &lt;context:component-scan base-package=&quot;包名&quot;&gt;&lt;/context:component-scan&gt;
+
+ @PropertySource(value=&quot;classpath:jdbc.properties&quot;)
+    **等于**  &lt;context:property-placeholder location=&quot;classpath:jdbc.properties&quot;/&gt;
+
+ @Bean(name=&quot;c3p0&quot;)  
+    **等于**  &lt;bean id=&quot;c3p0&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;    
+
+获得Spring对象
+ ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class)
+</code></pre><p><em>全注解开发目前比半xml半注解开发麻烦，据说企业用的较少，所以我笔记就学到了这里</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/24/JavaWeb/servlet入门/" rel="next" title="servlet入门笔记">
+                <i class="fa fa-chevron-left"></i> servlet入门笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/19/Spring-aop/" rel="prev" title="Spring_aop">
+                Spring_aop <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="旭">
+            
+              <p class="site-author-name" itemprop="name">旭</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:799663897@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#spring的概述"><span class="nav-number">1.</span> <span class="nav-text">spring的概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IOC入门"><span class="nav-number">2.</span> <span class="nav-text">IOC入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#bean标签-指定要创建的实体类"><span class="nav-number">2.1.</span> <span class="nav-text">bean标签: 指定要创建的实体类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#import标签-导入外部的配置文件"><span class="nav-number">2.2.</span> <span class="nav-text">import标签:导入外部的配置文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DI"><span class="nav-number">3.</span> <span class="nav-text">DI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DI的使用："><span class="nav-number">4.</span> <span class="nav-text">DI的使用：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-set属性注入："><span class="nav-number">4.1.</span> <span class="nav-text">1.set属性注入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-构造器注入"><span class="nav-number">4.2.</span> <span class="nav-text">2.构造器注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-P名称空间注入"><span class="nav-number">4.3.</span> <span class="nav-text">3.P名称空间注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-复杂属性注入-map-list-等"><span class="nav-number">4.4.</span> <span class="nav-text">4.复杂属性注入:map,list[]等</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring的ioc注解入门"><span class="nav-number">5.</span> <span class="nav-text">Spring的ioc注解入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注解的开发步骤"><span class="nav-number">5.1.</span> <span class="nav-text">注解的开发步骤:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#掌握的注解"><span class="nav-number">5.2.</span> <span class="nav-text">掌握的注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Component"><span class="nav-number">5.2.1.</span> <span class="nav-text">@Component</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Controller-“bean的id值”-针对的就是web层"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">@Controller(“bean的id值”) 针对的就是web层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Service-“bean的id值”-针对的是service层"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">@Service(“bean的id值”)    针对的是service层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Repository-“bean的id值”-针对的是dao层"><span class="nav-number">5.2.1.3.</span> <span class="nav-text">@Repository(“bean的id值”) 针对的是dao层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Value-“属性值”"><span class="nav-number">5.2.2.</span> <span class="nav-text">@Value(“属性值”)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Autowired"><span class="nav-number">5.2.3.</span> <span class="nav-text">@Autowired</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Qualifier-“userDaoxxx”"><span class="nav-number">5.2.4.</span> <span class="nav-text">@Qualifier(“userDaoxxx”)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Resource-name-”userDaoxxx”"><span class="nav-number">5.2.5.</span> <span class="nav-text">@Resource(name=”userDaoxxx”)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#了解的注解"><span class="nav-number">5.3.</span> <span class="nav-text">了解的注解:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring全注解开发"><span class="nav-number">5.4.</span> <span class="nav-text">Spring全注解开发</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">旭</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

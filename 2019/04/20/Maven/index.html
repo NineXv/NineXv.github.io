@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="增强for">
+<meta name="description" content="Maven入门">
 <meta property="og:type" content="article">
-<meta property="og:title" content="增强for">
-<meta property="og:url" content="http://yoursite.com/2018/12/14/JavaSe/集合/增强for/index.html">
+<meta property="og:title" content="Maven">
+<meta property="og:url" content="http://yoursite.com/2019/04/20/Maven/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="增强for">
+<meta property="og:description" content="Maven入门">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-15T08:18:29.535Z">
+<meta property="og:updated_time" content="2019-04-21T06:40:20.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="增强for">
-<meta name="twitter:description" content="增强for">
+<meta name="twitter:title" content="Maven">
+<meta name="twitter:description" content="Maven入门">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/14/JavaSe/集合/增强for/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/20/Maven/">
 
 
 
 
 
-  <title>增强for | NineXv</title>
+  <title>Maven | NineXv</title>
   
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/14/JavaSe/集合/增强for/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/Maven/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="旭">
@@ -279,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">增强for</h1>
+          <h1 class="post-title" itemprop="name headline">Maven</h1>
         
 
         <div class="post-meta">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-14T22:41:11+08:00">
-                2018-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-20T14:38:32+08:00">
+                2019-04-20
               </time>
             
 
@@ -301,28 +301,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVASE之集合/" itemprop="url" rel="index">
-                    <span itemprop="name">JAVASE之集合</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -351,17 +329,49 @@
       
 
       
-        <h1 id="增强for"><a href="#增强for" class="headerlink" title="增强for"></a>增强for</h1><a id="more"></a>
-<p> 例：<br>  Collection coll = new ArrayList();<br>  coll.add(“abc1”);<br>  coll.add(“abc2”);<br>  coll.add(“abc3”);</p>
-<p><strong>正常for循环</strong><br>  for(Iterator it = coll.iterator();it.hasNext();)<br>  {<br>      Object obj = it.next();<br>      System,out.println(obj);<br>  }</p>
-<p><strong>增强for语句写法</strong><br>  for(Object obj : coll)<br>  {<br>     System,out.println(obj);<br>   }</p>
-<p><strong>数组同理（不使用角标的情况才会使用）</strong><br>        int[] arr = {1,2,3,4};<br>        for(int x : arr)<br>        {   syso<br>           }</p>
+        <h1 id="Maven入门"><a href="#Maven入门" class="headerlink" title="Maven入门"></a>Maven入门</h1><a id="more"></a>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><p>   1.解压Maven的压缩文件<br>   2.配置环境变量 MAVEN_HOME (将第一步解压的文件所在的路径设置进去)<br>   3.在Path变量中配置 %MAVEN_HOME%\bin<br>   以上就完成了安装，具体成功与否可以在DOS命令行中使用 mvn -n 测试   </p>
+<h2 id="MAVEN的仓库"><a href="#MAVEN的仓库" class="headerlink" title="MAVEN的仓库"></a>MAVEN的仓库</h2><p>   1.本地仓库:在setting.xml中配置，默认在${user.home}/.m2/repository中<br>   2.远程仓库(私服):公司内部局域网的仓库<br>   3.中央仓库：网络上的仓库<br>   本地-&gt;私服-&gt;中央</p>
+<p>   注：修改本地仓库默认地方，可以在setting.xml中复制<localrepository>/path/to/local/repo</localrepository>并修改中间的路径即可</p>
+<h2 id="MAVEN项目的目录结构"><a href="#MAVEN项目的目录结构" class="headerlink" title="MAVEN项目的目录结构"></a>MAVEN项目的目录结构</h2><p>   src/main/java        核心代码部分<br>   src/main/resources   配置文件部分<br>   src/test/java        测试代码部分<br>   src/test/resources   测试配置文件<br>   src/main/webapp      前端页面资源</p>
+<h2 id="MAVEN常用命令"><a href="#MAVEN常用命令" class="headerlink" title="MAVEN常用命令"></a>MAVEN常用命令</h2><p>   <strong>MAVEN的默认生命周期</strong><br>   mvn conplie  将核心代码部分编译到target文件下的classes中<br>   mvn test     将所有(核心+测试)代码编译到target文件<br>   mvn package  将项目编译并打成war包到target文件<br>   mvn install  将项目编译并打成war包到target文件，然后安装到本地仓库<br>   mvn deploy   发布</p>
+<p>   mvn clean    清除target文件</p>
+<p>   tomcat:run   启动tomcat</p>
+<h2 id="pom-xml的信息"><a href="#pom-xml的信息" class="headerlink" title="pom.xml的信息"></a>pom.xml的信息</h2><p>   <strong>项目自身信息</strong></p>
+<p>   <strong>项目运行所依赖的jar包信息</strong>(Dependency)<br>    <dependency><br>        <groupld> 公司组织的名称 </groupld><br>        <artifactld> 项目名 </artifactld><br>        <version> 版本号 </version><br>    </dependency></p>
+<p>   <strong>项目运行环境信息</strong>，比如:jdk,tomcat信息</p>
 <hr>
-<p>  格式： for(元素类型变量 ：Collection容器or数组）<br>         {<br>            }<br>  区别：增强for必须有被遍历的目标，该目标只能是Collection或数组<br>  缺陷：只可以提取，不可以修改</p>
-<hr>
-<p>如果是Map集合怎么办？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer,String&gt; hm = new HashMap&lt;Integer,String&gt;();</span><br><span class="line">hm.put(1,&quot;a&quot;);</span><br><span class="line">hm.put(2,&quot;b&quot;);</span><br><span class="line">hm.put(3,&quot;c&quot;);</span><br><span class="line">Set&lt;Integer&gt; keySet = hm.keySet();</span><br><span class="line">for(Integer i = keySet)</span><br><span class="line">&#123;</span><br><span class="line">    syso(i+hm.get(i));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for(Map.Entry&lt;Integer,String&gt; me : hm.entrySet())</span><br><span class="line">&#123;</span><br><span class="line">    syso(me.getKey()+me.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
+<h1 id="IDEA集成Maven"><a href="#IDEA集成Maven" class="headerlink" title="IDEA集成Maven"></a>IDEA集成Maven</h1><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>   setting –&gt; 搜索Maven –&gt; 修改默认的配置为自己本机的maven路径即可</p>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><pre><code>1.java项目
+ 选择Maven，可以选择骨架 quickjava，也可以直接不选骨架
 
+2.javaweb项目
+ 选择Maven，可以选择骨架 webapp
+</code></pre><h1 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h1><h2 id="问题一："><a href="#问题一：" class="headerlink" title="问题一："></a>问题一：</h2><pre><code>首先，我想用maven启动tomcat运行我的一个项目，却出现了ClassCastException
+**原因**：在pom.xml中导包和在tomcat自带的lib文件中的包产生了冲突
+
+**解决方案**：使用 &lt;scope&gt;provided&lt;scope&gt;标签，使其在打包的时候不打包进去。
+</code></pre><h2 id="问题二：tomcat的版本问题"><a href="#问题二：tomcat的版本问题" class="headerlink" title="问题二：tomcat的版本问题"></a>问题二：tomcat的版本问题</h2><pre><code>org.apache.jasper.JasperException: Unable to compile class for JSP 
+这个问题的原因是因为我是用的事jdk1.8，
+而maven默认使用的是tomcat6，6是不支持1.8版本的
+
+**解决方法**：
+在&lt;bulid&gt;&lt;/bulid&gt;里边添加
+&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+  &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;2.2&lt;/version&gt;
+&lt;/plugin&gt;
+此时使用tomcat7:run命令就可以了
+</code></pre><h2 id="scope详解"><a href="#scope详解" class="headerlink" title="scope详解"></a>scope详解</h2><h3 id="scope的分类"><a href="#scope的分类" class="headerlink" title="scope的分类"></a>scope的分类</h3><p> 1.compile：默认值 他表示被依赖项目需要参与当前项目的编译，还有后续的测试，运行周期也参与其中，是一个比较强的依赖。打包的时候通常需要包含进去</p>
+<p> 2.test：依赖项目仅仅参与测试相关的工作，包括测试代码的编译和执行，不会被打包，例如：junit</p>
+<p> 3.runtime：表示被依赖项目无需参与项目的编译，不过后期的测试和运行周期需要其参与。与compile相比，跳过了编译而已。例如JDBC驱动，适用运行和测试阶段</p>
+<p> 4.provided：打包的时候可以不用包进去，别的设施会提供。事实上该依赖理论上可以参与编译，测试，运行等周期。相当于compile，但是打包阶段做了exclude操作</p>
+<p> 5.system：从参与度来说，和provided相同，不过被依赖项不会从maven仓库下载，而是从本地文件系统拿。需要添加systemPath的属性来定义路径</p>
+<h3 id="scope的依赖传递"><a href="#scope的依赖传递" class="headerlink" title="scope的依赖传递"></a>scope的依赖传递</h3><pre><code>A依赖B，B依赖C。当前项目为A，只当B在A项目中的scope，那么c在A中的scope是如何得知呢？
+当C是test或者provided时，C直接被丢弃，A不依赖C；（排除传递依赖）
+否则A依赖C，C的scope继承与B的scope
+</code></pre>
       
     </div>
     
@@ -385,8 +395,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/14/JavaSe/集合/Set/" rel="next" title="Set">
-                <i class="fa fa-chevron-left"></i> Set
+              <a href="/2019/04/19/Spring-aop/" rel="next" title="Spring_aop">
+                <i class="fa fa-chevron-left"></i> Spring_aop
               </a>
             
           </div>
@@ -395,8 +405,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/12/14/JavaSe/集合/迭代器/" rel="prev" title="迭代器">
-                迭代器 <i class="fa fa-chevron-right"></i>
+              <a href="/2029/04/15/置顶/" rel="prev" title="瞧瞧你发现了什么">
+                瞧瞧你发现了什么 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -532,7 +542,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#增强for"><span class="nav-number">1.</span> <span class="nav-text">增强for</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Maven入门"><span class="nav-number">1.</span> <span class="nav-text">Maven入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装步骤"><span class="nav-number">1.1.</span> <span class="nav-text">安装步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAVEN的仓库"><span class="nav-number">1.2.</span> <span class="nav-text">MAVEN的仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAVEN项目的目录结构"><span class="nav-number">1.3.</span> <span class="nav-text">MAVEN项目的目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MAVEN常用命令"><span class="nav-number">1.4.</span> <span class="nav-text">MAVEN常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pom-xml的信息"><span class="nav-number">1.5.</span> <span class="nav-text">pom.xml的信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IDEA集成Maven"><span class="nav-number">2.</span> <span class="nav-text">IDEA集成Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">2.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建项目"><span class="nav-number">2.2.</span> <span class="nav-text">创建项目</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#出现的问题"><span class="nav-number">3.</span> <span class="nav-text">出现的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题一："><span class="nav-number">3.1.</span> <span class="nav-text">问题一：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题二：tomcat的版本问题"><span class="nav-number">3.2.</span> <span class="nav-text">问题二：tomcat的版本问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scope详解"><span class="nav-number">3.3.</span> <span class="nav-text">scope详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#scope的分类"><span class="nav-number">3.3.1.</span> <span class="nav-text">scope的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scope的依赖传递"><span class="nav-number">3.3.2.</span> <span class="nav-text">scope的依赖传递</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

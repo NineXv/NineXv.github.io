@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="事务管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring事务">
+<meta property="og:url" content="http://yoursite.com/2019/04/26/Spring事务/index.html">
+<meta property="og:site_name" content="NineXv">
+<meta property="og:description" content="事务管理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-26T05:57:42.024Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring事务">
+<meta name="twitter:description" content="事务管理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/26/Spring事务/">
+
+
+
+
+
+  <title>Spring事务 | NineXv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NineXv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/Spring事务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="旭">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring事务</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-26T13:39:05+08:00">
+                2019-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h1><a id="more"></a>
+<h2 id="事务回顾："><a href="#事务回顾：" class="headerlink" title="事务回顾："></a>事务回顾：</h2><pre><code>原子性：要么全成功，要么全失败
+一致性：事务前后，数据总数不变
+隔离性：事务隔离，避免脏读，重复读等等
+持久性：只要事务完成，数据就会持久化到数据库中
+</code></pre><h3 id="事务问题"><a href="#事务问题" class="headerlink" title="事务问题"></a>事务问题</h3><pre><code>脏读（必须杜绝）：在一个事务中，读取到了另一个事务还没有提交的数据
+重复读（可以允许）：一个事务，两次读取到的数据内容不同(update)
+虚读（可以允许）：一个事务，两次读取的数据不同(insert)
+</code></pre><h2 id="回顾：硬编码方式"><a href="#回顾：硬编码方式" class="headerlink" title="回顾：硬编码方式"></a>回顾：硬编码方式</h2><pre><code>setAutoConmmit(false):取消自动提交
+commit():提交事务
+rollback():回滚事务    
+</code></pre><hr>
+<h1 id="Spring事务"><a href="#Spring事务" class="headerlink" title="Spring事务"></a>Spring事务</h1><p>  Spring已经给我们封装好了事务管理，以往我们使用的是硬编码方式，<br>  然而实际开发中很少这么使用，但是为了理解xml和注解方式，还是需要了解</p>
+<h2 id="硬编码-api"><a href="#硬编码-api" class="headerlink" title="硬编码(api)"></a>硬编码(api)</h2><p>   1.接口：PlatformTransactionManager:平台事务管理器(封装事务的方法)<br>       —-实现类：DataSourceTransactionManager<br>               dbutils,jdbcTempalte 使用DataSourceTransactionManager</p>
+<pre><code>   ----实现类：HibernateTransactionManager
+           hibernate 使用HibernateTransactionManager
+
+2.TransactionDefinition:事务的定义信息对象
+      设定/获取：事务的隔离级别(默认获取的就是数据库的隔离级别)
+
+                 事务的超时时间(默认 time = -1  永不超时)
+
+                 事务的是否只读(默认 rederOnly = false 可以做任何的CRUD操作)
+
+                 事务的传播行为(解决：事务嵌套事务的问题)
+                    应用场景：A方法中有事务，B方法也有事务
+                        问：用谁的事务？？？
+                            REQUIRED(默认值):让所有方法在一个事务中                            
+                                a方法调用b方法，b先看看a有没有事务，
+                                如果a没有事务，就为a创建一个事务，然后加入a中，
+                                如果a有事务，就放弃自己的事务，然后加入a中。
+                            SUPPORT:查看当前是否有事务，如果有事务就使用当前的事务，如果没事务就使用非事务。
+                                a方法调用b方法,b先看看a有没有事务，
+                                如果a有事务，加入到a。
+                                如果a没事务，全部放弃事务，使用非事务。
+
+3.TransactionStatus 运行状态对象
+    查看事务的运行状态
+    查看事务当前是否完成
+    查看是否为新的事务
+    查看是否回滚.....
+</code></pre><hr>
+<h1 id="Spring声明式事务"><a href="#Spring声明式事务" class="headerlink" title="Spring声明式事务"></a>Spring声明式事务</h1><p>   配置文件的方式–xml方式<br>   接下来就要使用xml配置的方式来使用事务了</p>
+<h2 id="导包"><a href="#导包" class="headerlink" title="导包"></a>导包</h2><pre><code>spring-tx.jar
+以及AOP联盟
+spring-aop.jar
+aspectj.jar
+spring-aspects.jar
+</code></pre><h2 id="applicationContext-xml的配置如下"><a href="#applicationContext-xml的配置如下" class="headerlink" title="applicationContext.xml的配置如下"></a>applicationContext.xml的配置如下</h2><pre><code>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+       xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop.xsd
+         http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx.xsd&quot;&gt;
+
+    &lt;context:property-placeholder location=&quot;classpath:jdbc.properties&quot;/&gt;
+
+    &lt;!--c3p0:--&gt;
+    &lt;bean id=&quot;c3p0&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
+        &lt;property name=&quot;driverClass&quot; value=&quot;${jdbc.driver}&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;jdbcUrl&quot; value=&quot;${jdbc.url}&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;user&quot; value=&quot;${jdbc.username}&quot;&gt;&lt;/property&gt;
+        &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+
+    &lt;!--Spring配置jdbcTemplate --&gt;
+    &lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;c3p0&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置bean--&gt;
+    &lt;bean id=&quot;dao&quot; class=&quot;test.daoTest&quot;&gt;
+        &lt;property name=&quot;jdbcTemplate&quot; ref=&quot;jdbcTemplate&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;service&quot; class=&quot;test.serviceTest&quot;&gt;
+        &lt;property name=&quot;dao&quot; ref=&quot;dao&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置事务管理器--&gt;
+    &lt;bean id=&quot;transaction&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;c3p0&quot;&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;tx:advice transaction-manager=&quot;transaction&quot; id=&quot;txadvice&quot;&gt;
+        &lt;tx:attributes&gt;
+            &lt;tx:method name=&quot;*&quot;/&gt;
+        &lt;/tx:attributes&gt;
+    &lt;/tx:advice&gt;
+
+    &lt;!--织入--&gt;
+    &lt;aop:config&gt;
+        &lt;aop:pointcut id=&quot;point&quot; expression=&quot;execution(public void test.serviceTest.*(..))&quot;/&gt;
+        &lt;aop:advisor advice-ref=&quot;txadvice&quot; pointcut-ref=&quot;point&quot;/&gt;
+    &lt;/aop:config&gt;
+
+&lt;/beans&gt;
+</code></pre><h2 id="写在最后的心得体会"><a href="#写在最后的心得体会" class="headerlink" title="写在最后的心得体会"></a>写在最后的心得体会</h2><p>   以上是我的测试内容及结果，实际上遇到了很多问题<br>   特意记录在此：<br>   首先，java动态代理需要一个被代理类所实现的接口类，<br>    Proxy始终无法摆脱仅支持 interface 代理的桎梏，<br>    因为它的设计注定了这个遗憾。<br>    java 的继承机制注定了这些动态代理类们无法实现对 class 的动态代理，<br>    原因是多继承在 Java 中本质上就行不通。</p>
+<p>   而Spring的事务实际上就是<br>   spring 在启动的时候会去解析生成相关的bean，这时候会查看拥有相关注解的类和方法，并且为这些类和方法生成代理，</p>
+<h2 id="并根据相关参数进行相关配置注入，这样就在代理中为我们把相关的事务处理掉了（开启正常提交事务，异常回滚事务）"><a href="#并根据相关参数进行相关配置注入，这样就在代理中为我们把相关的事务处理掉了（开启正常提交事务，异常回滚事务）" class="headerlink" title="   并根据相关参数进行相关配置注入，这样就在代理中为我们把相关的事务处理掉了（开启正常提交事务，异常回滚事务）"></a>   并根据相关参数进行相关配置注入，这样就在代理中为我们把相关的事务处理掉了（开启正常提交事务，异常回滚事务）</h2><p><strong>总结</strong><br>    实际上<!--配置事务管理器-->就是为了在Spring容器中创建一个切面类的对象，<br>    然后对象中有关于事务的各种方法(例如开启事务，回滚等)，然后Spring会为目标类动态代理出一个代理类，<br>    这个代理类的各种通知就是一个try,catch的过程，所以就完成了我们在以往所硬编码实现的事务功能。<br>    所以我之所以之前产生了很多问题的原因就是因为我对于AOP思想还是似懂非懂，经此一役，希望自己能够融会贯通。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/20/Spring/Maven/" rel="next" title="Maven">
+                <i class="fa fa-chevron-left"></i> Maven
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2029/04/15/置顶/" rel="prev" title="瞧瞧你发现了什么">
+                瞧瞧你发现了什么 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="旭">
+            
+              <p class="site-author-name" itemprop="name">旭</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:799663897@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#事务管理"><span class="nav-number">1.</span> <span class="nav-text">事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务回顾："><span class="nav-number">1.1.</span> <span class="nav-text">事务回顾：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">事务问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾：硬编码方式"><span class="nav-number">1.2.</span> <span class="nav-text">回顾：硬编码方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring事务"><span class="nav-number">2.</span> <span class="nav-text">Spring事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬编码-api"><span class="nav-number">2.1.</span> <span class="nav-text">硬编码(api)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring声明式事务"><span class="nav-number">3.</span> <span class="nav-text">Spring声明式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导包"><span class="nav-number">3.1.</span> <span class="nav-text">导包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#applicationContext-xml的配置如下"><span class="nav-number">3.2.</span> <span class="nav-text">applicationContext.xml的配置如下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后的心得体会"><span class="nav-number">3.3.</span> <span class="nav-text">写在最后的心得体会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并根据相关参数进行相关配置注入，这样就在代理中为我们把相关的事务处理掉了（开启正常提交事务，异常回滚事务）"><span class="nav-number">3.4.</span> <span class="nav-text">   并根据相关参数进行相关配置注入，这样就在代理中为我们把相关的事务处理掉了（开启正常提交事务，异常回滚事务）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">旭</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

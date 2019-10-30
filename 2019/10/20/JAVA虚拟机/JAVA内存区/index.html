@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="内存区域 方法区：(共享)存储加载的类信息，常量，静态常量等。         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生) 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。 本地方法栈：Native方法。和虚拟机栈其他相同。 堆：(共享)存放对象实例。GC主要处理区域。 程序计数器：(线程私有)当前线程所执行的字节码的行号指示">
+<meta name="description" content="内存区域">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA内存区">
 <meta property="og:url" content="http://yoursite.com/2019/10/20/JAVA虚拟机/JAVA内存区/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="内存区域 方法区：(共享)存储加载的类信息，常量，静态常量等。         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生) 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。 本地方法栈：Native方法。和虚拟机栈其他相同。 堆：(共享)存放对象实例。GC主要处理区域。 程序计数器：(线程私有)当前线程所执行的字节码的行号指示">
+<meta property="og:description" content="内存区域">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-29T08:04:09.072Z">
+<meta property="og:updated_time" content="2019-10-30T11:41:23.650Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA内存区">
-<meta name="twitter:description" content="内存区域 方法区：(共享)存储加载的类信息，常量，静态常量等。         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生) 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。 本地方法栈：Native方法。和虚拟机栈其他相同。 堆：(共享)存放对象实例。GC主要处理区域。 程序计数器：(线程私有)当前线程所执行的字节码的行号指示">
+<meta name="twitter:description" content="内存区域">
 
 
 
@@ -341,7 +341,8 @@
       
 
       
-        <h1 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h1><p> 方法区：(共享)存储加载的类信息，常量，静态常量等。<br>         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生)<br> 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。<br> 本地方法栈：Native方法。和虚拟机栈其他相同。<br> 堆：(共享)存放对象实例。GC主要处理区域。<br> 程序计数器：(线程私有)当前线程所执行的字节码的行号指示器。<br>              如果线程正在执行JAVA方法，计数器记录的是正在执行的虚拟机字节码指令的地址</p>
+        <h1 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h1><a id="more"></a>
+<p> 方法区：(共享)存储加载的类信息，常量，静态常量等。<br>         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生)<br> 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。<br> 本地方法栈：Native方法。和虚拟机栈其他相同。<br> 堆：(共享)存放对象实例。GC主要处理区域。<br> 程序计数器：(线程私有)当前线程所执行的字节码的行号指示器。<br>              如果线程正在执行JAVA方法，计数器记录的是正在执行的虚拟机字节码指令的地址</p>
 <h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><p>JVM中的堆，一般分为三大部分：新生代、老年代、永久代：</p>
 <h2 id="一-新生代"><a href="#一-新生代" class="headerlink" title="一.新生代"></a>一.新生代</h2><p>   主要是用来存放新生的对象。一般占据堆的1/3空间。<br>   由于频繁创建对象，所以新生代会频繁触发MinorGC进行垃圾回收。</p>
 <ul>

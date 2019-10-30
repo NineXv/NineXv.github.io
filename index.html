@@ -462,45 +462,14 @@
 
       
         
-          
-            <h1 id="JAVA垃圾收集器"><a href="#JAVA垃圾收集器" class="headerlink" title="JAVA垃圾收集器"></a>JAVA垃圾收集器</h1><h2 id="如何判断对象已死？"><a href="#如何判断对象已死？" class="headerlink" title="如何判断对象已死？"></a>如何判断对象已死？</h2><h3 id="1-引用计数算法"><a href="#1-引用计数算法" class="headerlink" title="1.引用计数算法"></a>1.引用计数算法</h3><pre><code>给对象添加一个引用计数器，每当有一个地方引用它时，计数器就+1，当引用失效，计数器就-1。为0就死。
-</code></pre><p>  <em>弊端：无法解决对象的相互循环引用的问题
-  </em>问题代码如下<br>    public class RGC {<br>    public Object instance = null;<br>    private static final int _1MB =1024<em>1024;<br>    private byte[] bigSize = new byte[2 </em> _1MB];<br>    public static void main(String[] args){<br>        RGC oA = new RGC();<br>        RGC oB = new RGC();<br>        oA.instance = oB;<br>        oB.instance = oA;<br>        oA = null;<br>        oB = null;<br>        System.gc();<br>    }<br>}//实际上两个对象都不能再被访问了，但是因为他们相互引用着对方，所以两个引用计数都不为0，就无法GC。</p>
-<h3 id="2-可达性分析算法"><a href="#2-可达性分析算法" class="headerlink" title="2.可达性分析算法"></a>2.可达性分析算法</h3><pre><code>以一系列称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索
-搜索所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连
-就说明该对象可回收。
---书64页--
-</code></pre><p>  **关于finalize方法<br>    如果对象有finalize方法，那么在被GC处理之前会执行一次，注意，一个finalize方法只会被执行一次，如果方法响应时间过长会被认为执行失败，如果在执行后，让对象本身有了被引用，就可以逃过被GC处理的命运。</p>
-<h2 id="什么是对象的引用？"><a href="#什么是对象的引用？" class="headerlink" title="什么是对象的引用？"></a>什么是对象的引用？</h2><p> 最初，JAVA中的引用定义是：如果reference类型的数据中存储的数值代表的是另外一块内存的起始地址就称这块内存代表一个引用。<br> 但是有些对象，食之无味弃之可惜，如果内存空间还多，其实没必要抛弃。<br> 所以JDK1.2以后更新了新的引用概念：<br> 引入了强引用、软引用、弱引用、虚引用这四个概念</p>
-<p>*1.强引用（StrongReference）<br>    强引用不会被GC回收，并且在java.lang.ref里也没有实际的对应类型。<br>     举例：Object obj = new Object();</p>
-<p>*2.软引用（SoftReference）<br>    软引用在JVM快要发生内存溢出异常时才会被GC回收，否则不会回收。<br>    正是由于这种特性软引用在caching和pooling中用处广泛。<br>     软引用的用法：Object obj = new Object();<br>                   SoftReference<object> softRef = new SoftReference(obj);<br>                   // 使用 softRef.get() 获取软引用所引用的对象<br>                   Object objg = softRef.get();</object></p>
-<p>*3.弱引用（WeakReference）<br>    弱引用也是用来描述非必需对象的。但是强度比软引用更弱。<br>    被弱引用关联的对象只能存活到下一次垃圾收集发生之前。</p>
-<p>*4.虚引用（PhantomReference）<br>    最弱的引用。一个对象有没有虚引用，完全不影响其生存时间。<br>    当GC一但发现了虚引用对象，将会将PhantomReference对象插入ReferenceQueue队列，<br>    而此时PhantomReference所指向的对象并没有被GC回收，要等到ReferenceQueue被你真正的处理后才会被回收。<br>    举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Object obj = new Object();</span><br><span class="line">ReferenceQueue&lt;Object&gt; refQueue = new ReferenceQueue&lt;Object&gt;();</span><br><span class="line">PhantomReference&lt;Object&gt; phanRef = new PhantomReference&lt;Object&gt;(obj, refQueue);</span><br><span class="line">// 调用phanRef.get()不管在什么情况下会一直返回null</span><br><span class="line">Object objg = phanRef.get();</span><br><span class="line">// 如果obj被置为null，当GC发现了虚引用，GC会将phanRef插入进我们之前创建时传入的refQueue队列</span><br><span class="line">// 注意，此时phanRef所引用的obj对象，并没有被GC回收，在我们显式地调用refQueue.poll返回phanRef之后</span><br><span class="line">// 当GC第二次发现虚引用，而此时JVM将phanRef插入到refQueue会插入失败，此时GC才会对obj进行回收</span><br><span class="line">Reference&lt;? extends Object&gt; phanRefP = refQueue.poll();</span><br></pre></td></tr></table></figure></p>
-<h2 id="各种垃圾收集算法的思想及分代收集"><a href="#各种垃圾收集算法的思想及分代收集" class="headerlink" title="各种垃圾收集算法的思想及分代收集"></a>各种垃圾收集算法的思想及分代收集</h2><p>《深入了解JAVA虚拟机》p69页</p>
-<p>一.标记-清除算法<br>   最基础的算法，先标记好需要回收的对象，然后回收。<br>   *不足：效率太低，并且容易产生不连续碎片。</p>
-<p>二.复制算法<br>   (新生代常用算法)<br>   思想：将内存分为两块，每次只使用其中一块，当进行回收时，将存活对象复制到另一块，然后把原本一块全部清理<br>      *优点：没有内存碎片，按顺序分配内存，实现简单，运行高效。</p>
-<pre><code>*缺点：太浪费内存，并且如果对象成活率较高，效率就会变低。
-</code></pre><p>   –<br>  补充： 目前商业虚拟机最常用的就是复制算法。并且实际上新生代并不是1:1划分，而是较大的Eden空间和两块较小的Survivor空间，因为根据统计，实际上新生代的对象98%都是朝生夕死。HotSpot虚拟机默认Eden和Survivor大小比例8:1，也就是说新生代中每次可用内存空间为整个新生代容量的90%，当然如果Survivor不够用就会使用老年代分配担保。</p>
-<p>三.标记-整理算法<br>   (老年代内存存活极高，所以不适合复制算法，就可以使用标记-整理)<br>   思想：先标记，然后让所有存活对象向一端移动，然后直接清理掉端边界以外的内存。</p>
-<h2 id="OopMap"><a href="#OopMap" class="headerlink" title="OopMap"></a>OopMap</h2><pre><code>在正式的GC之前，要进行可达性分析来标记出将来可能要宣告死亡的对象。如果每次GC的时候都要遍历所有的引用，这样的工作量是非常大的。因为在可达性分析的时候要保证期间不发生引用关系的变化，所有执行线程要停顿等待，称为“Stop The World”，程序中的线程需要停止来配合可达性分析。
-</code></pre><p>  所以，每次直接遍历整个引用链肯定是不现实的。<br>  为了应对这种尴尬的问题，最早有保守式GC和后来的准确式GC。</p>
-<h2 id="这里准确式GC就会提到一个OopMap，用来保存类型的映射表。"><a href="#这里准确式GC就会提到一个OopMap，用来保存类型的映射表。" class="headerlink" title="  这里准确式GC就会提到一个OopMap，用来保存类型的映射表。"></a>  这里准确式GC就会提到一个OopMap，用来保存类型的映射表。</h2><h3 id="保守式GC"><a href="#保守式GC" class="headerlink" title="保守式GC"></a>保守式GC</h3><pre><code>在进行GC的时候，会从一些已知的位置（GC Roots）开始扫描内存，扫描到一个数字就判断他是不是可能是指向GC堆中的一个指针（这里会涉及上下边界检查（GC堆的上下界是已知的）、对齐检查（通常分配空间的时候会有对齐要求，假如说是4字节对齐，那么不能被4整除的数字就肯定不是指针），之类的。）。然后一直递归的扫描下去，最后完成可达性分析。这种模糊的判断方法因为无法准确判断一个位置上是否是真的指向GC堆中的指针，所以被命名为保守式GC。
-</code></pre><p> 这种可达性分析的方式因为不需要准确的判断出一个指针，所以效率快，但是也正因为这种特点，他存在下面两个明显的缺点：<br>  1.因为是模糊的检查，所以对于一些已经死掉的对象，很可能会被误认为仍有地方引用他们，GC也就自然不会回收他们，从而引起了无用的内存占用，造成资源浪费。</p>
-<h2 id="2-由于不知道疑似指针是否真的是指针，所以它们的值都不能改写；移动对象就意味着要修正指针。换言之，对象就不可移动了。有一种办法可以在使用保守式GC的同时支持对象的移动，那就是增加一个间接层，不直接通过指针来实现引用，而是添加一层“句柄”（handle）在中间，所有引用先指到一个句柄表里，再从句柄表找到实际对象。这样，要移动对象的话，只要修改句柄表里的内容即可。但是这样的话引用的访问速度就降低了。Sun-JDK的Classic-VM用过这种全handle的设计，但效果实在算不上好。"><a href="#2-由于不知道疑似指针是否真的是指针，所以它们的值都不能改写；移动对象就意味着要修正指针。换言之，对象就不可移动了。有一种办法可以在使用保守式GC的同时支持对象的移动，那就是增加一个间接层，不直接通过指针来实现引用，而是添加一层“句柄”（handle）在中间，所有引用先指到一个句柄表里，再从句柄表找到实际对象。这样，要移动对象的话，只要修改句柄表里的内容即可。但是这样的话引用的访问速度就降低了。Sun-JDK的Classic-VM用过这种全handle的设计，但效果实在算不上好。" class="headerlink" title="  2.由于不知道疑似指针是否真的是指针，所以它们的值都不能改写；移动对象就意味着要修正指针。换言之，对象就不可移动了。有一种办法可以在使用保守式GC的同时支持对象的移动，那就是增加一个间接层，不直接通过指针来实现引用，而是添加一层“句柄”（handle）在中间，所有引用先指到一个句柄表里，再从句柄表找到实际对象。这样，要移动对象的话，只要修改句柄表里的内容即可。但是这样的话引用的访问速度就降低了。Sun JDK的Classic VM用过这种全handle的设计，但效果实在算不上好。"></a>  2.由于不知道疑似指针是否真的是指针，所以它们的值都不能改写；移动对象就意味着要修正指针。换言之，对象就不可移动了。有一种办法可以在使用保守式GC的同时支持对象的移动，那就是增加一个间接层，不直接通过指针来实现引用，而是添加一层“句柄”（handle）在中间，所有引用先指到一个句柄表里，再从句柄表找到实际对象。这样，要移动对象的话，只要修改句柄表里的内容即可。但是这样的话引用的访问速度就降低了。Sun JDK的Classic VM用过这种全handle的设计，但效果实在算不上好。</h2><h3 id="准确式GC"><a href="#准确式GC" class="headerlink" title="准确式GC"></a>准确式GC</h3><p>   与保守式GC相对的就是准确式GC，何为准确式GC？就是我们准确的知道，某个位置上面是否是指针，对于java来说，就是知道对于某个位置上的数据是什么类型的，这样就可以判断出所有的位置上的数据是不是指向GC堆的引用，包括栈和寄存器里的数据。<br>   网上看了下说是实现这种要求的方法有好几种，但是在java中实现的方式是：从外部记录下类型信息，存成映射表，在HotSpot中把这种映射表称之为OopMap，不同的虚拟机名称可能不一样。</p>
-<p>   实现这种功能，需要虚拟机的解释器和JIT编译器支持，由他们来生成OopMap。生成这样的映射表一般有两种方式</p>
-<p>   1.每次都遍历原始的映射表，循环的一个个偏移量扫描过去；这种用法也叫“解释式”；<br>   2.为每个映射表生成一块定制的扫描代码（想像扫描映射表的循环被展开的样子），<br>     以后每次要用映射表就直接执行生成的扫描代码；这种用法也叫“编译式”。</p>
-<h2 id="总而言之，GC停顿的时候，虚拟机可以通过OopMap这样的一个映射表知道，在对象内的什么偏移量上是什么类型的数据，而且特定的位置记录着栈和寄存器中哪些位置是引用。"><a href="#总而言之，GC停顿的时候，虚拟机可以通过OopMap这样的一个映射表知道，在对象内的什么偏移量上是什么类型的数据，而且特定的位置记录着栈和寄存器中哪些位置是引用。" class="headerlink" title="总而言之，GC停顿的时候，虚拟机可以通过OopMap这样的一个映射表知道，在对象内的什么偏移量上是什么类型的数据，而且特定的位置记录着栈和寄存器中哪些位置是引用。"></a>总而言之，GC停顿的时候，虚拟机可以通过OopMap这样的一个映射表知道，在对象内的什么偏移量上是什么类型的数据，而且特定的位置记录着栈和寄存器中哪些位置是引用。</h2><h3 id="安全点"><a href="#安全点" class="headerlink" title="安全点"></a>安全点</h3><pre><code>OOPmap不可能每一条指令都有，而是每隔一段才有一个OOPMap，所以GC什么时候运行就需要在特定的点上。
-而且这个时间不能太长也不能太短，所以安全点的选取是以程序“是否具有让程序长时间执行的特征”为标准
-(因为每条指令执行的时间都非常短暂)，“长时间执行”最明显的就是指令序列复用，
-例如：方法调用，循环跳转，异常跳转等。
-</code></pre><h4 id="如何让线程稳定的停在安全点上呢？？？"><a href="#如何让线程稳定的停在安全点上呢？？？" class="headerlink" title="如何让线程稳定的停在安全点上呢？？？"></a>如何让线程稳定的停在安全点上呢？？？</h4><pre><code>两种方案：
-    1.抢先式中断(没有虚拟机使用这个方法)：让线程直接停止，如果没有到点，就让它跑到安全点上。
-    2.主动式中断：设置一个标志，当线程主动轮询这个标志，发现为真就自己中断，标志轮询的点和安全点是重合的。               
-</code></pre><h4 id="如果线程并没有正在执行，该怎么停到安全点呢？"><a href="#如果线程并没有正在执行，该怎么停到安全点呢？" class="headerlink" title="如果线程并没有正在执行，该怎么停到安全点呢？"></a>如果线程并没有正在执行，该怎么停到安全点呢？</h4><pre><code>*Safe Region：安全区域：在一段代码片段中，引用关系不会发生变化。
- 在线程执行到安全区域中的代码时，首先表示自己已经进入了安全区域，当那段时间里，GC就不会管这个线程。
- 在线程要离开安全区域时，要先检查系统是否完成了GC过程，如果完成，线程继续执行。
-</code></pre>
-          
+          <h1 id="JAVA垃圾收集器"><a href="#JAVA垃圾收集器" class="headerlink" title="JAVA垃圾收集器"></a>JAVA垃圾收集器</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/21/JAVA虚拟机/JAVA垃圾收集器/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -639,32 +608,14 @@
 
       
         
-          
-            <h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1><p> Class类文件是一组以8字节为基础单位的二进制流。当需要占用8位字节以上空间的数据项时，会按照高位在前的方式分割成若干个8位字节进行存储。</p>
-<h2 id="数据类型：无符号数和表"><a href="#数据类型：无符号数和表" class="headerlink" title="数据类型：无符号数和表"></a>数据类型：无符号数和表</h2><h2 id="一-头4个字节-魔数"><a href="#一-头4个字节-魔数" class="headerlink" title="一.(头4个字节)魔数"></a>一.(头4个字节)魔数</h2><p>  用来确定文件类型。<br>  Class文件魔数：(头4个字节)0xCAFEBABE:咖啡宝贝</p>
-<h2 id="二-4个字节-版本号"><a href="#二-4个字节-版本号" class="headerlink" title="二.(4个字节)版本号"></a>二.(4个字节)版本号</h2><p>  前两个字节是次版本号，后两个字节是主版本号。<br>  版本号从十进制的45开始，每代JDK版本升一级就+1。</p>
-<h2 id="三-常量池"><a href="#三-常量池" class="headerlink" title="三.常量池"></a>三.常量池</h2><p>–常量池容量计数器:常量池入口有一项u2类型的数据（从1开始计数的）<br>        从1开始计数的原因：0空出来，因为某些指向常量池的索引值的数据在特定情况下需要表达“不引用任何一个常量池项目”的含义<br>–常量池主要存放：字面量和符号引用<br>            <em>字面量：类似于常量概念，如文本字符串，声明为final的常量值等。
-            </em>符号引用：编译原理的概念。<br>                     1.类和接口的全限定名。<br>                     2.字段的名称和描述符。<br>                     3.方法的名称和描述符。            </p>
-<h2 id="四-访问标志"><a href="#四-访问标志" class="headerlink" title="四.访问标志"></a>四.访问标志</h2><pre><code>用于识别一些类或者接口层次的访问信息。(如：是类或接口？是否public？等等)                     
-</code></pre><h2 id="五-类索引，父类索引，接口索引"><a href="#五-类索引，父类索引，接口索引" class="headerlink" title="五.类索引，父类索引，接口索引"></a>五.类索引，父类索引，接口索引</h2><pre><code>类索引和父类索引是u2类型的数据，接口索引是u2类型的数据集合。
-</code></pre><h2 id="六-字段表集合"><a href="#六-字段表集合" class="headerlink" title="六.字段表集合"></a>六.字段表集合</h2><pre><code>字段表用于描述接口或者类中声明的变量。(包括类级变量和示例级变量，但不包括方法内部的局部变量)
-</code></pre><h2 id="七-方法表集合"><a href="#七-方法表集合" class="headerlink" title="七.方法表集合"></a>七.方法表集合</h2><pre><code>方法表描述方法的。
-</code></pre><h2 id="八-属性表"><a href="#八-属性表" class="headerlink" title="八.属性表"></a>八.属性表</h2><pre><code>1.Code属性：方法体代码经过编译器处理后最终变为字节码指令存储在Code属性内。
-            (注意：接口和抽象类中的方法并不在Code属性中)
-2.Exceptions属性：列举处方法中可能抛出的受查异常(也就是方法描述时在throws后边列举的异常)
-3.LineNumberTable属性：描述Java源码行号与字节码行号之间的对应关系。
-4.LocalVariableTable属性：描述栈帧中局部变量表中的变量与Java源码中定义的变量之间的关系。
-5.SourceFile属性：记录生成这个Class文件的源码文件名称。
-6.ConstantValue属性：通知虚拟机自动为静态变量赋值。
-7.InnerClasses属性：记录内部类与宿主类之间的关联。
-8.Deprecated与Synthetic属性：标志类型的布尔属性。
-                   Deprecated：表示某个类，字段或者方法
-                   SourceFile：代表此字段并不是由JAVA源码直接产生的。
-9.StackMapTable属性:代替以前比较消耗性能的数据流分析的类型推导验证器。
-10.Signature属性：与泛型有关。
-11.BootstrapMethods属性：用于保存invokedynamic指令引用的引导方法限定符。
-</code></pre>
-          
+          <h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/21/JAVA虚拟机/Class文件结构/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -803,88 +754,14 @@
 
       
         
-          
-            <h1 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h1><p>   类从被加载到虚拟机内存中开始，到卸载处内存为止<br>   整个生命周期包括：<br>               1.加载<br>               2.验证<br>               3.准备<br>               4.解析<br>               5.初始化<br>               6.使用<br>               7.卸载</p>
-<pre><code>*其中：验证，准备，解析 统称为“连接”
-</code></pre><hr>
-<pre><code>加载，验证，准备，初始化，卸载 这五个阶段的开始顺序是确定的(注意是&quot;开始&quot;,不是&quot;完成&quot;，因为很多时候是交叉混合的进行)。
-(解析则不一定：某些情况下可以在初始化阶段之后再开始)
-</code></pre><hr>
-<h2 id="一-”加载”"><a href="#一-”加载”" class="headerlink" title="一.”加载”"></a>一.”加载”</h2><p>  (“加载”只是”类加载”过程的5个阶段之一，不要混淆)<br>   此阶段需要完成3件事：<br>        1.通过一个类的全限定名来获取定义此类的二进制字节流。<br>        2.将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。<br>        3.在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口。<br>    以上中，获取(除了数组类)类的二进制字节流是开发人员可控性最强的。<br>    *(如果数组类，本身并不通过类加载器创建，而是由JAVA虚拟机直接创建，但是数组类的元素类型需要类加载器)<br>    加载阶段完成后，二进制字节流就按照虚拟机所需的格式存储在方法区之中。</p>
-<h2 id="二-“验证”"><a href="#二-“验证”" class="headerlink" title="二.“验证”"></a>二.“验证”</h2><pre><code>验证是连接阶段的第一步。
-目的是为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求，并且不会危害虚拟机自身的健康。
-  验证的4个检验流程：
-    1.文件格式验证：是否符合Class文件格式的规范并且能被当前版本的虚拟机处理。
-                    (例如：魔数验证，版本号验证，常量池类型验证，编码等等...)
-    2.元数据验证：对字节码描述的信息进行语义分析，以保证其描述的信息符合JAVA规范。
-                  (例如：是否有父类，非抽象类是否实现了父类的全部方法等等..)
-    3.字节码验证：通过数据流和控制流分析，确定程序语义是合法且符合逻辑的。
-                  保证被校验类的方法在运行时不会做出危害虚拟机安全的事件。
-                  (例如：保证方法体中类型转换是有效的，保证跳转指令不会跳转到方法体以外等等..)
-    4.符号引用验证：此校验发生在虚拟机将符号引用化为直接引用的时候。
-                  (例如：符号引用中通过字符串描述的全限定名是否能找到对应的类..)
-</code></pre><h2 id="三-“准备”"><a href="#三-“准备”" class="headerlink" title="三.“准备”"></a>三.“准备”</h2><pre><code>准备阶段是正式为类变量分配内存并设置类变量初始值的阶段。
-注意*1.这个阶段进行内存分配的仅包括类变量(被static修饰的变量)，而不包括实例变量。
-    *2.初始值在&quot;通常情况&quot;下指的是数据类型的“零值”，而不是定义后的值！
-       “特殊情况”：如果类字段中存在ConstantValue属性，就会直接被赋值。
-                   (例如：public static final int a = 123;)
-</code></pre><h2 id="四-“解析”"><a href="#四-“解析”" class="headerlink" title="四.“解析”"></a>四.“解析”</h2><pre><code>解析阶段是虚拟机将常量池内的符号引用替换为直接引用的过程。
-  符号引用：以一组符号来描述所引用的目标，符号可以是任何形式的字面量。
-  直接引用：可以是直接指向目标的指针，相对偏移量或是一个能间接定位到目标的句柄。
-解析过程：具体看P221页
-  1.类或接口的解析
-  2.字段解析
-  3.类方法解析
-  4.接口方法解析
-</code></pre><h2 id="五-“初始化”"><a href="#五-“初始化”" class="headerlink" title="五.“初始化”"></a>五.“初始化”</h2><pre><code>在准备阶段，变量已经赋过一次系统要求的初始值了，而在初始化阶段，则开始执行类构造器方法&lt;clinit&gt;()。
-  &lt;clinit&gt;()方法：
-    由编译器自动收集类中的所有类变量的赋值动作和静态语句块static{}中的语句合并的。
-    收集的顺序是由语句在源文件中出现的顺序所决定的。
-    (静态语句块只能访问到定义在其之前的变量，在其之后的变量，静态语句块只能赋值，不能访问。)
-</code></pre><hr>
-<h2 id="“初始化”的五种情况："><a href="#“初始化”的五种情况：" class="headerlink" title="“初始化”的五种情况："></a>“初始化”的五种情况：</h2><pre><code>    1.遇到new,getstatic,putstatic,invokestatic这四条字节码指令，如果还未初始化就需要初始化。
-        (常见代码场景：new关键字，读取或设置静态字段，被final修饰,调用静态方法)
-    2.对类进行反射调用的时候
-    3.当初始化一个类时，发现父类没有初始化则先触发父类的初始化。
-    4.当虚拟机启动时，用户需要指定一个要执行的主类main时。
-    5.如果一个java.lang.invoke.MethodHandle实例最后的解析结果的方法句柄对应的类没有初始化时。
-以上为主动引用。
-***注意：如果是接口的初始化，并不需要父接口完成初始化，而是当使用到了父接口才会初始化。
-</code></pre><p>—-被动引用(并不会触发初始化！！！)<br>     例如：1.通过子类引用父类的静态字段，不会导致子类初始化。<br>           2.通过数组定义来引用类，不会触发此类的初始化。  3.常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常量的类的初始化。</p>
-<hr>
-<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><pre><code>类加载阶段的“通过全限定名获取二进制流”这个动作在虚拟机外部的类加载器实现。
-</code></pre><h3 id="类与类加载器"><a href="#类与类加载器" class="headerlink" title="类与类加载器"></a>类与类加载器</h3><pre><code>对于任意一个类，都需要由加载它的类加载器和这个类本身一同确立其在JAVA虚拟机中的唯一性。
-(比较两个类是否相等，只有在这两个类是由同一个类加载器加载的前提下才有意义。)
-这里指的相等，包括代表类的Class对象的equals(),isAssignableFrom(),isInstance()方法。
-</code></pre><hr>
-<h3 id="类加载器-1"><a href="#类加载器-1" class="headerlink" title="类加载器"></a>类加载器</h3><pre><code>在虚拟机的角度上，只存在两种不同的类加载器：
- 1.启动类加载器(Bootstrap ClassLoader)，这个类加载器使用C++语言实现，是虚拟机自身的一部分；
- 2.其它所有的类加载器，这些都由Java语言实现，独立于虚拟机外部，并全部继承自java.lang.ClassLoader。
-</code></pre><hr>
-<pre><code>从开发人员的角度上，可以分的更细
-1.启动类加载器：将lib目录中的或被-Xbootclasspath指定的路径中的，且虚拟机能识别的类库加载到虚拟机内存
-2.扩展类加载器：负责加载lib\ext目录中的或被java.ext.dirs系统变量所制定的路径中的所有类库
-                (开发者可以直接使用的)
-3.应用程序类加载器：也称为系统类加载器，负责加载用户类路径上所指定的类库。
-                    一般情况下是程序默认的类加载器 (开发者可以直接使用的)
-</code></pre><hr>
-<h3 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h3><pre><code>双亲委派模型要求除了顶层的启动类加载器以外，其余的类加载器都应当有自己的父类加载器。
-(类加载器之间的父子关系不是继承，而是“组合”)
-
-启动类加载器&lt;--扩展类加载器&lt;--应用程序类加载器&lt;--自定义类加载器
-*过程：当一个类加载器收到了类加载的请求，它首先不会自己去加载，而是把这个请求委派给父类加载器，因此所有的请求最终都应该传送到顶层的启动类加载器中，只有当父类加载器反馈自己无法完成这个这个请求(在搜索范围内没有找到所需的类)时，子加载器才会尝试自己加载。
-
-*好处：使用双亲委派模型可以保证JAVA程序的稳定运作。
-    举例：Object类在rt.jar包中，无论那个类加载器都要加载这个类，并且最终都是委派给最顶端的启动类加载器来加载，这样就保证了所有的Object类在程序的各种类加载器环境下都是同一个类。
-</code></pre><p>—-破环双亲委派模型<br>    使用线程上下文类加载器…….</p>
-<hr>
-<h3 id="两种类的加载方式"><a href="#两种类的加载方式" class="headerlink" title="两种类的加载方式"></a>两种类的加载方式</h3><p>通常用这两种方式来动态加载一个 java 类，</p>
-<h2 id="Class-forName-与-ClassLoader-loadClass-但是两个方法之间也是有一些细微的差别"><a href="#Class-forName-与-ClassLoader-loadClass-但是两个方法之间也是有一些细微的差别" class="headerlink" title="Class.forName() 与 ClassLoader.loadClass() 但是两个方法之间也是有一些细微的差别"></a>Class.forName() 与 ClassLoader.loadClass() 但是两个方法之间也是有一些细微的差别</h2><h4 id="Class-forName-方式"><a href="#Class-forName-方式" class="headerlink" title="Class.forName() 方式"></a>Class.forName() 方式</h4><p>查看Class类的具体实现可知，实质上这个方法是调用原生的方法：</p>
-<p>private static native Class&lt;?&gt; forName0(String name, boolean initialize,ClassLoader loader);<br>形式上类似于Class.forName(name,true,currentLoader)。 综上所述，Class.forName 如果调用成功会保证一个Java类被有效得加载到内存中；<br>类默认会被初始化，即执行内部的静态块代码以及保证静态属性被初始化；</p>
-<h2 id="默认会使用当前的类加载器来加载对应的类。"><a href="#默认会使用当前的类加载器来加载对应的类。" class="headerlink" title="默认会使用当前的类加载器来加载对应的类。"></a>默认会使用当前的类加载器来加载对应的类。</h2><h4 id="ClassLoader-loadClass方式"><a href="#ClassLoader-loadClass方式" class="headerlink" title="ClassLoader.loadClass方式"></a>ClassLoader.loadClass方式</h4><p>如果采用这种方式的类加载策略，由于双亲托管模型的存在，最终都会将类的加载任务交付给Bootstrap ClassLoader进行加载。跟踪源代码，最终会调用原生方法：</p>
-<p>private native Class&lt;?&gt; findBootstrapClass(String name);<br>与此同时，与上一种方式的最本质的不同是，类不会被初始化，只有显式调用才会进行初始化。<br>综上所述，ClassLoader.loadClass 如果调用成功类会被加载到内存中；<br>类不会被初始化，只有在之后被第一次调用时类才会被初始化；<br>之所以采用这种方式的类加载，是提供一种灵活度，可以根据自身的需求继承ClassLoader类实现一个自定义的类加载器实现类的加载。（很多开源Web项目中都有这种情况，比如tomcat，struct2，jboss。原因是根据Java Servlet规范的要求，既要Web应用自己的类的优先级要高于Web容器提供的类，但同时又要保证Java的核心类不被任意覆盖，此时重写一个类加载器就很必要了）</p>
-
-          
+          <h1 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/21/JAVA虚拟机/虚拟机类加载机制/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1023,49 +900,14 @@
 
       
         
-          
-            <h1 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h1><p> 方法区：(共享)存储加载的类信息，常量，静态常量等。<br>         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生)<br> 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。<br> 本地方法栈：Native方法。和虚拟机栈其他相同。<br> 堆：(共享)存放对象实例。GC主要处理区域。<br> 程序计数器：(线程私有)当前线程所执行的字节码的行号指示器。<br>              如果线程正在执行JAVA方法，计数器记录的是正在执行的虚拟机字节码指令的地址</p>
-<h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><p>JVM中的堆，一般分为三大部分：新生代、老年代、永久代：</p>
-<h2 id="一-新生代"><a href="#一-新生代" class="headerlink" title="一.新生代"></a>一.新生代</h2><p>   主要是用来存放新生的对象。一般占据堆的1/3空间。<br>   由于频繁创建对象，所以新生代会频繁触发MinorGC进行垃圾回收。</p>
-<ul>
-<li><p>新生代又分为 Eden区、ServivorFrom、ServivorTo三个区。<br>  1.Eden区：Java新对象的出生地（如果新创建的对象占用内存很大，则直接分配到老年代）。当Eden区内存不够的时候就会触发MinorGC，对新生代区进行一次垃圾回收。<br>  2.ServivorTo：保留了一次MinorGC过程中的幸存者。<br>  3.ServivorFrom：上一次GC的幸存者，作为这一次GC的被扫描者。<br>  当JVM无法为新建对象分配内存空间的时候(Eden满了)，Minor GC被触发。因此新生代空间占用率越高，Minor GC越频繁。</p>
-<p>  ——MinorGC的过程：采用复制算法。</p>
-<pre><code>1.首先，把Eden和ServivorFrom区域中存活的对象复制到ServicorTo区域（如果有对象的年龄以及达到了老年的标准，一般是15，则赋值到老年代区）
-2.同时把这些对象的年龄+1（如果ServicorTo不够位置了就放到老年区）
-3.然后，清空Eden和ServicorFrom中的对象；
-  最后，ServicorTo和ServicorFrom互换，原ServicorTo成为下一次GC时的ServicorFrom区。
-</code></pre></li>
-</ul>
-<h2 id="二-老年代"><a href="#二-老年代" class="headerlink" title="二.老年代"></a>二.老年代</h2><pre><code>老年代的对象比较稳定，所以MajorGC不会频繁执行。
-在进行MajorGC前一般都先进行了一次MinorGC，使得有新生代的对象晋身入老年代，导致空间不够用时才触发。当无法找到足够大的连续空间分配给新创建的较大对象时也会提前触发一次MajorGC进行垃圾回收腾出空间。
-
------MajorGC采用标记—清除算法：
-    1.首先扫描一次所有老年代，标记出存活的对象
-    2.然后回收没有标记的对象。
-  MajorGC的耗时比较长，因为要扫描再回收。MajorGC会产生内存碎片，为了减少内存损耗，我们一般需要进行合并或者标记出来方便下次直接分配。
-  当老年代也满了装不下的时候，就会抛出OOM（Out of Memory）异常。
-</code></pre><h2 id="三-永久代"><a href="#三-永久代" class="headerlink" title="三.永久代"></a>三.永久代</h2><pre><code>    指内存的永久保存区域，主要存放Class和Meta（元数据）的信息。
-    Class在被加载的时候被放入永久区域。它和和存放实例的区域不同，GC不会在主程序运行期对永久区域进行清理。所以这也导致了永久代的区域会随着加载的Class的增多而胀满，最终抛出OOM异常。
-
-   **在Java8中，永久代已经被移除，被一个称为“元数据区”（元空间）的区域所取代。
-   元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间的大小仅受本地内存限制。类的元数据放入 native memory, 字符串池和类的静态变量放入java堆中. 这样可以加载多少类的元数据就不再由MaxPermSize控制, 而由系统的实际可用空间来控制。
-
--------Major GC和Full GC区别
-       Full GC：收集young gen、old gen、perm gen
-       Major GC：有时又叫old gc，只收集old gen
-</code></pre><h1 id="对象的创建过程"><a href="#对象的创建过程" class="headerlink" title="对象的创建过程"></a>对象的创建过程</h1><p>1.虚拟机遇到一条new指令，首先将去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载，解析和初始化过。如果没有，那必须先执行响应的类加载过程。</p>
-<p>2.当加载通过后，接下来虚拟机将为新生对象分配内存。<br>  <strong>堆内存分配方式</strong>：<br>       1.指针碰撞：如果堆中内存是绝对规整的，一边是用过的内存，一边是空闲内存，中间有一个指针分割，那么只需要移动指针就可以分配内存。<br>       2.空闲列表：如果堆中内存不规整，虚拟机需要维护一个列表，记录那些内存块是可用的，然后通过列表分配。<br>    *注意：内存分配需要考虑线程安全！！！<br>           解决方案：1.对分配内存空间的动作进行同步处理<br>                     2.本地线程分配缓冲(TLAB):把每个线程在堆中的内存各自分配</p>
-<p>3.分配完成后，虚拟机将内存空间初始化为零(不包括对象头)。然后对对象进行必要的设置(对象的哈希码，GC分代年龄等等)。</p>
-<h1 id="对象的内存是如何布局的"><a href="#对象的内存是如何布局的" class="headerlink" title="对象的内存是如何布局的"></a>对象的内存是如何布局的</h1><p>对象在内存中存储的布局可以分为：<br>1.对象头<br>2.示例数据<br>3.对齐填充</p>
-<p>一.对象头：<br>   包括两部分<br>   第一部分：存储对象自身的运行时数据(哈希码，GC分代，锁状态标志，线程持有的锁，偏向线程ID，偏向时间戳)<br>   第二部分：类型指针，虚拟机通过指针来确定这个对象是那个类的实例。</p>
-<p>二.实例数据：<br>   对象真正存储的有效信息。</p>
-<p>三.对齐填充：<br>   该部分并非一定存在。仅仅是占位符的作用。<br>   因为HotSpot虚拟机的自动内存管理系统要求对象起始地址必须是8字节的整数倍。</p>
-<h1 id="如何访问对象？"><a href="#如何访问对象？" class="headerlink" title="如何访问对象？"></a>如何访问对象？</h1><p>在栈上有一个reference数据来操作堆上的具体对象<br>访问方式有两种：<br>1.句柄访问：稳定<br>  reference–&gt;堆中的句柄池:存储着对象实例数据(在堆的实例池中)的指针和对象类型数据的指针<br>2.直接指针访问：速度快<br>  reference–&gt;对象实例数据(其中存储着对象类型数据的指针)</p>
-<p>  详情看《深入了解JAVA虚拟机》的49页</p>
-<h1 id="OOP异常"><a href="#OOP异常" class="headerlink" title="OOP异常"></a>OOP异常</h1><h2 id="内存溢出-out-of-memory"><a href="#内存溢出-out-of-memory" class="headerlink" title="内存溢出 out of memory"></a>内存溢出 out of memory</h2><p>是指程序在申请内存时，没有足够的内存空间供其使用，出现out of memory；<br>比如申请了一个integer,但给它存了long才能存下的数，那就是内存溢出。</p>
-<h2 id="内存泄露-memory-leak"><a href="#内存泄露-memory-leak" class="headerlink" title="内存泄露 memory leak"></a>内存泄露 memory leak</h2><p>是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄露危害可以忽略，但内存泄露堆积后果很严重，无论多少内存,迟早会被占光。</p>
-
-          
+          <h1 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h1>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/10/20/JAVA虚拟机/JAVA内存区/#post.more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

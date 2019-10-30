@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Class Class类文件是一组以8字节为基础单位的二进制流。当需要占用8位字节以上空间的数据项时，会按照高位在前的方式分割成若干个8位字节进行存储。 数据类型：无符号数和表一.(头4个字节)魔数  用来确定文件类型。  Class文件魔数：(头4个字节)0xCAFEBABE:咖啡宝贝 二.(4个字节)版本号  前两个字节是次版本号，后两个字节是主版本号。  版本号从十进制的45开始，每代JDK">
+<meta name="description" content="Class">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Class文件结构">
 <meta property="og:url" content="http://yoursite.com/2019/10/21/JAVA虚拟机/Class文件结构/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="Class Class类文件是一组以8字节为基础单位的二进制流。当需要占用8位字节以上空间的数据项时，会按照高位在前的方式分割成若干个8位字节进行存储。 数据类型：无符号数和表一.(头4个字节)魔数  用来确定文件类型。  Class文件魔数：(头4个字节)0xCAFEBABE:咖啡宝贝 二.(4个字节)版本号  前两个字节是次版本号，后两个字节是主版本号。  版本号从十进制的45开始，每代JDK">
+<meta property="og:description" content="Class">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-29T10:22:03.665Z">
+<meta property="og:updated_time" content="2019-10-30T11:40:56.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Class文件结构">
-<meta name="twitter:description" content="Class Class类文件是一组以8字节为基础单位的二进制流。当需要占用8位字节以上空间的数据项时，会按照高位在前的方式分割成若干个8位字节进行存储。 数据类型：无符号数和表一.(头4个字节)魔数  用来确定文件类型。  Class文件魔数：(头4个字节)0xCAFEBABE:咖啡宝贝 二.(4个字节)版本号  前两个字节是次版本号，后两个字节是主版本号。  版本号从十进制的45开始，每代JDK">
+<meta name="twitter:description" content="Class">
 
 
 
@@ -341,7 +341,8 @@
       
 
       
-        <h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1><p> Class类文件是一组以8字节为基础单位的二进制流。当需要占用8位字节以上空间的数据项时，会按照高位在前的方式分割成若干个8位字节进行存储。</p>
+        <h1 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h1><a id="more"></a>
+<p> Class类文件是一组以8字节为基础单位的二进制流。当需要占用8位字节以上空间的数据项时，会按照高位在前的方式分割成若干个8位字节进行存储。</p>
 <h2 id="数据类型：无符号数和表"><a href="#数据类型：无符号数和表" class="headerlink" title="数据类型：无符号数和表"></a>数据类型：无符号数和表</h2><h2 id="一-头4个字节-魔数"><a href="#一-头4个字节-魔数" class="headerlink" title="一.(头4个字节)魔数"></a>一.(头4个字节)魔数</h2><p>  用来确定文件类型。<br>  Class文件魔数：(头4个字节)0xCAFEBABE:咖啡宝贝</p>
 <h2 id="二-4个字节-版本号"><a href="#二-4个字节-版本号" class="headerlink" title="二.(4个字节)版本号"></a>二.(4个字节)版本号</h2><p>  前两个字节是次版本号，后两个字节是主版本号。<br>  版本号从十进制的45开始，每代JDK版本升一级就+1。</p>
 <h2 id="三-常量池"><a href="#三-常量池" class="headerlink" title="三.常量池"></a>三.常量池</h2><p>–常量池容量计数器:常量池入口有一项u2类型的数据（从1开始计数的）<br>        从1开始计数的原因：0空出来，因为某些指向常量池的索引值的数据在特定情况下需要表达“不引用任何一个常量池项目”的含义<br>–常量池主要存放：字面量和符号引用<br>            <em>字面量：类似于常量概念，如文本字符串，声明为final的常量值等。

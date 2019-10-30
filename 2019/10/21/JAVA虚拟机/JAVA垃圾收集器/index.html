@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="JAVA垃圾收集器如何判断对象已死？1.引用计数算法给对象添加一个引用计数器，每当有一个地方引用它时，计数器就+1，当引用失效，计数器就-1。为0就死。   弊端：无法解决对象的相互循环引用的问题   问题代码如下    public class RGC {    public Object instance = null;    private static final int _1MB =10">
+<meta name="description" content="JAVA垃圾收集器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JAVA垃圾收集器">
 <meta property="og:url" content="http://yoursite.com/2019/10/21/JAVA虚拟机/JAVA垃圾收集器/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="JAVA垃圾收集器如何判断对象已死？1.引用计数算法给对象添加一个引用计数器，每当有一个地方引用它时，计数器就+1，当引用失效，计数器就-1。为0就死。   弊端：无法解决对象的相互循环引用的问题   问题代码如下    public class RGC {    public Object instance = null;    private static final int _1MB =10">
+<meta property="og:description" content="JAVA垃圾收集器">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-29T08:53:49.542Z">
+<meta property="og:updated_time" content="2019-10-30T11:41:04.590Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JAVA垃圾收集器">
-<meta name="twitter:description" content="JAVA垃圾收集器如何判断对象已死？1.引用计数算法给对象添加一个引用计数器，每当有一个地方引用它时，计数器就+1，当引用失效，计数器就-1。为0就死。   弊端：无法解决对象的相互循环引用的问题   问题代码如下    public class RGC {    public Object instance = null;    private static final int _1MB =10">
+<meta name="twitter:description" content="JAVA垃圾收集器">
 
 
 
@@ -341,7 +341,8 @@
       
 
       
-        <h1 id="JAVA垃圾收集器"><a href="#JAVA垃圾收集器" class="headerlink" title="JAVA垃圾收集器"></a>JAVA垃圾收集器</h1><h2 id="如何判断对象已死？"><a href="#如何判断对象已死？" class="headerlink" title="如何判断对象已死？"></a>如何判断对象已死？</h2><h3 id="1-引用计数算法"><a href="#1-引用计数算法" class="headerlink" title="1.引用计数算法"></a>1.引用计数算法</h3><pre><code>给对象添加一个引用计数器，每当有一个地方引用它时，计数器就+1，当引用失效，计数器就-1。为0就死。
+        <h1 id="JAVA垃圾收集器"><a href="#JAVA垃圾收集器" class="headerlink" title="JAVA垃圾收集器"></a>JAVA垃圾收集器</h1><a id="more"></a>
+<h2 id="如何判断对象已死？"><a href="#如何判断对象已死？" class="headerlink" title="如何判断对象已死？"></a>如何判断对象已死？</h2><h3 id="1-引用计数算法"><a href="#1-引用计数算法" class="headerlink" title="1.引用计数算法"></a>1.引用计数算法</h3><pre><code>给对象添加一个引用计数器，每当有一个地方引用它时，计数器就+1，当引用失效，计数器就-1。为0就死。
 </code></pre><p>  <em>弊端：无法解决对象的相互循环引用的问题
   </em>问题代码如下<br>    public class RGC {<br>    public Object instance = null;<br>    private static final int _1MB =1024<em>1024;<br>    private byte[] bigSize = new byte[2 </em> _1MB];<br>    public static void main(String[] args){<br>        RGC oA = new RGC();<br>        RGC oB = new RGC();<br>        oA.instance = oB;<br>        oB.instance = oA;<br>        oA = null;<br>        oB = null;<br>        System.gc();<br>    }<br>}//实际上两个对象都不能再被访问了，但是因为他们相互引用着对方，所以两个引用计数都不为0，就无法GC。</p>
 <h3 id="2-可达性分析算法"><a href="#2-可达性分析算法" class="headerlink" title="2.可达性分析算法"></a>2.可达性分析算法</h3><pre><code>以一系列称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索

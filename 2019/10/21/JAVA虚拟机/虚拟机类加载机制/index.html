@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="类加载的过程   类从被加载到虚拟机内存中开始，到卸载处内存为止   整个生命周期包括：               1.加载               2.验证               3.准备               4.解析               5.初始化               6.使用               7.卸载 *其中：验证，准备，解析 统称为“连接”">
+<meta name="description" content="类加载的过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="虚拟机类加载机制">
 <meta property="og:url" content="http://yoursite.com/2019/10/21/JAVA虚拟机/虚拟机类加载机制/index.html">
 <meta property="og:site_name" content="NineXv">
-<meta property="og:description" content="类加载的过程   类从被加载到虚拟机内存中开始，到卸载处内存为止   整个生命周期包括：               1.加载               2.验证               3.准备               4.解析               5.初始化               6.使用               7.卸载 *其中：验证，准备，解析 统称为“连接”">
+<meta property="og:description" content="类加载的过程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-30T09:53:42.002Z">
+<meta property="og:updated_time" content="2019-10-30T11:41:43.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机类加载机制">
-<meta name="twitter:description" content="类加载的过程   类从被加载到虚拟机内存中开始，到卸载处内存为止   整个生命周期包括：               1.加载               2.验证               3.准备               4.解析               5.初始化               6.使用               7.卸载 *其中：验证，准备，解析 统称为“连接”">
+<meta name="twitter:description" content="类加载的过程">
 
 
 
@@ -341,7 +341,8 @@
       
 
       
-        <h1 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h1><p>   类从被加载到虚拟机内存中开始，到卸载处内存为止<br>   整个生命周期包括：<br>               1.加载<br>               2.验证<br>               3.准备<br>               4.解析<br>               5.初始化<br>               6.使用<br>               7.卸载</p>
+        <h1 id="类加载的过程"><a href="#类加载的过程" class="headerlink" title="类加载的过程"></a>类加载的过程</h1><a id="more"></a>
+<p>   类从被加载到虚拟机内存中开始，到卸载处内存为止<br>   整个生命周期包括：<br>               1.加载<br>               2.验证<br>               3.准备<br>               4.解析<br>               5.初始化<br>               6.使用<br>               7.卸载</p>
 <pre><code>*其中：验证，准备，解析 统称为“连接”
 </code></pre><hr>
 <pre><code>加载，验证，准备，初始化，卸载 这五个阶段的开始顺序是确定的(注意是&quot;开始&quot;,不是&quot;完成&quot;，因为很多时候是交叉混合的进行)。

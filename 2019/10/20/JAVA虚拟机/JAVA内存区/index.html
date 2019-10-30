@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内存区域 方法区：(共享)存储加载的类信息，常量，静态常量等。         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生) 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。 本地方法栈：Native方法。和虚拟机栈其他相同。 堆：(共享)存放对象实例。GC主要处理区域。 程序计数器：(线程私有)当前线程所执行的字节码的行号指示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA内存区">
+<meta property="og:url" content="http://yoursite.com/2019/10/20/JAVA虚拟机/JAVA内存区/index.html">
+<meta property="og:site_name" content="NineXv">
+<meta property="og:description" content="内存区域 方法区：(共享)存储加载的类信息，常量，静态常量等。         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生) 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。 本地方法栈：Native方法。和虚拟机栈其他相同。 堆：(共享)存放对象实例。GC主要处理区域。 程序计数器：(线程私有)当前线程所执行的字节码的行号指示">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-29T08:04:09.072Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA内存区">
+<meta name="twitter:description" content="内存区域 方法区：(共享)存储加载的类信息，常量，静态常量等。         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生) 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。 本地方法栈：Native方法。和虚拟机栈其他相同。 堆：(共享)存放对象实例。GC主要处理区域。 程序计数器：(线程私有)当前线程所执行的字节码的行号指示">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/20/JAVA虚拟机/JAVA内存区/">
+
+
+
+
+
+  <title>JAVA内存区 | NineXv</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NineXv</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/20/JAVA虚拟机/JAVA内存区/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="旭">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NineXv">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JAVA内存区</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-20T14:38:32+08:00">
+                2019-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA虚拟机/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA虚拟机</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内存区域"><a href="#内存区域" class="headerlink" title="内存区域"></a>内存区域</h1><p> 方法区：(共享)存储加载的类信息，常量，静态常量等。<br>         —-运行时常量池：存放常量(具备动态性，不只是编译时期才能产生)<br> 虚拟机栈：(线程私有)每一个JAVA方法从调用直至执行完成，就对应一个栈帧在虚拟机栈中入栈到出栈。<br> 本地方法栈：Native方法。和虚拟机栈其他相同。<br> 堆：(共享)存放对象实例。GC主要处理区域。<br> 程序计数器：(线程私有)当前线程所执行的字节码的行号指示器。<br>              如果线程正在执行JAVA方法，计数器记录的是正在执行的虚拟机字节码指令的地址</p>
+<h1 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h1><p>JVM中的堆，一般分为三大部分：新生代、老年代、永久代：</p>
+<h2 id="一-新生代"><a href="#一-新生代" class="headerlink" title="一.新生代"></a>一.新生代</h2><p>   主要是用来存放新生的对象。一般占据堆的1/3空间。<br>   由于频繁创建对象，所以新生代会频繁触发MinorGC进行垃圾回收。</p>
+<ul>
+<li><p>新生代又分为 Eden区、ServivorFrom、ServivorTo三个区。<br>  1.Eden区：Java新对象的出生地（如果新创建的对象占用内存很大，则直接分配到老年代）。当Eden区内存不够的时候就会触发MinorGC，对新生代区进行一次垃圾回收。<br>  2.ServivorTo：保留了一次MinorGC过程中的幸存者。<br>  3.ServivorFrom：上一次GC的幸存者，作为这一次GC的被扫描者。<br>  当JVM无法为新建对象分配内存空间的时候(Eden满了)，Minor GC被触发。因此新生代空间占用率越高，Minor GC越频繁。</p>
+<p>  ——MinorGC的过程：采用复制算法。</p>
+<pre><code>1.首先，把Eden和ServivorFrom区域中存活的对象复制到ServicorTo区域（如果有对象的年龄以及达到了老年的标准，一般是15，则赋值到老年代区）
+2.同时把这些对象的年龄+1（如果ServicorTo不够位置了就放到老年区）
+3.然后，清空Eden和ServicorFrom中的对象；
+  最后，ServicorTo和ServicorFrom互换，原ServicorTo成为下一次GC时的ServicorFrom区。
+</code></pre></li>
+</ul>
+<h2 id="二-老年代"><a href="#二-老年代" class="headerlink" title="二.老年代"></a>二.老年代</h2><pre><code>老年代的对象比较稳定，所以MajorGC不会频繁执行。
+在进行MajorGC前一般都先进行了一次MinorGC，使得有新生代的对象晋身入老年代，导致空间不够用时才触发。当无法找到足够大的连续空间分配给新创建的较大对象时也会提前触发一次MajorGC进行垃圾回收腾出空间。
+
+-----MajorGC采用标记—清除算法：
+    1.首先扫描一次所有老年代，标记出存活的对象
+    2.然后回收没有标记的对象。
+  MajorGC的耗时比较长，因为要扫描再回收。MajorGC会产生内存碎片，为了减少内存损耗，我们一般需要进行合并或者标记出来方便下次直接分配。
+  当老年代也满了装不下的时候，就会抛出OOM（Out of Memory）异常。
+</code></pre><h2 id="三-永久代"><a href="#三-永久代" class="headerlink" title="三.永久代"></a>三.永久代</h2><pre><code>    指内存的永久保存区域，主要存放Class和Meta（元数据）的信息。
+    Class在被加载的时候被放入永久区域。它和和存放实例的区域不同，GC不会在主程序运行期对永久区域进行清理。所以这也导致了永久代的区域会随着加载的Class的增多而胀满，最终抛出OOM异常。
+
+   **在Java8中，永久代已经被移除，被一个称为“元数据区”（元空间）的区域所取代。
+   元空间的本质和永久代类似，都是对JVM规范中方法区的实现。不过元空间与永久代之间最大的区别在于：元空间并不在虚拟机中，而是使用本地内存。因此，默认情况下，元空间的大小仅受本地内存限制。类的元数据放入 native memory, 字符串池和类的静态变量放入java堆中. 这样可以加载多少类的元数据就不再由MaxPermSize控制, 而由系统的实际可用空间来控制。
+
+-------Major GC和Full GC区别
+       Full GC：收集young gen、old gen、perm gen
+       Major GC：有时又叫old gc，只收集old gen
+</code></pre><h1 id="对象的创建过程"><a href="#对象的创建过程" class="headerlink" title="对象的创建过程"></a>对象的创建过程</h1><p>1.虚拟机遇到一条new指令，首先将去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载，解析和初始化过。如果没有，那必须先执行响应的类加载过程。</p>
+<p>2.当加载通过后，接下来虚拟机将为新生对象分配内存。<br>  <strong>堆内存分配方式</strong>：<br>       1.指针碰撞：如果堆中内存是绝对规整的，一边是用过的内存，一边是空闲内存，中间有一个指针分割，那么只需要移动指针就可以分配内存。<br>       2.空闲列表：如果堆中内存不规整，虚拟机需要维护一个列表，记录那些内存块是可用的，然后通过列表分配。<br>    *注意：内存分配需要考虑线程安全！！！<br>           解决方案：1.对分配内存空间的动作进行同步处理<br>                     2.本地线程分配缓冲(TLAB):把每个线程在堆中的内存各自分配</p>
+<p>3.分配完成后，虚拟机将内存空间初始化为零(不包括对象头)。然后对对象进行必要的设置(对象的哈希码，GC分代年龄等等)。</p>
+<h1 id="对象的内存是如何布局的"><a href="#对象的内存是如何布局的" class="headerlink" title="对象的内存是如何布局的"></a>对象的内存是如何布局的</h1><p>对象在内存中存储的布局可以分为：<br>1.对象头<br>2.示例数据<br>3.对齐填充</p>
+<p>一.对象头：<br>   包括两部分<br>   第一部分：存储对象自身的运行时数据(哈希码，GC分代，锁状态标志，线程持有的锁，偏向线程ID，偏向时间戳)<br>   第二部分：类型指针，虚拟机通过指针来确定这个对象是那个类的实例。</p>
+<p>二.实例数据：<br>   对象真正存储的有效信息。</p>
+<p>三.对齐填充：<br>   该部分并非一定存在。仅仅是占位符的作用。<br>   因为HotSpot虚拟机的自动内存管理系统要求对象起始地址必须是8字节的整数倍。</p>
+<h1 id="如何访问对象？"><a href="#如何访问对象？" class="headerlink" title="如何访问对象？"></a>如何访问对象？</h1><p>在栈上有一个reference数据来操作堆上的具体对象<br>访问方式有两种：<br>1.句柄访问：稳定<br>  reference–&gt;堆中的句柄池:存储着对象实例数据(在堆的实例池中)的指针和对象类型数据的指针<br>2.直接指针访问：速度快<br>  reference–&gt;对象实例数据(其中存储着对象类型数据的指针)</p>
+<p>  详情看《深入了解JAVA虚拟机》的49页</p>
+<h1 id="OOP异常"><a href="#OOP异常" class="headerlink" title="OOP异常"></a>OOP异常</h1><h2 id="内存溢出-out-of-memory"><a href="#内存溢出-out-of-memory" class="headerlink" title="内存溢出 out of memory"></a>内存溢出 out of memory</h2><p>是指程序在申请内存时，没有足够的内存空间供其使用，出现out of memory；<br>比如申请了一个integer,但给它存了long才能存下的数，那就是内存溢出。</p>
+<h2 id="内存泄露-memory-leak"><a href="#内存泄露-memory-leak" class="headerlink" title="内存泄露 memory leak"></a>内存泄露 memory leak</h2><p>是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄露危害可以忽略，但内存泄露堆积后果很严重，无论多少内存,迟早会被占光。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/26/Spring/Spring事务/" rel="next" title="Spring事务">
+                <i class="fa fa-chevron-left"></i> Spring事务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/21/JAVA虚拟机/虚拟机类加载机制/" rel="prev" title="虚拟机类加载机制">
+                虚拟机类加载机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="旭">
+            
+              <p class="site-author-name" itemprop="name">旭</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:799663897@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存区域"><span class="nav-number">1.</span> <span class="nav-text">内存区域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#堆"><span class="nav-number">2.</span> <span class="nav-text">堆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-新生代"><span class="nav-number">2.1.</span> <span class="nav-text">一.新生代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-老年代"><span class="nav-number">2.2.</span> <span class="nav-text">二.老年代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-永久代"><span class="nav-number">2.3.</span> <span class="nav-text">三.永久代</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象的创建过程"><span class="nav-number">3.</span> <span class="nav-text">对象的创建过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象的内存是如何布局的"><span class="nav-number">4.</span> <span class="nav-text">对象的内存是如何布局的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何访问对象？"><span class="nav-number">5.</span> <span class="nav-text">如何访问对象？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OOP异常"><span class="nav-number">6.</span> <span class="nav-text">OOP异常</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存溢出-out-of-memory"><span class="nav-number">6.1.</span> <span class="nav-text">内存溢出 out of memory</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄露-memory-leak"><span class="nav-number">6.2.</span> <span class="nav-text">内存泄露 memory leak</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">旭</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

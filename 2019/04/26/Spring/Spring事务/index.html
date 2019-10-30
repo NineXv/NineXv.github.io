@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="NineXv">
 <meta property="og:description" content="事务管理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-26T06:08:10.593Z">
+<meta property="og:updated_time" content="2019-04-26T06:25:44.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring事务">
 <meta name="twitter:description" content="事务管理">
@@ -443,7 +443,8 @@ spring-aspects.jar
     &lt;/aop:config&gt;
 
 &lt;/beans&gt;
-</code></pre><h2 id="写在最后的心得体会"><a href="#写在最后的心得体会" class="headerlink" title="写在最后的心得体会"></a>写在最后的心得体会</h2><p>   以上是我的测试内容及结果，实际上遇到了很多问题<br>   特意记录在此：<br>   首先，java动态代理需要一个被代理类所实现的接口类，<br>   Proxy始终无法摆脱仅支持 interface 代理的桎梏，<br>   因为它的设计注定了这个遗憾。<br>   java 的继承机制注定了这些动态代理类们无法实现对 class 的动态代理，<br>   原因是多继承在 Java 中本质上就行不通。</p>
+</code></pre><h2 id="Spring-注解式事务"><a href="#Spring-注解式事务" class="headerlink" title="Spring 注解式事务"></a>Spring 注解式事务</h2><p>  需要添加<br>  <!--开启注解扫描器--><br>  &lt;context:component-scan base-package = “包名”&gt;&lt;/context:component-scan&gt;<br>  <!--开启事务的注解配置 告诉使用的是那个类的下的事务--><br>  &lt;tx:annotation-driven transaction-manager = “transactionManager”/&gt;<br>  然后在需要代理的方法或类上添加<br>  @Transactional</p>
+<h2 id="写在最后的心得体会"><a href="#写在最后的心得体会" class="headerlink" title="写在最后的心得体会"></a>写在最后的心得体会</h2><p>   以上是我的测试内容及结果，实际上遇到了很多问题<br>   特意记录在此：<br>   首先，java动态代理需要一个被代理类所实现的接口类，<br>   Proxy始终无法摆脱仅支持 interface 代理的桎梏，<br>   因为它的设计注定了这个遗憾。<br>   java 的继承机制注定了这些动态代理类们无法实现对 class 的动态代理，<br>   原因是多继承在 Java 中本质上就行不通。</p>
 <hr>
 <p><strong>总结</strong><br>    Spring的事务实际上就是spring 在启动的时候会去解析生成相关的bean，<br>    <!--配置事务管理器-->就是为了在Spring容器中创建一个切面类的对象，<br>    这时候会查看拥有相关注解的类和方法，并且为这些类和方法生成代理，<br>    并根据相关参数进行相关配置注入，这样就在代理中为我们把相关的事务处理掉了（开启正常提交事务，异常回滚事务）<br>    所以我之所以之前产生了很多问题的原因就是因为我对于AOP思想还是似懂非懂，经此一役，希望自己能够融会贯通。</p>
 
@@ -480,8 +481,8 @@ spring-aspects.jar
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2029/04/15/置顶/" rel="prev" title="瞧瞧你发现了什么">
-                瞧瞧你发现了什么 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/20/JAVA虚拟机/JAVA内存区/" rel="prev" title="JAVA内存区">
+                JAVA内存区 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -561,7 +562,7 @@ spring-aspects.jar
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">49</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -572,7 +573,7 @@ spring-aspects.jar
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -617,7 +618,7 @@ spring-aspects.jar
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#事务管理"><span class="nav-number">1.</span> <span class="nav-text">事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务回顾："><span class="nav-number">1.1.</span> <span class="nav-text">事务回顾：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">事务问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾：硬编码方式"><span class="nav-number">1.2.</span> <span class="nav-text">回顾：硬编码方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring事务"><span class="nav-number">2.</span> <span class="nav-text">Spring事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬编码-api"><span class="nav-number">2.1.</span> <span class="nav-text">硬编码(api)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring声明式事务"><span class="nav-number">3.</span> <span class="nav-text">Spring声明式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导包"><span class="nav-number">3.1.</span> <span class="nav-text">导包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#applicationContext-xml的配置如下"><span class="nav-number">3.2.</span> <span class="nav-text">applicationContext.xml的配置如下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后的心得体会"><span class="nav-number">3.3.</span> <span class="nav-text">写在最后的心得体会</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#事务管理"><span class="nav-number">1.</span> <span class="nav-text">事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务回顾："><span class="nav-number">1.1.</span> <span class="nav-text">事务回顾：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">事务问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾：硬编码方式"><span class="nav-number">1.2.</span> <span class="nav-text">回顾：硬编码方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring事务"><span class="nav-number">2.</span> <span class="nav-text">Spring事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬编码-api"><span class="nav-number">2.1.</span> <span class="nav-text">硬编码(api)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring声明式事务"><span class="nav-number">3.</span> <span class="nav-text">Spring声明式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导包"><span class="nav-number">3.1.</span> <span class="nav-text">导包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#applicationContext-xml的配置如下"><span class="nav-number">3.2.</span> <span class="nav-text">applicationContext.xml的配置如下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-注解式事务"><span class="nav-number">3.3.</span> <span class="nav-text">Spring 注解式事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后的心得体会"><span class="nav-number">3.4.</span> <span class="nav-text">写在最后的心得体会</span></a></li></ol></li></ol></div>
             
 
           </div>
